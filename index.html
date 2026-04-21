@@ -100,15 +100,39 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:8px;margin-left:auto}
 .tag-free{background:var(--green-light);color:var(--green)}
 .tag-paid{background:var(--accent-light);color:var(--accent)}
+.ticket-link{display:inline-flex;align-items:center;gap:5px;background:var(--accent);color:#fff;font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:10px;text-decoration:none;transition:all .15s;border:none;cursor:pointer;font-family:inherit}
+.ticket-link:hover{background:var(--accent2);transform:scale(1.03)}
+.ticket-link svg{flex-shrink:0}
+.modal-ticket{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;width:100%;padding:14px;border:none;background:var(--accent);color:#fff;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .15s;text-align:center}
+.modal-ticket:hover{background:var(--accent2);transform:scale(1.01)}
+.modal-mapbtn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;width:100%;padding:12px;border:2px solid var(--border);background:var(--bg2);color:var(--text);border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;transition:all .15s}
+.modal-mapbtn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* MAP */
 #mapSection .map-box{width:100%;height:550px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:20px}
 #mapEl{width:100%;height:100%}
-.leaflet-popup-content-wrapper{border-radius:12px!important;font-family:'Inter',sans-serif!important}
-.leaflet-popup-content{margin:12px 16px!important;font-size:13px!important}
-.leaflet-popup-content strong{font-size:14px;display:block;margin-bottom:4px}
-.leaflet-popup-content .popup-cat{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--accent);letter-spacing:.5px}
-.leaflet-popup-content .popup-date{font-size:12px;color:var(--text2);margin-top:4px}
+.leaflet-popup-content-wrapper{border-radius:14px!important;font-family:'Inter',sans-serif!important;box-shadow:0 4px 20px rgba(0,0,0,.18)!important;max-width:320px!important}
+.leaflet-popup-content{margin:14px 18px!important;font-size:13px!important}
+.leaflet-popup-content .popup-place-name{font-size:16px;font-weight:800;margin-bottom:2px;color:var(--text,#2d2a26)}
+.leaflet-popup-content .popup-place-info{font-size:11.5px;color:var(--text3,#9e9590);margin-bottom:8px}
+.leaflet-popup-content .popup-cat{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--accent,#e05a33);letter-spacing:.5px;display:inline-block;background:var(--accent-light,#fef0ec);padding:2px 7px;border-radius:5px;margin-bottom:6px}
+.leaflet-popup-content .popup-ev-list{list-style:none;padding:0;margin:0 0 10px}
+.leaflet-popup-content .popup-ev-item{display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border,#e8e2db);font-size:12px;cursor:pointer;transition:opacity .15s}
+.leaflet-popup-content .popup-ev-item:last-child{border-bottom:none}
+.leaflet-popup-content .popup-ev-item:hover{opacity:.7}
+.leaflet-popup-content .popup-ev-emoji{font-size:18px;flex-shrink:0;margin-top:1px}
+.leaflet-popup-content .popup-ev-info{flex:1}
+.leaflet-popup-content .popup-ev-title{font-weight:700;font-size:12.5px;color:var(--text,#2d2a26);line-height:1.3}
+.leaflet-popup-content .popup-ev-date{font-size:11px;color:var(--text3,#9e9590);margin-top:1px}
+.leaflet-popup-content .popup-ev-tag{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:5px;display:inline-block;margin-top:3px}
+.leaflet-popup-content .popup-no-events{font-size:12px;color:var(--text3,#9e9590);font-style:italic;padding:4px 0 8px}
+.popup-directions-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;border:none;background:var(--accent,#e05a33);color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;position:relative}
+.popup-directions-btn:hover{opacity:.9;transform:scale(1.01)}
+.popup-dir-menu{display:none;position:absolute;bottom:calc(100% + 6px);left:0;right:0;background:var(--bg2,#fff);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.2);overflow:hidden;z-index:10}
+.popup-dir-menu.show{display:block}
+.popup-dir-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--text,#2d2a26);cursor:pointer;transition:background .12s;text-decoration:none;border:none;background:none;width:100%;font-family:'Inter',sans-serif}
+.popup-dir-option:hover{background:var(--bg3,#f0ebe4)}
+.popup-dir-option img,.popup-dir-option svg{width:20px;height:20px;border-radius:4px}
 
 /* LUGARES */
 .lugar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:32px}
@@ -330,24 +354,24 @@ function relDate(ev){
 
 // ========== EVENT DATA ==========
 const events=[
-{id:1,title:"50a Feria Internacional del Libro",cat:"literatura",catLabel:"Literatura",date:"2026-04-23",dateEnd:"2026-05-11",dateLabel:"23 abr – 11 may",time:"14–22hs (L-V) · 13–22hs (S-D)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"La Feria del Libro celebra su 50a edicion. Pais invitado: Peru. Noche de la Ciudad el 25/4 con entrada gratuita desde las 20hs. Mas de 1500 expositores.",price:"Con entrada",emoji:"📚",grad:"linear-gradient(135deg,#8B5E3C,#C4956A)"},
-{id:2,title:"BAFICI – Cine Independiente",cat:"cine",catLabel:"Cine",date:"2026-04-15",dateEnd:"2026-04-26",dateLabel:"15–26 abr",time:"Multiples horarios",loc:"Village Recoleta, Gaumont y mas",addr:"Sedes varias, CABA",barrio:"Recoleta / Centro",lat:-34.5878,lng:-58.3938,desc:"El Buenos Aires Festival Internacional de Cine Independiente con proyecciones, charlas con directores y eventos especiales.",price:"Con entrada",emoji:"🎬",grad:"linear-gradient(135deg,#1a1a3e,#2d4a7a)"},
-{id:3,title:"Ricky Martin Live 2026",cat:"musica",catLabel:"Musica",date:"2026-04-17",dateEnd:"2026-04-18",dateLabel:"17–18 abr",time:"21:00hs",loc:"Campo Argentino de Polo",addr:"Av. del Libertador 4096, Palermo",barrio:"Palermo",lat:-34.5734,lng:-58.4126,desc:"Ricky Martin presenta su gira mundial con banda en vivo. Dos noches en el Campo Argentino de Polo.",price:"Con entrada",emoji:"🎤",grad:"linear-gradient(135deg,#c0392b,#e67e22)"},
-{id:4,title:"Museo Moderno: Habitando el Futuro",cat:"arte",catLabel:"Arte",date:"2026-04-18",dateEnd:"2026-12-31",dateLabel:"Desde 18 abr",time:"11–19hs (L-V) · 11–20hs (S-D)",loc:"Museo de Arte Moderno",addr:"Av. San Juan 350, San Telmo",barrio:"San Telmo",lat:-34.6222,lng:-58.3699,desc:"70 anos del Museo Moderno. Proyecto con el Parque de la Memoria sobre artistas argentinos que trabajan la memoria desde el arte contemporaneo.",price:"Gratis",emoji:"🎨",grad:"linear-gradient(135deg,#6c3483,#bb8fce)"},
-{id:5,title:"MALBA: Olga de Amaral",cat:"arte",catLabel:"Arte",date:"2026-02-27",dateEnd:"2026-05-11",dateLabel:"Hasta 11 may",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"El MALBA celebra 25 anos con una gran exposicion de la artista colombiana Olga de Amaral. Muestra textil imperdible.",price:"Con entrada",emoji:"🖼️",grad:"linear-gradient(135deg,#1abc9c,#2ecc71)"},
-{id:6,title:"MALBA: Metamorfo",cat:"arte",catLabel:"Arte",date:"2026-03-28",dateEnd:"2026-08-30",dateLabel:"Hasta 30 ago",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Dualidad y transformacion en la Coleccion Malba-Costantini. Una mirada renovada sobre las obras emblematicas del museo.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#2c3e50,#3498db)"},
-{id:7,title:"Bodegonmania",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-21",dateEnd:"2026-04-23",dateLabel:"21–23 abr",time:"12–23hs",loc:"Bodegones de Buenos Aires",addr:"Sedes varias, CABA",barrio:"Varios barrios",lat:-34.6095,lng:-58.3904,desc:"Los bodegones clasicos de Buenos Aires participan con sus platos principales. Festival dedicado a la cocina portena tradicional.",price:"Consumicion",emoji:"🍽️",grad:"linear-gradient(135deg,#d35400,#f39c12)"},
-{id:8,title:"Dream Theater",cat:"musica",catLabel:"Musica",date:"2026-04-24",dateEnd:"2026-04-24",dateLabel:"24 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Dream Theater en Buenos Aires como parte de su gira mundial. Noche de rock progresivo en el Movistar Arena.",price:"Con entrada",emoji:"🎸",grad:"linear-gradient(135deg,#2c3e50,#7f8c8d)"},
-{id:9,title:"Camerata Bariloche",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"20:00hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"La Camerata Bariloche en la Sala Sinfonica del Palacio Libertad con un programa de musica de camara.",price:"Gratis",emoji:"🎻",grad:"linear-gradient(135deg,#f1c40f,#e67e22)"},
-{id:10,title:"Moria – Teatro Musical",cat:"teatro",catLabel:"Teatro",date:"2026-04-25",dateEnd:"2026-04-26",dateLabel:"25 abr (20hs) · 26 abr (19hs)",time:"Sab 20hs / Dom 19hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"Espectaculo de teatro musical con 23 artistas en escena y musica en vivo en el Palacio Libertad.",price:"Con entrada",emoji:"🌟",grad:"linear-gradient(135deg,#e91e63,#673ab7)"},
-{id:11,title:"Desde el Jardin – Francella",cat:"teatro",catLabel:"Teatro",date:"2026-03-28",dateEnd:"2026-06-30",dateLabel:"En cartelera · Jue–Dom",time:"20:30hs (Jue-Sab) · 19:30hs (Dom)",loc:"Teatro Metropolitan",addr:"Av. Corrientes 1343, Centro",barrio:"Centro",lat:-34.6041,lng:-58.3870,desc:"Guillermo Francella debuta en el teatro porteno con esta comedia dramatica en la mitica calle Corrientes.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#c0392b,#2980b9)"},
-{id:12,title:"Bellas Artes: Eugenio Dittborn",cat:"arte",catLabel:"Arte",date:"2026-04-22",dateEnd:"2026-07-20",dateLabel:"22 abr – 20 jul",time:"11–20hs (Mar-Vie) · 10–20hs (S-D)",loc:"Museo Nacional de Bellas Artes",addr:"Av. del Libertador 1473, Recoleta",barrio:"Recoleta",lat:-34.5836,lng:-58.3935,desc:"Exposicion del artista chileno Eugenio Dittborn, Historias del Rostro. Visitas guiadas disponibles.",price:"Gratis",emoji:"🖌️",grad:"linear-gradient(135deg,#bdc3c7,#636e72)"},
-{id:13,title:"Orquesta La Fuerza Mayor",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"21:00hs",loc:"Club Social 911",addr:"Rodriguez Pena 911, Recoleta",barrio:"Recoleta",lat:-34.5989,lng:-58.3955,desc:"La Fuerza Mayor con afrobeat, hip hop, funk y ritmos latinos. Una noche de pura potencia ritmica.",price:"Con entrada",emoji:"🥁",grad:"linear-gradient(135deg,#27ae60,#f1c40f)"},
-{id:14,title:"The Lumineers",cat:"musica",catLabel:"Musica",date:"2026-04-29",dateEnd:"2026-04-29",dateLabel:"29 abr",time:"21:00hs",loc:"Estadio Malvinas Argentinas",addr:"Av. Directorio y Carabobo",barrio:"Parque Chacabuco",lat:-34.6380,lng:-58.4280,desc:"The Lumineers en Buenos Aires como parte de su gira mundial. Folk rock en el Malvinas Argentinas.",price:"Con entrada",emoji:"🎶",grad:"linear-gradient(135deg,#f39c12,#c0392b)"},
-{id:15,title:"Noche de la Ciudad – Feria del Libro",cat:"festival",catLabel:"Festival",date:"2026-04-25",dateEnd:"2026-04-25",dateLabel:"25 abr",time:"20:00 a 00:00 (gratis)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"Noche especial con entrada gratuita desde las 20hs. Espectaculo y recital al aire libre en el marco de la Feria del Libro.",price:"Gratis",emoji:"🌙",grad:"linear-gradient(135deg,#1a237e,#3f51b5)"},
-{id:16,title:"Megadeth – Gira Final",cat:"musica",catLabel:"Musica",date:"2026-04-30",dateEnd:"2026-04-30",dateLabel:"30 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Megadeth llega con su gira final. Noche historica de thrash metal.",price:"Con entrada",emoji:"🤘",grad:"linear-gradient(135deg,#1a1a1a,#555)"},
-{id:17,title:"Tapeando Buenos Aires",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-03",dateEnd:"2026-04-12",dateLabel:"3–12 abr",time:"Horario de cada restaurante",loc:"50+ restaurantes de CABA",addr:"Sedes varias",barrio:"Varios barrios",lat:-34.6037,lng:-58.3816,desc:"Mas de 50 restaurantes ofrecen tapas al estilo espanol. Un recorrido gastronomico por toda la ciudad.",price:"Consumicion",emoji:"🍷",grad:"linear-gradient(135deg,#8e44ad,#e74c3c)"},
-{id:18,title:"MALBA: Fernanda Laguna",cat:"arte",catLabel:"Arte",date:"2026-03-15",dateEnd:"2026-07-13",dateLabel:"Hasta 13 jul",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Mi corazon es un iman. Muestra de Fernanda Laguna en el marco del 25 aniversario del MALBA.",price:"Con entrada",emoji:"💖",grad:"linear-gradient(135deg,#ff6b81,#ff4757)"}
+{id:1,title:"50a Feria Internacional del Libro",cat:"literatura",catLabel:"Literatura",date:"2026-04-23",dateEnd:"2026-05-11",dateLabel:"23 abr – 11 may",time:"14–22hs (L-V) · 13–22hs (S-D)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"La Feria del Libro celebra su 50a edicion. Pais invitado: Peru. Noche de la Ciudad el 25/4 con entrada gratuita desde las 20hs. Mas de 1500 expositores.",price:"Con entrada",emoji:"📚",grad:"linear-gradient(135deg,#8B5E3C,#C4956A)",link:"https://entradas.feriadellibro.ar/",linkLabel:"Comprar entradas en feriadellibro.ar"},
+{id:2,title:"BAFICI – Cine Independiente",cat:"cine",catLabel:"Cine",date:"2026-04-15",dateEnd:"2026-04-26",dateLabel:"15–26 abr",time:"Multiples horarios",loc:"Village Recoleta, Gaumont y mas",addr:"Sedes varias, CABA",barrio:"Recoleta / Centro",lat:-34.5878,lng:-58.3938,desc:"El Buenos Aires Festival Internacional de Cine Independiente con proyecciones, charlas con directores y eventos especiales.",price:"Con entrada",emoji:"🎬",grad:"linear-gradient(135deg,#1a1a3e,#2d4a7a)",link:"https://bafici.org/",linkLabel:"Programacion y entradas en bafici.org"},
+{id:3,title:"Ricky Martin Live 2026",cat:"musica",catLabel:"Musica",date:"2026-04-17",dateEnd:"2026-04-18",dateLabel:"17–18 abr",time:"21:00hs",loc:"Campo Argentino de Polo",addr:"Av. del Libertador 4096, Palermo",barrio:"Palermo",lat:-34.5734,lng:-58.4126,desc:"Ricky Martin presenta su gira mundial con banda en vivo. Dos noches en el Campo Argentino de Polo.",price:"Con entrada",emoji:"🎤",grad:"linear-gradient(135deg,#c0392b,#e67e22)",link:"https://www.allaccess.com.ar/event/ricky-martin",linkLabel:"Entradas en AllAccess"},
+{id:4,title:"Museo Moderno: Habitando el Futuro",cat:"arte",catLabel:"Arte",date:"2026-04-18",dateEnd:"2026-12-31",dateLabel:"Desde 18 abr",time:"11–19hs (L-V) · 11–20hs (S-D)",loc:"Museo de Arte Moderno",addr:"Av. San Juan 350, San Telmo",barrio:"San Telmo",lat:-34.6222,lng:-58.3699,desc:"70 anos del Museo Moderno. Proyecto con el Parque de la Memoria sobre artistas argentinos que trabajan la memoria desde el arte contemporaneo.",price:"Gratis",emoji:"🎨",grad:"linear-gradient(135deg,#6c3483,#bb8fce)",link:"https://museomoderno.org/",linkLabel:"Mas info en museomoderno.org"},
+{id:5,title:"MALBA: Olga de Amaral",cat:"arte",catLabel:"Arte",date:"2026-02-27",dateEnd:"2026-05-11",dateLabel:"Hasta 11 may",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"El MALBA celebra 25 anos con una gran exposicion de la artista colombiana Olga de Amaral. Muestra textil imperdible.",price:"Con entrada",emoji:"🖼️",grad:"linear-gradient(135deg,#1abc9c,#2ecc71)",link:"https://malba.org.ar/",linkLabel:"Entradas en malba.org.ar"},
+{id:6,title:"MALBA: Metamorfo",cat:"arte",catLabel:"Arte",date:"2026-03-28",dateEnd:"2026-08-30",dateLabel:"Hasta 30 ago",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Dualidad y transformacion en la Coleccion Malba-Costantini. Una mirada renovada sobre las obras emblematicas del museo.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#2c3e50,#3498db)",link:"https://malba.org.ar/",linkLabel:"Entradas en malba.org.ar"},
+{id:7,title:"Bodegonmania",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-21",dateEnd:"2026-04-23",dateLabel:"21–23 abr",time:"12–23hs",loc:"Bodegones de Buenos Aires",addr:"Sedes varias, CABA",barrio:"Varios barrios",lat:-34.6095,lng:-58.3904,desc:"Los bodegones clasicos de Buenos Aires participan con sus platos principales. Festival dedicado a la cocina portena tradicional.",price:"Consumicion",emoji:"🍽️",grad:"linear-gradient(135deg,#d35400,#f39c12)",link:"https://turismo.buenosaires.gob.ar/es/eventos",linkLabel:"Info en turismo.buenosaires.gob.ar"},
+{id:8,title:"Dream Theater",cat:"musica",catLabel:"Musica",date:"2026-04-24",dateEnd:"2026-04-24",dateLabel:"24 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Dream Theater en Buenos Aires como parte de su gira mundial. Noche de rock progresivo en el Movistar Arena. Formato An Evening With, casi 3 horas sin soporte.",price:"Con entrada",emoji:"🎸",grad:"linear-gradient(135deg,#2c3e50,#7f8c8d)",link:"https://www.movistararena.com.ar/show/413766e6-56a6-4982-bb1a-2093b73f2296",linkLabel:"Entradas en movistararena.com.ar"},
+{id:9,title:"Camerata Bariloche",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"20:00hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"La Camerata Bariloche en la Sala Sinfonica del Palacio Libertad con un programa de musica de camara.",price:"Gratis",emoji:"🎻",grad:"linear-gradient(135deg,#f1c40f,#e67e22)",link:"https://palaciolibertad.gob.ar/agenda/",linkLabel:"Reservar en palaciolibertad.gob.ar"},
+{id:10,title:"Moria, el misterio",cat:"teatro",catLabel:"Teatro",date:"2026-04-25",dateEnd:"2026-04-26",dateLabel:"25 abr (20hs) · 26 abr (19hs)",time:"Sab 20hs / Dom 19hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"Homenaje a Moria Casan con 23 artistas en escena y musica en vivo. Entrada gratuita con reserva previa online (2 dias antes, 14hs) o en boleteria el mismo dia desde las 14hs.",price:"Gratis con reserva",emoji:"🌟",grad:"linear-gradient(135deg,#e91e63,#673ab7)",link:"https://palaciolibertad.gob.ar/events/moria-el-misterio/",linkLabel:"Reservar entradas en palaciolibertad.gob.ar"},
+{id:11,title:"Desde el Jardin – Francella",cat:"teatro",catLabel:"Teatro",date:"2026-03-28",dateEnd:"2026-06-30",dateLabel:"En cartelera · Jue–Dom",time:"20:30hs (Jue-Sab) · 19:30hs (Dom)",loc:"Teatro Metropolitan",addr:"Av. Corrientes 1343, Centro",barrio:"Centro",lat:-34.6041,lng:-58.3870,desc:"Guillermo Francella debuta en el teatro porteno con esta comedia dramatica basada en la novela de Jerzy Kosinski. Elenco con Andrea Frigerio, Martin Seefeld, Victor Laplace y mas.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#c0392b,#2980b9)",link:"https://www.plateanet.com/obra/33573?obra=DESDE-EL-JARDIN&paso=inicio",linkLabel:"Comprar entradas en Plateanet"},
+{id:12,title:"Bellas Artes: Eugenio Dittborn",cat:"arte",catLabel:"Arte",date:"2026-04-22",dateEnd:"2026-07-20",dateLabel:"22 abr – 20 jul",time:"11–20hs (Mar-Vie) · 10–20hs (S-D)",loc:"Museo Nacional de Bellas Artes",addr:"Av. del Libertador 1473, Recoleta",barrio:"Recoleta",lat:-34.5836,lng:-58.3935,desc:"Exposicion del artista chileno Eugenio Dittborn, Historias del Rostro. Visitas guiadas disponibles.",price:"Gratis",emoji:"🖌️",grad:"linear-gradient(135deg,#bdc3c7,#636e72)",link:"https://bellasartes.gob.ar/exhibiciones/",linkLabel:"Info y agenda en bellasartes.gob.ar"},
+{id:13,title:"Orquesta La Fuerza Mayor",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"21:00hs",loc:"Club Social 911",addr:"Rodriguez Pena 911, Recoleta",barrio:"Recoleta",lat:-34.5989,lng:-58.3955,desc:"La Fuerza Mayor con afrobeat, hip hop, funk y ritmos latinos. Una noche de pura potencia ritmica.",price:"Con entrada",emoji:"🥁",grad:"linear-gradient(135deg,#27ae60,#f1c40f)",link:"https://www.instagram.com/lafuerzamayor_/",linkLabel:"Info y entradas en Instagram"},
+{id:14,title:"The Lumineers",cat:"musica",catLabel:"Musica",date:"2026-04-29",dateEnd:"2026-04-29",dateLabel:"29 abr",time:"21:00hs",loc:"Estadio Malvinas Argentinas",addr:"Av. Directorio y Carabobo",barrio:"Parque Chacabuco",lat:-34.6380,lng:-58.4280,desc:"The Lumineers en Buenos Aires como parte del Automatic World Tour 2026. Folk rock en el Malvinas Argentinas.",price:"Con entrada",emoji:"🎶",grad:"linear-gradient(135deg,#f39c12,#c0392b)",link:"https://www.allaccess.com.ar/",linkLabel:"Entradas en AllAccess"},
+{id:15,title:"Noche de la Ciudad – Feria del Libro",cat:"festival",catLabel:"Festival",date:"2026-04-25",dateEnd:"2026-04-25",dateLabel:"25 abr",time:"20:00 a 00:00 (gratis)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"Noche especial con entrada gratuita desde las 20hs. Espectaculo y recital al aire libre en el marco de la Feria del Libro.",price:"Gratis",emoji:"🌙",grad:"linear-gradient(135deg,#1a237e,#3f51b5)",link:"https://www.feriadellibro.ar/",linkLabel:"Info en feriadellibro.ar"},
+{id:16,title:"Megadeth – Gira Final",cat:"musica",catLabel:"Musica",date:"2026-04-30",dateEnd:"2026-04-30",dateLabel:"30 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Megadeth llega con su gira final. Noche historica de thrash metal.",price:"Con entrada",emoji:"🤘",grad:"linear-gradient(135deg,#1a1a1a,#555)",link:"https://www.movistararena.com.ar/show/megadeth/",linkLabel:"Entradas en movistararena.com.ar"},
+{id:17,title:"Tapeando Buenos Aires",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-03",dateEnd:"2026-04-12",dateLabel:"3–12 abr",time:"Horario de cada restaurante",loc:"50+ restaurantes de CABA",addr:"Sedes varias",barrio:"Varios barrios",lat:-34.6037,lng:-58.3816,desc:"Mas de 50 restaurantes ofrecen tapas al estilo espanol. Un recorrido gastronomico por toda la ciudad.",price:"Consumicion",emoji:"🍷",grad:"linear-gradient(135deg,#8e44ad,#e74c3c)",link:"https://turismo.buenosaires.gob.ar/es/eventos",linkLabel:"Info en turismo.buenosaires.gob.ar"},
+{id:18,title:"MALBA: Fernanda Laguna",cat:"arte",catLabel:"Arte",date:"2026-03-15",dateEnd:"2026-07-13",dateLabel:"Hasta 13 jul",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Mi corazon es un iman. Muestra de Fernanda Laguna en el marco del 25 aniversario del MALBA.",price:"Con entrada",emoji:"💖",grad:"linear-gradient(135deg,#ff6b81,#ff4757)",link:"https://malba.org.ar/",linkLabel:"Entradas en malba.org.ar"}
 ];
 
 // ========== LUGARES ==========
@@ -436,7 +460,7 @@ function card(ev){
       <div class="card-foot">
         <button class="act-btn" title="Ver en mapa" onclick="event.stopPropagation();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}')"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></button>
         <button class="act-btn" title="Compartir" onclick="event.stopPropagation();shareEv(${ev.id})"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
-        ${tag}
+        ${ev.link?`<a class="ticket-link" href="${ev.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 5l-1.42 1.42a1 1 0 000 1.41l3.17 3.17a2 2 0 010 2.83l-2.83 2.83a2 2 0 01-2.83 0l-3.17-3.17a1 1 0 00-1.41 0L5 15"/><path d="M9 19l1.42-1.42a1 1 0 000-1.41L7.25 13a2 2 0 010-2.83L10.08 7.34a2 2 0 012.83 0l3.17 3.17a1 1 0 001.41 0L19 9"/></svg>Entradas</a>`:`${tag}`}
       </div>
     </div>
   </div>`;
@@ -456,8 +480,10 @@ function openModal(id){
     <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span><b>Direccion:</b> ${ev.addr}</span></div>
     <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Barrio:</b> ${ev.barrio}</span></div>
     <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg><span><b>Precio:</b> ${ev.price}</span></div>
+    ${ev.link?`<div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg><span><b>Web oficial:</b> <a href="${ev.link}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;word-break:break-all">${ev.link}</a></span></div>`:''}
     <p class="modal-desc">${ev.desc}</p>
-    <button onclick="event.stopPropagation();closeModal();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}');" style="margin-top:16px;width:100%;padding:12px;border:none;background:var(--accent);color:#fff;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Ver en el mapa</button>`;
+    ${ev.link?`<a class="modal-ticket" href="${ev.link}" target="_blank" rel="noopener"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 5l-1.42 1.42a1 1 0 000 1.41l3.17 3.17a2 2 0 010 2.83l-2.83 2.83a2 2 0 01-2.83 0l-3.17-3.17a1 1 0 00-1.41 0L5 15"/><path d="M9 19l1.42-1.42a1 1 0 000-1.41L7.25 13a2 2 0 010-2.83L10.08 7.34a2 2 0 012.83 0l3.17 3.17a1 1 0 001.41 0L19 9"/></svg>${ev.linkLabel}</a>`:''}
+    <button class="modal-mapbtn" onclick="event.stopPropagation();closeModal();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}');">📍 Ver en el mapa</button>`;
   document.getElementById('overlay').classList.add('show');
 }
 function closeModal(){document.getElementById('overlay').classList.remove('show')}
@@ -468,7 +494,89 @@ function shareEv(id){
 }
 
 // ========== MAP ==========
-let map,markers=[];
+let map,markers=[],lugarMarkers=[];
+
+function getEventsForPlace(lat,lng){
+  return events.filter(ev=>Math.abs(ev.lat-lat)<0.001&&Math.abs(ev.lng-lng)<0.001);
+}
+
+function buildDirectionsBtn(lat,lng,name,addr){
+  const fullAddr=encodeURIComponent(`${name}, ${addr}, Buenos Aires, Argentina`);
+  const id='dir_'+Math.random().toString(36).slice(2,8);
+  return `
+    <div style="position:relative;margin-top:4px">
+      <button class="popup-directions-btn" onclick="document.getElementById('${id}').classList.toggle('show');event.stopPropagation()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Como llegar
+      </button>
+      <div class="popup-dir-menu" id="${id}">
+        <a class="popup-dir-option" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=&travelmode=transit" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#4285F4"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="#fff"/></svg>
+          Google Maps
+        </a>
+        <a class="popup-dir-option" href="https://maps.apple.com/?daddr=${lat},${lng}&dirflg=r&t=m" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#333"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z" fill="#fff"/></svg>
+          Apple Maps
+        </a>
+        <a class="popup-dir-option" href="https://www.waze.com/ul?ll=${lat},${lng}&navigate=yes&q=${fullAddr}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#33CCFF"/><circle cx="12" cy="11" r="7" fill="#fff"/><circle cx="9.5" cy="10" r="1.3" fill="#333"/><circle cx="14.5" cy="10" r="1.3" fill="#333"/><path d="M9 14c1 1.2 4 1.2 5.5 0" stroke="#333" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
+          Waze
+        </a>
+      </div>
+    </div>`;
+}
+
+function buildPlacePopup(name,addr,barrio,tipo,lat,lng,emoji){
+  const placeEvents=getEventsForPlace(lat,lng);
+  let evListHTML='';
+  if(placeEvents.length){
+    evListHTML='<ul class="popup-ev-list">';
+    placeEvents.forEach(ev=>{
+      const r=relDate(ev);
+      const tagCls=ev.price==='Gratis'||ev.price==='Gratis con reserva'?'background:#eafaf0;color:#2a9d5c':'background:#fef0ec;color:#e05a33';
+      evListHTML+=`
+        <li class="popup-ev-item" onclick="closeAllPopups();openModal(${ev.id})">
+          <span class="popup-ev-emoji">${ev.emoji}</span>
+          <div class="popup-ev-info">
+            <div class="popup-ev-title">${ev.title}</div>
+            <div class="popup-ev-date">${ev.dateLabel} · ${ev.time.split('·')[0].trim()}</div>
+            <span class="popup-ev-tag" style="${tagCls}">${r.text} · ${ev.price}</span>
+          </div>
+        </li>`;
+    });
+    evListHTML+='</ul>';
+  } else {
+    evListHTML='<div class="popup-no-events">No hay eventos programados aqui por el momento</div>';
+  }
+  return `
+    <div class="popup-place-name">${emoji} ${name}</div>
+    <div class="popup-place-info">${addr} · ${barrio}</div>
+    <span class="popup-cat">${tipo.toUpperCase()} ${placeEvents.length?'· '+placeEvents.length+' evento'+(placeEvents.length>1?'s':''):''}</span>
+    ${evListHTML}
+    ${buildDirectionsBtn(lat,lng,name,addr)}`;
+}
+
+function buildEventPopup(ev){
+  const r=relDate(ev);
+  const tagCls=ev.price==='Gratis'||ev.price==='Gratis con reserva'?'background:#eafaf0;color:#2a9d5c':'background:#fef0ec;color:#e05a33';
+  return `
+    <span class="popup-cat">${ev.catLabel}</span>
+    <div class="popup-place-name">${ev.emoji} ${ev.title}</div>
+    <div class="popup-place-info">${ev.loc} · ${ev.barrio}</div>
+    <ul class="popup-ev-list">
+      <li class="popup-ev-item" onclick="closeAllPopups();openModal(${ev.id})" style="border:none">
+        <div class="popup-ev-info">
+          <div class="popup-ev-date">${ev.dateLabel} · ${ev.time.split('·')[0].trim()}</div>
+          <span class="popup-ev-tag" style="${tagCls}">${r.text} · ${ev.price}</span>
+          ${ev.link?'<div style="margin-top:4px"><a href="'+ev.link+'" target="_blank" rel="noopener" style="font-size:11px;color:#e05a33;font-weight:600;text-decoration:underline" onclick="event.stopPropagation()">Sitio oficial / Entradas</a></div>':''}
+        </div>
+      </li>
+    </ul>
+    ${buildDirectionsBtn(ev.lat,ev.lng,ev.loc,ev.addr)}`;
+}
+
+function closeAllPopups(){if(map) map.closePopup()}
+
 function initMap(){
   if(map) return;
   map=L.map('mapEl').setView([-34.6037,-58.3816],12);
@@ -477,22 +585,31 @@ function initMap(){
     maxZoom:19
   }).addTo(map);
 
-  const icon = L.divIcon({className:'',html:'<div style="width:28px;height:28px;background:var(--accent,#e05a33);border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.3)"></div>',iconSize:[28,28],iconAnchor:[14,14]});
+  // Place markers for LUGARES (blue squares) — show events at that place
+  lugares.forEach(l=>{
+    if(!l.lat) return;
+    const placeEvents=getEventsForPlace(l.lat,l.lng);
+    const hasEvents=placeEvents.length>0;
+    const lIcon=L.divIcon({className:'',html:`<div style="width:${hasEvents?30:22}px;height:${hasEvents?30:22}px;background:${hasEvents?'#e05a33':'#3b82c4'};border:${hasEvents?'3':'2.5'}px solid #fff;border-radius:${hasEvents?'50%':'6px'};box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:${hasEvents?14:11}px;color:#fff;font-weight:700">${hasEvents?placeEvents.length:''}</div>`,iconSize:[hasEvents?30:22,hasEvents?30:22],iconAnchor:[hasEvents?15:11,hasEvents?15:11]});
+    const m=L.marker([l.lat,l.lng],{icon:lIcon}).addTo(map);
+    m.bindPopup(buildPlacePopup(l.name,l.addr,l.barrio,l.tipo,l.lat,l.lng,l.emoji),{maxWidth:300,minWidth:240});
+    lugarMarkers.push({marker:m,lugar:l});
+  });
 
+  // Event markers for events NOT at any known lugar
   events.forEach(ev=>{
     if(!ev.lat) return;
+    const atLugar=lugares.some(l=>Math.abs(l.lat-ev.lat)<0.001&&Math.abs(l.lng-ev.lng)<0.001);
+    if(atLugar) return; // already shown via lugar marker
+    const icon=L.divIcon({className:'',html:'<div style="width:28px;height:28px;background:#e05a33;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:13px">'+ev.emoji+'</div>',iconSize:[28,28],iconAnchor:[14,14]});
     const m=L.marker([ev.lat,ev.lng],{icon}).addTo(map);
-    m.bindPopup(`<span class="popup-cat">${ev.catLabel}</span><strong>${ev.title}</strong><div class="popup-date">${ev.dateLabel} · ${ev.loc}</div>`);
+    m.bindPopup(buildEventPopup(ev),{maxWidth:300,minWidth:240});
     m.on('click',()=>m.openPopup());
     markers.push({marker:m,ev});
   });
 
-  lugares.forEach(l=>{
-    if(!l.lat) return;
-    const lIcon=L.divIcon({className:'',html:'<div style="width:22px;height:22px;background:#3b82c4;border:2.5px solid #fff;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25)"></div>',iconSize:[22,22],iconAnchor:[11,11]});
-    const m=L.marker([l.lat,l.lng],{icon:lIcon}).addTo(map);
-    m.bindPopup(`<span class="popup-cat">${l.tipo.toUpperCase()}</span><strong>${l.name}</strong><div class="popup-date">${l.addr} · ${l.barrio}</div>`);
-  });
+  // Close direction menus when clicking elsewhere on map
+  map.on('click',()=>{document.querySelectorAll('.popup-dir-menu.show').forEach(el=>el.classList.remove('show'))});
 }
 
 function flyTo(lat,lng,title){
@@ -500,8 +617,11 @@ function flyTo(lat,lng,title){
   setTimeout(()=>{
     map.invalidateSize();
     map.flyTo([lat,lng],15,{duration:1});
-    const found=markers.find(m=>m.ev.lat===lat&&m.ev.lng===lng);
-    if(found) setTimeout(()=>found.marker.openPopup(),1100);
+    // Try lugar marker first, then event marker
+    const foundL=lugarMarkers.find(m=>Math.abs(m.lugar.lat-lat)<0.001&&Math.abs(m.lugar.lng-lng)<0.001);
+    const foundE=markers.find(m=>m.ev.lat===lat&&m.ev.lng===lng);
+    const target=foundL||foundE;
+    if(target) setTimeout(()=>target.marker.openPopup(),1100);
   },200);
 }
 
