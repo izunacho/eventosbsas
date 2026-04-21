@@ -1,1057 +1,577 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EventosBsAs - Eventos culturales en Capital Federal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Rubik', sans-serif;
-      background: #f0f2f5;
-      color: #333;
-      min-height: 100vh;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>EventosBsAs — Agenda Cultural de Capital Federal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --bg:#f5f0eb;--bg2:#fff;--bg3:#f0ebe4;--text:#2d2a26;--text2:#6b6560;--text3:#9e9590;
+  --accent:#e05a33;--accent2:#d44a20;--accent-light:#fef0ec;
+  --green:#2a9d5c;--green-light:#eafaf0;
+  --blue:#3b82c4;--blue-light:#eef5fc;
+  --purple:#8b5cf6;--purple-light:#f3effe;
+  --card-shadow:0 2px 16px rgba(45,42,38,.07);
+  --card-hover:0 8px 30px rgba(45,42,38,.13);
+  --border:#e8e2db;--radius:16px;
+  --header-bg:#2d2a26;--header-text:#f5f0eb;
+}
+.dark{
+  --bg:#1a1a1e;--bg2:#242428;--bg3:#2e2e33;--text:#e8e4df;--text2:#a09a94;--text3:#706b66;
+  --accent:#f07050;--accent2:#e05a33;--accent-light:#3a2520;
+  --green:#3dbd70;--green-light:#1e2e24;
+  --blue:#5a9fd6;--blue-light:#1e2a36;
+  --purple:#a78bfa;--purple-light:#2a2440;
+  --card-shadow:0 2px 16px rgba(0,0,0,.3);
+  --card-hover:0 8px 30px rgba(0,0,0,.45);
+  --border:#3a3a3f;
+  --header-bg:#111113;--header-text:#e8e4df;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
 
-    /* ===== HEADER / NAV ===== */
-    header {
-      background: #3fa7cd;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none; color: #fff;
-      font-size: 20px; font-weight: 700;
-      letter-spacing: -0.5px;
-      white-space: nowrap;
-    }
-    .logo svg { flex-shrink: 0; }
-    nav { display: flex; align-items: center; gap: 4px; margin-left: 30px; }
-    nav a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 20px;
-      transition: all 0.2s;
-    }
-    nav a:hover, nav a.active {
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-    }
-    .header-right {
-      margin-left: auto;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .btn-login {
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-      padding: 6px 18px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.2s;
-    }
-    .btn-login:hover { background: rgba(255,255,255,0.35); }
-    .social-btn {
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .social-btn:hover { background: rgba(255,255,255,0.35); }
+/* HEADER */
+header{background:var(--header-bg);height:62px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:1000;box-shadow:0 1px 8px rgba(0,0,0,.15)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-text);font-size:18px;font-weight:800;letter-spacing:-.5px}
+.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff}
+nav{display:flex;gap:2px;margin-left:32px}
+nav button{background:none;border:none;color:var(--header-text);opacity:.65;font-size:13.5px;font-weight:600;padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s}
+nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.dark-toggle{width:40px;height:24px;border-radius:12px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:all .3s}
+.dark-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .3s}
+.dark .dark-toggle{background:var(--accent);border-color:var(--accent)}
+.dark .dark-toggle::after{transform:translateX(16px)}
+.dark-label{color:var(--header-text);font-size:12px;opacity:.6;font-weight:500}
 
-    /* ===== MAIN LAYOUT ===== */
-    .main-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 20px;
-    }
+/* PAGE SECTIONS */
+.page-section{display:none;max-width:1200px;margin:0 auto;padding:24px 20px}
+.page-section.active{display:block}
 
-    /* ===== SEARCH & FILTERS ===== */
-    .filters-bar {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-    .search-box {
-      flex: 1;
-      min-width: 220px;
-      position: relative;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 12px 16px 12px 42px;
-      border: 2px solid #e0e0e0;
-      border-radius: 28px;
-      font-size: 14px;
-      font-family: inherit;
-      background: #fff;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-    .search-box input:focus { border-color: #3fa7cd; }
-    .search-box .search-icon {
-      position: absolute;
-      left: 14px; top: 50%;
-      transform: translateY(-50%);
-      color: #999;
-    }
-    .filter-select {
-      padding: 10px 36px 10px 14px;
-      border: 2px solid #e0e0e0;
-      border-radius: 28px;
-      font-size: 14px;
-      font-family: inherit;
-      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L2 5h12z'/%3E%3C/svg%3E") no-repeat right 14px center;
-      appearance: none;
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .filter-select:focus { border-color: #3fa7cd; }
-    .view-toggle {
-      display: flex;
-      background: #fff;
-      border: 2px solid #e0e0e0;
-      border-radius: 28px;
-      overflow: hidden;
-    }
-    .view-toggle button {
-      padding: 10px 18px;
-      border: none;
-      background: transparent;
-      font-size: 13px;
-      font-family: inherit;
-      font-weight: 500;
-      cursor: pointer;
-      color: #666;
-      transition: all 0.2s;
-    }
-    .view-toggle button.active {
-      background: #3fa7cd;
-      color: #fff;
-    }
+/* FILTERS */
+.filters{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;align-items:center}
+.search-wrap{flex:1;min-width:200px;position:relative}
+.search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.search-wrap input{width:100%;padding:11px 16px 11px 42px;border:2px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;background:var(--bg2);color:var(--text);outline:none;transition:border .2s}
+.search-wrap input:focus{border-color:var(--accent)}
+.sel{padding:11px 34px 11px 14px;border:2px solid var(--border);border-radius:12px;font-size:13px;font-family:inherit;font-weight:500;background:var(--bg2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%239e9590' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 5h12z'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;cursor:pointer;color:var(--text);outline:none;transition:border .2s}
+.sel:focus{border-color:var(--accent)}
+.view-btns{display:flex;border:2px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}
+.view-btns button{padding:9px 16px;border:none;background:transparent;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--text3);transition:all .15s}
+.view-btns button.active{background:var(--accent);color:#fff}
 
-    /* ===== STORY CIRCLES ===== */
-    .stories-row {
-      display: flex;
-      gap: 14px;
-      margin-bottom: 28px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      scrollbar-width: thin;
-    }
-    .story-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .story-circle {
-      width: 68px; height: 68px;
-      border-radius: 50%;
-      border: 3px solid #3fa7cd;
-      padding: 3px;
-      transition: transform 0.2s;
-    }
-    .story-circle:hover { transform: scale(1.08); }
-    .story-circle img {
-      width: 100%; height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    .story-label {
-      font-size: 11px;
-      color: #555;
-      text-align: center;
-      max-width: 72px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+/* STORIES */
+.stories{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;margin-bottom:24px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0}
+.story-ring{width:66px;height:66px;border-radius:50%;padding:3px;background:conic-gradient(var(--accent),var(--purple),var(--blue),var(--accent));transition:transform .2s}
+.story-ring:hover{transform:scale(1.08)}
+.story-inner{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;border:2.5px solid var(--bg);background:var(--bg2)}
+.story span{font-size:10.5px;color:var(--text2);max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
 
-    /* ===== SECTION TITLE ===== */
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .section-header h2 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #2c3e50;
-    }
-    .section-header .count {
-      font-size: 14px;
-      color: #8ea2a5;
-      font-weight: 500;
-    }
+/* SECTION HEADERS */
+.sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:16px}
+.sec-head h2{font-size:20px;font-weight:800;color:var(--text)}
+.sec-head .cnt{font-size:13px;color:var(--text3);font-weight:500}
+.sec-head .cnt b{color:var(--accent)}
 
-    /* ===== EVENT CARDS GRID ===== */
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 18px;
-      margin-bottom: 36px;
-    }
-    .event-card {
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .event-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-    .card-image {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      display: block;
-      background: linear-gradient(135deg, #3fa7cd 0%, #6ec6e0 50%, #a8dce8 100%);
-      position: relative;
-    }
-    .card-image-placeholder {
-      width: 100%;
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      position: relative;
-    }
-    .card-category {
-      position: absolute;
-      top: 10px; left: 10px;
-      background: rgba(0,0,0,0.55);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 12px;
-      backdrop-filter: blur(4px);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .card-body {
-      padding: 14px 16px 16px;
-    }
-    .card-body h3 {
-      font-size: 16px;
-      font-weight: 700;
-      color: #2c3e50;
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-    .card-date {
-      font-size: 13px;
-      color: #3fa7cd;
-      font-weight: 600;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .card-location {
-      font-size: 13px;
-      color: #8ea2a5;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-    .card-actions {
-      display: flex;
-      gap: 8px;
-      padding-top: 10px;
-      border-top: 1px solid #f0f0f0;
-    }
-    .card-action-btn {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: #f0f5f7;
-      color: #8ea2a5;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .card-action-btn:hover {
-      background: #3fa7cd;
-      color: #fff;
-    }
-    .card-free {
-      display: inline-block;
-      background: #e8f8f0;
-      color: #27ae60;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 8px;
-      margin-left: auto;
-    }
-    .card-paid {
-      display: inline-block;
-      background: #fdf2e9;
-      color: #e67e22;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 8px;
-      margin-left: auto;
-    }
+/* EVENT GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-bottom:32px}
+.card{background:var(--bg2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-3px);box-shadow:var(--card-hover)}
+.card-img{height:150px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
+.card-cat{position:absolute;top:10px;left:10px;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.5);color:#fff;text-transform:uppercase;letter-spacing:.5px;backdrop-filter:blur(6px)}
+.card-status{position:absolute;top:10px;right:10px;font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:8px}
+.status-live{background:rgba(42,157,92,.9);color:#fff;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.status-soon{background:rgba(59,130,196,.85);color:#fff}
+.status-past{background:rgba(0,0,0,.4);color:#fff}
+.card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column}
+.card-body h3{font-size:15px;font-weight:700;margin-bottom:5px;line-height:1.35}
+.card-date{font-size:12.5px;font-weight:600;color:var(--accent);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.card-loc{font-size:12.5px;color:var(--text3);display:flex;align-items:center;gap:5px;margin-bottom:10px}
+.card-foot{display:flex;align-items:center;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+.act-btn{width:34px;height:34px;border-radius:50%;border:none;background:var(--bg3);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.act-btn:hover{background:var(--accent);color:#fff}
+.tag{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:8px;margin-left:auto}
+.tag-free{background:var(--green-light);color:var(--green)}
+.tag-paid{background:var(--accent-light);color:var(--accent)}
 
-    /* ===== MAP VIEW ===== */
-    .map-container {
-      width: 100%;
-      height: 500px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      margin-bottom: 28px;
-      display: none;
-    }
-    .map-container.active { display: block; }
-    .map-container iframe {
-      width: 100%; height: 100%; border: none;
-    }
+/* MAP */
+#mapSection .map-box{width:100%;height:550px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:20px}
+#mapEl{width:100%;height:100%}
+.leaflet-popup-content-wrapper{border-radius:12px!important;font-family:'Inter',sans-serif!important}
+.leaflet-popup-content{margin:12px 16px!important;font-size:13px!important}
+.leaflet-popup-content strong{font-size:14px;display:block;margin-bottom:4px}
+.leaflet-popup-content .popup-cat{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--accent);letter-spacing:.5px}
+.leaflet-popup-content .popup-date{font-size:12px;color:var(--text2);margin-top:4px}
 
-    /* ===== FOOTER ===== */
-    footer {
-      background: #2c3e50;
-      color: rgba(255,255,255,0.7);
-      padding: 32px 20px;
-      text-align: center;
-      font-size: 13px;
-    }
-    footer a { color: #3fa7cd; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    footer .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    footer .footer-links { margin-bottom: 12px; }
-    footer .footer-links a { margin: 0 14px; }
+/* LUGARES */
+.lugar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:32px}
+.lugar-card{background:var(--bg2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s}
+.lugar-card:hover{transform:translateY(-3px);box-shadow:var(--card-hover)}
+.lugar-top{height:100px;display:flex;align-items:center;justify-content:center;font-size:40px}
+.lugar-body{padding:14px 16px}
+.lugar-body h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.lugar-body .lugar-addr{font-size:12.5px;color:var(--text3);margin-bottom:3px}
+.lugar-body .lugar-barrio{font-size:11.5px;font-weight:600;color:var(--blue)}
+.lugar-body .lugar-tipo{font-size:10.5px;text-transform:uppercase;font-weight:700;color:var(--purple);letter-spacing:.5px;margin-top:6px}
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      header { padding: 0 12px; }
-      .logo span { display: none; }
-      nav { gap: 0; margin-left: 12px; }
-      nav a { padding: 6px 10px; font-size: 13px; }
-      .header-right .btn-login { display: none; }
-      .filters-bar { flex-direction: column; align-items: stretch; }
-      .search-box { min-width: auto; }
-      .events-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 480px) {
-      nav a span { display: none; }
-    }
+/* INFO */
+#infoSection .info-hero{background:var(--bg2);border-radius:var(--radius);padding:40px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow)}
+#infoSection .info-hero h1{font-size:32px;font-weight:800;margin-bottom:8px}
+#infoSection .info-hero p{color:var(--text2);font-size:15px;max-width:600px;margin:0 auto;line-height:1.6}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.info-card{background:var(--bg2);border-radius:var(--radius);padding:24px;box-shadow:var(--card-shadow)}
+.info-card h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.info-card p{font-size:13.5px;color:var(--text2);line-height:1.6}
 
-    /* ===== MODAL ===== */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-    }
-    .modal-overlay.active { display: flex; }
-    .modal {
-      background: #fff;
-      border-radius: 24px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      padding: 32px;
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 16px; right: 16px;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: none;
-      background: #f0f0f0;
-      font-size: 18px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .modal-close:hover { background: #e0e0e0; }
-    .modal h2 { font-size: 22px; color: #2c3e50; margin-bottom: 12px; }
-    .modal .detail-row {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 10px; font-size: 14px; color: #555;
-    }
-    .modal .detail-row svg { flex-shrink: 0; color: #3fa7cd; }
-    .modal .detail-desc {
-      margin-top: 16px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #444;
-    }
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+.overlay.show{display:flex}
+.modal{background:var(--bg2);border-radius:20px;width:92%;max-width:560px;max-height:85vh;overflow-y:auto;position:relative;animation:modalIn .25s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:none;background:rgba(0,0,0,.4);color:#fff;font-size:20px;cursor:pointer;z-index:1;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:rgba(0,0,0,.6)}
+.modal-banner{height:140px;display:flex;align-items:center;justify-content:center;font-size:64px}
+.modal-body{padding:24px 28px 28px}
+.modal-body h2{font-size:22px;font-weight:800;margin-bottom:14px}
+.modal-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13.5px;color:var(--text2)}
+.modal-row svg{flex-shrink:0;color:var(--accent);margin-top:2px}
+.modal-row b{color:var(--text);font-weight:600}
+.modal-desc{margin-top:16px;font-size:14px;line-height:1.7;color:var(--text2);padding-top:16px;border-top:1px solid var(--border)}
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-  </style>
+/* EMPTY STATE */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty p:first-child{font-size:42px;margin-bottom:12px}
+.empty p:nth-child(2){font-size:17px;font-weight:600}
+.empty p:nth-child(3){font-size:13px;margin-top:4px}
+
+/* FOOTER */
+footer{background:var(--header-bg);color:rgba(255,255,255,.5);padding:28px 20px;text-align:center;font-size:12.5px;margin-top:20px}
+footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
+
+/* UPDATE BADGE */
+.update-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);font-size:11px;font-weight:600;padding:5px 12px;border-radius:10px;margin-bottom:18px}
+.update-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  header{padding:0 14px}
+  .logo span{font-size:15px}
+  nav{margin-left:14px;gap:0}
+  nav button{padding:6px 10px;font-size:12px}
+  .dark-label{display:none}
+  .filters{flex-direction:column;align-items:stretch}
+  .grid,.lugar-grid{grid-template-columns:1fr}
+  #mapSection .map-box{height:400px}
+  .modal-body{padding:20px}
+}
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <a href="#" class="logo">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="14" fill="#fff" opacity="0.2"/>
-        <path d="M16 6C12 6 8 10 8 16s4 10 8 10 8-4 8-10-4-10-8-10zm0 4a2 2 0 110 4 2 2 0 010-4zm-4 8c0-2 1.5-3 4-3s4 1 4 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="16" cy="16" r="3" fill="#fff"/>
-      </svg>
-      <span>EventosBsAs</span>
-    </a>
-
-    <nav>
-      <a href="#" class="active">Eventos</a>
-      <a href="#lugares">Lugares</a>
-      <a href="#" onclick="toggleMap()">Mapa</a>
-      <a href="#info">Info</a>
-    </nav>
-
-    <div class="header-right">
-      <button class="social-btn" title="Instagram">
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C16.67.014 16.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </button>
-      <button class="btn-login">Iniciar sesion</button>
-    </div>
-  </header>
-
-  <!-- MAIN -->
-  <div class="main-container">
-
-    <!-- FILTERS -->
-    <div class="filters-bar">
-      <div class="search-box">
-        <svg class="search-icon" width="18" height="18" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        <input type="text" placeholder="Buscar eventos en Capital Federal..." id="searchInput" oninput="filterEvents()" />
-      </div>
-      <select class="filter-select" id="categoryFilter" onchange="filterEvents()">
-        <option value="">Todas las categorias</option>
-        <option value="musica">Musica</option>
-        <option value="teatro">Teatro</option>
-        <option value="arte">Arte y Exposiciones</option>
-        <option value="cine">Cine</option>
-        <option value="literatura">Literatura</option>
-        <option value="gastronomia">Gastronomia</option>
-        <option value="festival">Festivales</option>
-      </select>
-      <select class="filter-select" id="timeFilter" onchange="filterEvents()">
-        <option value="all">Todos</option>
-        <option value="3">Proximos 3 dias</option>
-        <option value="7" selected>Proximos 7 dias</option>
-        <option value="15">Proximos 15 dias</option>
-        <option value="30">Proximo mes</option>
-      </select>
-      <div class="view-toggle">
-        <button class="active" onclick="setView('list', this)">Lista</button>
-        <button onclick="setView('map', this)">Mapa</button>
-      </div>
-    </div>
-
-    <!-- STORY CIRCLES -->
-    <div class="stories-row" id="storiesRow"></div>
-
-    <!-- MAP VIEW -->
-    <div class="map-container" id="mapView">
-      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-58.52,-34.71,-58.33,-34.53&layer=mapnik&marker=-34.6037,-58.3816" allowfullscreen></iframe>
-    </div>
-
-    <!-- EVENTS SECTION: HOY -->
-    <div id="eventsContainer"></div>
-
+<header>
+  <a href="#" class="logo" onclick="showSection('eventos');return false">
+    <div class="logo-icon">B</div>
+    <span>EventosBsAs</span>
+  </a>
+  <nav id="mainNav">
+    <button class="active" onclick="showSection('eventos')">Eventos</button>
+    <button onclick="showSection('mapa')">Mapa</button>
+    <button onclick="showSection('lugares')">Lugares</button>
+    <button onclick="showSection('info')">Info</button>
+  </nav>
+  <div class="header-right">
+    <span class="dark-label">Modo oscuro</span>
+    <div class="dark-toggle" onclick="toggleDark()" title="Modo oscuro"></div>
   </div>
+</header>
 
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" id="modalContent">
-      <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('active')">&times;</button>
-      <div id="modalBody"></div>
+<!-- ====== EVENTOS ====== -->
+<div class="page-section active" id="eventosSection">
+  <div class="update-badge"><div class="update-dot"></div> <span id="updateTime"></span></div>
+  <div class="filters">
+    <div class="search-wrap">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" placeholder="Buscar eventos, lugares, barrios..." id="searchInput" oninput="renderAll()"/>
+    </div>
+    <select class="sel" id="catFilter" onchange="renderAll()">
+      <option value="">Todas las categorias</option>
+      <option value="musica">Musica</option>
+      <option value="teatro">Teatro</option>
+      <option value="arte">Arte y Exposiciones</option>
+      <option value="cine">Cine</option>
+      <option value="literatura">Literatura</option>
+      <option value="gastronomia">Gastronomia</option>
+      <option value="festival">Festivales</option>
+    </select>
+    <select class="sel" id="timeFilter" onchange="renderAll()">
+      <option value="all">Todos</option>
+      <option value="3">Proximos 3 dias</option>
+      <option value="7" selected>Esta semana</option>
+      <option value="15">Proximos 15 dias</option>
+      <option value="30">Este mes</option>
+    </select>
+    <div class="view-btns">
+      <button class="active" onclick="setEvView('grid',this)">Grilla</button>
+      <button onclick="setEvView('list',this)">Lista</button>
     </div>
   </div>
+  <div class="stories" id="stories"></div>
+  <div id="eventsContainer"></div>
+</div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-links">
-        <a href="#">Eventos</a>
-        <a href="#">Lugares</a>
-        <a href="#">Acerca de</a>
-        <a href="#">Contacto</a>
-      </div>
-      <p>EventosBsAs &mdash; Agenda cultural de Capital Federal, Buenos Aires</p>
-      <p style="margin-top:6px; font-size:12px; opacity:0.6;">Datos de eventos recopilados de fuentes publicas. Abril 2026.</p>
+<!-- ====== MAPA ====== -->
+<div class="page-section" id="mapSection">
+  <div class="sec-head"><h2>Mapa de Eventos</h2><span class="cnt">Capital Federal</span></div>
+  <div class="map-box"><div id="mapEl"></div></div>
+</div>
+
+<!-- ====== LUGARES ====== -->
+<div class="page-section" id="lugaresSection">
+  <div class="sec-head"><h2>Lugares Culturales</h2><span class="cnt" id="lugaresCount"></span></div>
+  <div class="filters" style="margin-bottom:18px">
+    <div class="search-wrap">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input type="text" placeholder="Buscar lugares..." id="lugarSearch" oninput="renderLugares()"/>
     </div>
-  </footer>
+    <select class="sel" id="lugarTipo" onchange="renderLugares()">
+      <option value="">Todos los tipos</option>
+      <option value="museo">Museos</option>
+      <option value="teatro">Teatros</option>
+      <option value="centro cultural">Centros Culturales</option>
+      <option value="estadio">Estadios y Arenas</option>
+      <option value="galeria">Galerias</option>
+    </select>
+  </div>
+  <div class="lugar-grid" id="lugaresGrid"></div>
+</div>
+
+<!-- ====== INFO ====== -->
+<div class="page-section" id="infoSection">
+  <div class="info-hero">
+    <h1>EventosBsAs</h1>
+    <p>Tu agenda cultural de Capital Federal. Eventos, lugares y actividades actualizados automaticamente cada dia.</p>
+  </div>
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>📅 Actualizacion diaria</h3>
+      <p>Los eventos se actualizan solos cada dia. Las fechas relativas ("hoy", "manana", "en 3 dias") se recalculan automaticamente al abrir la pagina.</p>
+    </div>
+    <div class="info-card">
+      <h3>🗺️ Mapa interactivo</h3>
+      <p>Explora los eventos en el mapa de Capital Federal. Cada marcador muestra el nombre, categoria y fecha del evento. Hace click para ver el detalle.</p>
+    </div>
+    <div class="info-card">
+      <h3>🏛️ Lugares culturales</h3>
+      <p>Descubri teatros, museos, centros culturales, galerias y estadios de la ciudad con sus direcciones y barrios.</p>
+    </div>
+    <div class="info-card">
+      <h3>🌙 Modo oscuro</h3>
+      <p>Activa el modo oscuro desde el boton en el header. Tu preferencia se guarda para la proxima vez que visites la pagina.</p>
+    </div>
+    <div class="info-card">
+      <h3>🔍 Filtros avanzados</h3>
+      <p>Filtra por categoria (musica, teatro, arte, cine, literatura, gastronomia), por rango de tiempo, o busca por nombre, lugar o barrio.</p>
+    </div>
+    <div class="info-card">
+      <h3>📱 Responsive</h3>
+      <p>La pagina se adapta a celulares, tablets y computadoras. Navega comodamente desde cualquier dispositivo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&#215;</button>
+    <div class="modal-banner" id="mBanner"></div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<footer>
+  <a href="#" onclick="showSection('eventos');return false">Eventos</a>
+  <a href="#" onclick="showSection('mapa');return false">Mapa</a>
+  <a href="#" onclick="showSection('lugares');return false">Lugares</a>
+  <a href="#" onclick="showSection('info');return false">Info</a>
+  <p style="margin-top:12px">EventosBsAs &mdash; Agenda cultural de Capital Federal, Buenos Aires &mdash; Abril 2026</p>
+</footer>
 
 <script>
-// ===== EVENT DATA =====
-const events = [
-  {
-    id: 1,
-    title: "50a Feria Internacional del Libro",
-    category: "literatura",
-    categoryLabel: "Literatura",
-    date: "2026-04-23",
-    dateEnd: "2026-05-11",
-    dateLabel: "23 de abril al 11 de mayo",
-    time: "14:00 a 22:00 (L-V) / 13:00 a 22:00 (S-D)",
-    location: "La Rural, Predio Ferial",
-    address: "Av. Sarmiento 2704, Palermo",
-    barrio: "Palermo",
-    description: "La Feria del Libro de Buenos Aires celebra su 50a edicion. Pais invitado: Peru. Noche de la Ciudad el 25 de abril con entrada gratuita desde las 20hs. Mas de 1500 expositores y cientos de actividades.",
-    price: "Con entrada",
-    emoji: "📚",
-    gradient: "linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F4A460 100%)"
-  },
-  {
-    id: 2,
-    title: "BAFICI - Festival de Cine Independiente",
-    category: "cine",
-    categoryLabel: "Cine",
-    date: "2026-04-15",
-    dateEnd: "2026-04-26",
-    dateLabel: "15 al 26 de abril",
-    time: "Multiples horarios segun programacion",
-    location: "Sedes varias (Village Recoleta, Gaumont, y mas)",
-    address: "Sedes en CABA",
-    barrio: "Recoleta / Centro",
-    description: "El Buenos Aires Festival Internacional de Cine Independiente presenta lo mejor del cine independiente mundial y argentino con proyecciones, charlas con directores y eventos especiales.",
-    price: "Con entrada",
-    emoji: "🎬",
-    gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)"
-  },
-  {
-    id: 3,
-    title: "Ricky Martin Live 2026",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-17",
-    dateEnd: "2026-04-18",
-    dateLabel: "17 y 18 de abril",
-    time: "21:00 hs",
-    location: "Campo Argentino de Polo",
-    address: "Av. del Libertador 4096, Palermo",
-    barrio: "Palermo",
-    description: "Ricky Martin presenta su gira mundial con banda en vivo. Dos noches consecutivas en el Campo Argentino de Polo con un show espectacular.",
-    price: "Con entrada",
-    emoji: "🎤",
-    gradient: "linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #f39c12 100%)"
-  },
-  {
-    id: 4,
-    title: "Museo Moderno: Edicion 70a - Habitando el Futuro",
-    category: "arte",
-    categoryLabel: "Arte",
-    date: "2026-04-18",
-    dateEnd: "2026-12-31",
-    dateLabel: "Desde el 18 de abril",
-    time: "11:00 a 19:00 (Lun a Vie) / 11:00 a 20:00 (Sab-Dom)",
-    location: "Museo de Arte Moderno de Buenos Aires",
-    address: "Av. San Juan 350, San Telmo",
-    barrio: "San Telmo",
-    description: "El Museo Moderno celebra 70 anos con su programa mas ambicioso. Incluye un proyecto conjunto con el Parque de la Memoria sobre artistas argentinos que trabajan la memoria desde el arte contemporaneo.",
-    price: "Gratis",
-    emoji: "🎨",
-    gradient: "linear-gradient(135deg, #6c3483 0%, #8e44ad 50%, #bb8fce 100%)"
-  },
-  {
-    id: 5,
-    title: "MALBA 25 anos: Olga de Amaral. Cuerpo Textil",
-    category: "arte",
-    categoryLabel: "Arte",
-    date: "2026-02-27",
-    dateEnd: "2026-05-11",
-    dateLabel: "Hasta el 11 de mayo",
-    time: "12:00 a 20:00 (Jue a Lun)",
-    location: "MALBA - Museo de Arte Latinoamericano",
-    address: "Av. Figueroa Alcorta 3415, Palermo",
-    barrio: "Palermo",
-    description: "El MALBA celebra 25 anos con una gran exposicion de la artista colombiana Olga de Amaral. Una muestra textil imperdible en el marco del aniversario del museo.",
-    price: "Con entrada",
-    emoji: "🖼️",
-    gradient: "linear-gradient(135deg, #1abc9c 0%, #16a085 50%, #2ecc71 100%)"
-  },
-  {
-    id: 6,
-    title: "MALBA: Metamorfo - Coleccion Malba-Costantini",
-    category: "arte",
-    categoryLabel: "Arte",
-    date: "2026-03-28",
-    dateEnd: "2026-08-30",
-    dateLabel: "Hasta el 30 de agosto",
-    time: "12:00 a 20:00 (Jue a Lun)",
-    location: "MALBA",
-    address: "Av. Figueroa Alcorta 3415, Palermo",
-    barrio: "Palermo",
-    description: "Metamorfo. Dualidad y transformacion en la Coleccion Malba-Costantini. Una mirada renovada sobre las obras emblematicas del acervo del museo.",
-    price: "Con entrada",
-    emoji: "🎭",
-    gradient: "linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #1abc9c 100%)"
-  },
-  {
-    id: 7,
-    title: "Bodegonmania",
-    category: "gastronomia",
-    categoryLabel: "Gastronomia",
-    date: "2026-04-21",
-    dateEnd: "2026-04-23",
-    dateLabel: "21 al 23 de abril",
-    time: "12:00 a 23:00",
-    location: "Bodegones de Buenos Aires",
-    address: "Sedes varias en CABA",
-    barrio: "Varios barrios",
-    description: "Los bodegones clasicos de Buenos Aires participan con sus platos principales en este festival gastronomico dedicado a la cocina portena tradicional.",
-    price: "Consumicion",
-    emoji: "🍽️",
-    gradient: "linear-gradient(135deg, #d35400 0%, #e67e22 50%, #f39c12 100%)"
-  },
-  {
-    id: 8,
-    title: "Dream Theater",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-24",
-    dateEnd: "2026-04-24",
-    dateLabel: "24 de abril",
-    time: "21:00 hs",
-    location: "Movistar Arena",
-    address: "Humboldt 450, Villa Crespo",
-    barrio: "Villa Crespo",
-    description: "Dream Theater se presenta en Buenos Aires como parte de su gira mundial. Una noche epica de rock progresivo en el Movistar Arena.",
-    price: "Con entrada",
-    emoji: "🎸",
-    gradient: "linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #7f8c8d 100%)"
-  },
-  {
-    id: 9,
-    title: "Camerata Bariloche en Palacio Libertad",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-23",
-    dateEnd: "2026-04-23",
-    dateLabel: "23 de abril",
-    time: "20:00 hs",
-    location: "Palacio Libertad (ex CCK)",
-    address: "Sarmiento 151, Centro",
-    barrio: "Centro / Microcentro",
-    description: "La Camerata Bariloche se presenta en la Sala Sinfonica del Palacio Libertad con un programa de musica de camara.",
-    price: "Gratis",
-    emoji: "🎻",
-    gradient: "linear-gradient(135deg, #f1c40f 0%, #f39c12 50%, #e67e22 100%)"
-  },
-  {
-    id: 10,
-    title: "Moria - Show de Teatro Musical",
-    category: "teatro",
-    categoryLabel: "Teatro",
-    date: "2026-04-25",
-    dateEnd: "2026-04-26",
-    dateLabel: "25 de abril (20hs) y 26 de abril (19hs)",
-    time: "Sab 20:00 / Dom 19:00",
-    location: "Palacio Libertad (ex CCK)",
-    address: "Sarmiento 151, Centro",
-    barrio: "Centro / Microcentro",
-    description: "Un espectaculo de teatro musical con 23 artistas en escena y musica en vivo. Moria presenta un show ambicioso en el Palacio Libertad.",
-    price: "Con entrada",
-    emoji: "🌟",
-    gradient: "linear-gradient(135deg, #e91e63 0%, #9c27b0 50%, #673ab7 100%)"
-  },
-  {
-    id: 11,
-    title: "Desde el Jardin - Guillermo Francella",
-    category: "teatro",
-    categoryLabel: "Teatro",
-    date: "2026-03-28",
-    dateEnd: "2026-06-30",
-    dateLabel: "En cartelera - Jueves a Domingo",
-    time: "20:30 hs (Jue a Sab) / 19:30 (Dom)",
-    location: "Teatro Metropolitan",
-    address: "Av. Corrientes 1343, Centro",
-    barrio: "Centro / Corrientes",
-    description: "Guillermo Francella debuta en el teatro porteno con esta comedia dramatica. Un evento teatral imperdible en la mitica calle Corrientes.",
-    price: "Con entrada",
-    emoji: "🎭",
-    gradient: "linear-gradient(135deg, #c0392b 0%, #8e44ad 50%, #2980b9 100%)"
-  },
-  {
-    id: 12,
-    title: "Bellas Artes: Eugenio Dittborn. Historias del Rostro",
-    category: "arte",
-    categoryLabel: "Arte",
-    date: "2026-04-22",
-    dateEnd: "2026-04-29",
-    dateLabel: "22 al 29 de abril",
-    time: "11:00 a 20:00 (Mar a Vie) / 10:00 a 20:00 (Sab-Dom)",
-    location: "Museo Nacional de Bellas Artes",
-    address: "Av. del Libertador 1473, Recoleta",
-    barrio: "Recoleta",
-    description: "El Museo Nacional de Bellas Artes presenta la exposicion del artista chileno Eugenio Dittborn, con visitas guiadas disponibles.",
-    price: "Gratis",
-    emoji: "🖌️",
-    gradient: "linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 50%, #95a5a6 100%)"
-  },
-  {
-    id: 13,
-    title: "Orquesta La Fuerza Mayor",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-23",
-    dateEnd: "2026-04-23",
-    dateLabel: "23 de abril",
-    time: "21:00 hs",
-    location: "Club Social 911",
-    address: "Rodriguez Pena 911, Recoleta",
-    barrio: "Recoleta",
-    description: "La orquesta La Fuerza Mayor vuelve con una noche de afrobeat como columna vertebral, con cruces de hip hop, funk y ritmos latinos.",
-    price: "Con entrada",
-    emoji: "🥁",
-    gradient: "linear-gradient(135deg, #27ae60 0%, #2ecc71 50%, #f1c40f 100%)"
-  },
-  {
-    id: 14,
-    title: "The Lumineers",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-29",
-    dateEnd: "2026-04-29",
-    dateLabel: "29 de abril",
-    time: "21:00 hs",
-    location: "Estadio Malvinas Argentinas",
-    address: "Av. Directorio y Carabobo, Parque Chacabuco",
-    barrio: "Parque Chacabuco",
-    description: "The Lumineers llega a Buenos Aires como parte de su gira mundial. Una noche de folk rock en uno de los estadios mas emblematicos de la ciudad.",
-    price: "Con entrada",
-    emoji: "🎶",
-    gradient: "linear-gradient(135deg, #f39c12 0%, #d35400 50%, #c0392b 100%)"
-  },
-  {
-    id: 15,
-    title: "Tapeando Buenos Aires",
-    category: "gastronomia",
-    categoryLabel: "Gastronomia",
-    date: "2026-04-03",
-    dateEnd: "2026-04-12",
-    dateLabel: "3 al 12 de abril",
-    time: "Horario de cada restaurante",
-    location: "50+ restaurantes de CABA",
-    address: "Sedes varias",
-    barrio: "Varios barrios",
-    description: "Mas de 50 restaurantes ofrecen tapas al estilo espanol. Un recorrido gastronomico por la ciudad para disfrutar de la mejor cocina en formato de tapas.",
-    price: "Consumicion",
-    emoji: "🍷",
-    gradient: "linear-gradient(135deg, #8e44ad 0%, #c0392b 50%, #e74c3c 100%)"
-  },
-  {
-    id: 16,
-    title: "Visita Accesible al Teatro Colon",
-    category: "teatro",
-    categoryLabel: "Teatro",
-    date: "2026-04-01",
-    dateEnd: "2026-04-01",
-    dateLabel: "1 de abril",
-    time: "13:00 a 14:00",
-    location: "Teatro Colon",
-    address: "Cerrito 628, Centro",
-    barrio: "Centro / Microcentro",
-    description: "Visita guiada accesible en lectura facil para personas con neurodivergencias, en el marco del Dia Mundial de Concienciacion sobre el Autismo.",
-    price: "Gratis",
-    emoji: "🏛️",
-    gradient: "linear-gradient(135deg, #d4af37 0%, #c9a030 50%, #b8860b 100%)"
-  },
-  {
-    id: 17,
-    title: "Megadeth - Gira Final",
-    category: "musica",
-    categoryLabel: "Musica",
-    date: "2026-04-30",
-    dateEnd: "2026-04-30",
-    dateLabel: "30 de abril",
-    time: "21:00 hs",
-    location: "Tecnopolis",
-    address: "Av. Juan Bautista de La Salle 4500, Villa Martelli",
-    barrio: "Villa Martelli (GBA)",
-    description: "Megadeth llega con su gira final a la Argentina. Una noche historica de thrash metal para despedir a una de las bandas mas grandes del genero.",
-    price: "Con entrada",
-    emoji: "🤘",
-    gradient: "linear-gradient(135deg, #1a1a1a 0%, #333 50%, #555 100%)"
-  },
-  {
-    id: 18,
-    title: "Noche de la Ciudad en la Feria del Libro",
-    category: "festival",
-    categoryLabel: "Festival",
-    date: "2026-04-25",
-    dateEnd: "2026-04-25",
-    dateLabel: "Sabado 25 de abril",
-    time: "20:00 a 00:00 (entrada gratuita)",
-    location: "La Rural, Predio Ferial",
-    address: "Av. Sarmiento 2704, Palermo",
-    barrio: "Palermo",
-    description: "Noche especial con entrada gratuita desde las 20hs. Espectaculo y recital al aire libre sobre Av. Sarmiento en el marco de la Feria del Libro.",
-    price: "Gratis",
-    emoji: "🌙",
-    gradient: "linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%)"
-  }
+// ========== TODAY (auto-updates) ==========
+const TODAY = new Date();
+TODAY.setHours(0,0,0,0);
+
+function fmtUpdate(){
+  const d = new Date();
+  const dias = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return `Actualizado: ${dias[d.getDay()]} ${d.getDate()} de ${meses[d.getMonth()]} ${d.getFullYear()}, ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+}
+document.getElementById('updateTime').textContent = fmtUpdate();
+
+function daysDiff(ds){const d=new Date(ds+'T00:00:00');return Math.floor((d-TODAY)/(864e5))}
+
+function relDate(ev){
+  const s=daysDiff(ev.date), e=daysDiff(ev.dateEnd);
+  if(e<0) return {text:'Finalizado',cls:'status-past'};
+  if(s<=0&&e>=0) return {text:'En curso',cls:'status-live'};
+  if(s===1) return {text:'Manana',cls:'status-soon'};
+  if(s===2) return {text:'Pasado manana',cls:'status-soon'};
+  if(s>0&&s<=7) return {text:`En ${s} dias`,cls:'status-soon'};
+  return {text:ev.dateLabel,cls:'status-soon'};
+}
+
+// ========== EVENT DATA ==========
+const events=[
+{id:1,title:"50a Feria Internacional del Libro",cat:"literatura",catLabel:"Literatura",date:"2026-04-23",dateEnd:"2026-05-11",dateLabel:"23 abr – 11 may",time:"14–22hs (L-V) · 13–22hs (S-D)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"La Feria del Libro celebra su 50a edicion. Pais invitado: Peru. Noche de la Ciudad el 25/4 con entrada gratuita desde las 20hs. Mas de 1500 expositores.",price:"Con entrada",emoji:"📚",grad:"linear-gradient(135deg,#8B5E3C,#C4956A)"},
+{id:2,title:"BAFICI – Cine Independiente",cat:"cine",catLabel:"Cine",date:"2026-04-15",dateEnd:"2026-04-26",dateLabel:"15–26 abr",time:"Multiples horarios",loc:"Village Recoleta, Gaumont y mas",addr:"Sedes varias, CABA",barrio:"Recoleta / Centro",lat:-34.5878,lng:-58.3938,desc:"El Buenos Aires Festival Internacional de Cine Independiente con proyecciones, charlas con directores y eventos especiales.",price:"Con entrada",emoji:"🎬",grad:"linear-gradient(135deg,#1a1a3e,#2d4a7a)"},
+{id:3,title:"Ricky Martin Live 2026",cat:"musica",catLabel:"Musica",date:"2026-04-17",dateEnd:"2026-04-18",dateLabel:"17–18 abr",time:"21:00hs",loc:"Campo Argentino de Polo",addr:"Av. del Libertador 4096, Palermo",barrio:"Palermo",lat:-34.5734,lng:-58.4126,desc:"Ricky Martin presenta su gira mundial con banda en vivo. Dos noches en el Campo Argentino de Polo.",price:"Con entrada",emoji:"🎤",grad:"linear-gradient(135deg,#c0392b,#e67e22)"},
+{id:4,title:"Museo Moderno: Habitando el Futuro",cat:"arte",catLabel:"Arte",date:"2026-04-18",dateEnd:"2026-12-31",dateLabel:"Desde 18 abr",time:"11–19hs (L-V) · 11–20hs (S-D)",loc:"Museo de Arte Moderno",addr:"Av. San Juan 350, San Telmo",barrio:"San Telmo",lat:-34.6222,lng:-58.3699,desc:"70 anos del Museo Moderno. Proyecto con el Parque de la Memoria sobre artistas argentinos que trabajan la memoria desde el arte contemporaneo.",price:"Gratis",emoji:"🎨",grad:"linear-gradient(135deg,#6c3483,#bb8fce)"},
+{id:5,title:"MALBA: Olga de Amaral",cat:"arte",catLabel:"Arte",date:"2026-02-27",dateEnd:"2026-05-11",dateLabel:"Hasta 11 may",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"El MALBA celebra 25 anos con una gran exposicion de la artista colombiana Olga de Amaral. Muestra textil imperdible.",price:"Con entrada",emoji:"🖼️",grad:"linear-gradient(135deg,#1abc9c,#2ecc71)"},
+{id:6,title:"MALBA: Metamorfo",cat:"arte",catLabel:"Arte",date:"2026-03-28",dateEnd:"2026-08-30",dateLabel:"Hasta 30 ago",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Dualidad y transformacion en la Coleccion Malba-Costantini. Una mirada renovada sobre las obras emblematicas del museo.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#2c3e50,#3498db)"},
+{id:7,title:"Bodegonmania",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-21",dateEnd:"2026-04-23",dateLabel:"21–23 abr",time:"12–23hs",loc:"Bodegones de Buenos Aires",addr:"Sedes varias, CABA",barrio:"Varios barrios",lat:-34.6095,lng:-58.3904,desc:"Los bodegones clasicos de Buenos Aires participan con sus platos principales. Festival dedicado a la cocina portena tradicional.",price:"Consumicion",emoji:"🍽️",grad:"linear-gradient(135deg,#d35400,#f39c12)"},
+{id:8,title:"Dream Theater",cat:"musica",catLabel:"Musica",date:"2026-04-24",dateEnd:"2026-04-24",dateLabel:"24 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Dream Theater en Buenos Aires como parte de su gira mundial. Noche de rock progresivo en el Movistar Arena.",price:"Con entrada",emoji:"🎸",grad:"linear-gradient(135deg,#2c3e50,#7f8c8d)"},
+{id:9,title:"Camerata Bariloche",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"20:00hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"La Camerata Bariloche en la Sala Sinfonica del Palacio Libertad con un programa de musica de camara.",price:"Gratis",emoji:"🎻",grad:"linear-gradient(135deg,#f1c40f,#e67e22)"},
+{id:10,title:"Moria – Teatro Musical",cat:"teatro",catLabel:"Teatro",date:"2026-04-25",dateEnd:"2026-04-26",dateLabel:"25 abr (20hs) · 26 abr (19hs)",time:"Sab 20hs / Dom 19hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"Espectaculo de teatro musical con 23 artistas en escena y musica en vivo en el Palacio Libertad.",price:"Con entrada",emoji:"🌟",grad:"linear-gradient(135deg,#e91e63,#673ab7)"},
+{id:11,title:"Desde el Jardin – Francella",cat:"teatro",catLabel:"Teatro",date:"2026-03-28",dateEnd:"2026-06-30",dateLabel:"En cartelera · Jue–Dom",time:"20:30hs (Jue-Sab) · 19:30hs (Dom)",loc:"Teatro Metropolitan",addr:"Av. Corrientes 1343, Centro",barrio:"Centro",lat:-34.6041,lng:-58.3870,desc:"Guillermo Francella debuta en el teatro porteno con esta comedia dramatica en la mitica calle Corrientes.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#c0392b,#2980b9)"},
+{id:12,title:"Bellas Artes: Eugenio Dittborn",cat:"arte",catLabel:"Arte",date:"2026-04-22",dateEnd:"2026-07-20",dateLabel:"22 abr – 20 jul",time:"11–20hs (Mar-Vie) · 10–20hs (S-D)",loc:"Museo Nacional de Bellas Artes",addr:"Av. del Libertador 1473, Recoleta",barrio:"Recoleta",lat:-34.5836,lng:-58.3935,desc:"Exposicion del artista chileno Eugenio Dittborn, Historias del Rostro. Visitas guiadas disponibles.",price:"Gratis",emoji:"🖌️",grad:"linear-gradient(135deg,#bdc3c7,#636e72)"},
+{id:13,title:"Orquesta La Fuerza Mayor",cat:"musica",catLabel:"Musica",date:"2026-04-23",dateEnd:"2026-04-23",dateLabel:"23 abr",time:"21:00hs",loc:"Club Social 911",addr:"Rodriguez Pena 911, Recoleta",barrio:"Recoleta",lat:-34.5989,lng:-58.3955,desc:"La Fuerza Mayor con afrobeat, hip hop, funk y ritmos latinos. Una noche de pura potencia ritmica.",price:"Con entrada",emoji:"🥁",grad:"linear-gradient(135deg,#27ae60,#f1c40f)"},
+{id:14,title:"The Lumineers",cat:"musica",catLabel:"Musica",date:"2026-04-29",dateEnd:"2026-04-29",dateLabel:"29 abr",time:"21:00hs",loc:"Estadio Malvinas Argentinas",addr:"Av. Directorio y Carabobo",barrio:"Parque Chacabuco",lat:-34.6380,lng:-58.4280,desc:"The Lumineers en Buenos Aires como parte de su gira mundial. Folk rock en el Malvinas Argentinas.",price:"Con entrada",emoji:"🎶",grad:"linear-gradient(135deg,#f39c12,#c0392b)"},
+{id:15,title:"Noche de la Ciudad – Feria del Libro",cat:"festival",catLabel:"Festival",date:"2026-04-25",dateEnd:"2026-04-25",dateLabel:"25 abr",time:"20:00 a 00:00 (gratis)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"Noche especial con entrada gratuita desde las 20hs. Espectaculo y recital al aire libre en el marco de la Feria del Libro.",price:"Gratis",emoji:"🌙",grad:"linear-gradient(135deg,#1a237e,#3f51b5)"},
+{id:16,title:"Megadeth – Gira Final",cat:"musica",catLabel:"Musica",date:"2026-04-30",dateEnd:"2026-04-30",dateLabel:"30 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Megadeth llega con su gira final. Noche historica de thrash metal.",price:"Con entrada",emoji:"🤘",grad:"linear-gradient(135deg,#1a1a1a,#555)"},
+{id:17,title:"Tapeando Buenos Aires",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-03",dateEnd:"2026-04-12",dateLabel:"3–12 abr",time:"Horario de cada restaurante",loc:"50+ restaurantes de CABA",addr:"Sedes varias",barrio:"Varios barrios",lat:-34.6037,lng:-58.3816,desc:"Mas de 50 restaurantes ofrecen tapas al estilo espanol. Un recorrido gastronomico por toda la ciudad.",price:"Consumicion",emoji:"🍷",grad:"linear-gradient(135deg,#8e44ad,#e74c3c)"},
+{id:18,title:"MALBA: Fernanda Laguna",cat:"arte",catLabel:"Arte",date:"2026-03-15",dateEnd:"2026-07-13",dateLabel:"Hasta 13 jul",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Mi corazon es un iman. Muestra de Fernanda Laguna en el marco del 25 aniversario del MALBA.",price:"Con entrada",emoji:"💖",grad:"linear-gradient(135deg,#ff6b81,#ff4757)"}
 ];
 
-// ===== RENDER FUNCTIONS =====
-const today = new Date('2026-04-21');
+// ========== LUGARES ==========
+const lugares=[
+{name:"Teatro Colon",addr:"Cerrito 628, Centro",barrio:"Microcentro",tipo:"teatro",emoji:"🏛️",grad:"linear-gradient(135deg,#d4af37,#b8860b)",lat:-34.6011,lng:-58.3833},
+{name:"MALBA",addr:"Av. Figueroa Alcorta 3415",barrio:"Palermo",tipo:"museo",emoji:"🖼️",grad:"linear-gradient(135deg,#1abc9c,#16a085)",lat:-34.5774,lng:-58.4039},
+{name:"Museo Nacional de Bellas Artes",addr:"Av. del Libertador 1473",barrio:"Recoleta",tipo:"museo",emoji:"🖌️",grad:"linear-gradient(135deg,#bdc3c7,#95a5a6)",lat:-34.5836,lng:-58.3935},
+{name:"Museo de Arte Moderno",addr:"Av. San Juan 350",barrio:"San Telmo",tipo:"museo",emoji:"🎨",grad:"linear-gradient(135deg,#6c3483,#bb8fce)",lat:-34.6222,lng:-58.3699},
+{name:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151",barrio:"Microcentro",tipo:"centro cultural",emoji:"🏰",grad:"linear-gradient(135deg,#2980b9,#6dd5fa)",lat:-34.6020,lng:-58.3688},
+{name:"Teatro Metropolitan",addr:"Av. Corrientes 1343",barrio:"Centro",tipo:"teatro",emoji:"🎭",grad:"linear-gradient(135deg,#c0392b,#e74c3c)",lat:-34.6041,lng:-58.3870},
+{name:"Movistar Arena",addr:"Humboldt 450",barrio:"Villa Crespo",tipo:"estadio",emoji:"🏟️",grad:"linear-gradient(135deg,#2c3e50,#3498db)",lat:-34.5960,lng:-58.4386},
+{name:"Campo Argentino de Polo",addr:"Av. del Libertador 4096",barrio:"Palermo",tipo:"estadio",emoji:"🏇",grad:"linear-gradient(135deg,#27ae60,#2ecc71)",lat:-34.5734,lng:-58.4126},
+{name:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704",barrio:"Palermo",tipo:"centro cultural",emoji:"📚",grad:"linear-gradient(135deg,#8B5E3C,#C4956A)",lat:-34.5745,lng:-58.4214},
+{name:"Estadio Malvinas Argentinas",addr:"Av. Directorio y Carabobo",barrio:"Parque Chacabuco",tipo:"estadio",emoji:"🎶",grad:"linear-gradient(135deg,#f39c12,#e67e22)",lat:-34.6380,lng:-58.4280},
+{name:"Centro Cultural San Martin",addr:"Sarmiento 1551",barrio:"Centro",tipo:"centro cultural",emoji:"🎪",grad:"linear-gradient(135deg,#e74c3c,#c0392b)",lat:-34.6046,lng:-58.3908},
+{name:"Centro Cultural Recoleta",addr:"Junin 1930",barrio:"Recoleta",tipo:"centro cultural",emoji:"🏛️",grad:"linear-gradient(135deg,#9b59b6,#8e44ad)",lat:-34.5878,lng:-58.3935},
+{name:"Usina del Arte",addr:"Agustin R. Caffarena 1",barrio:"La Boca",tipo:"centro cultural",emoji:"⚡",grad:"linear-gradient(135deg,#e67e22,#d35400)",lat:-34.6354,lng:-58.3608},
+{name:"Teatro San Martin",addr:"Av. Corrientes 1530",barrio:"Centro",tipo:"teatro",emoji:"🎭",grad:"linear-gradient(135deg,#34495e,#2c3e50)",lat:-34.6042,lng:-58.3883},
+{name:"Club Social 911",addr:"Rodriguez Pena 911",barrio:"Recoleta",tipo:"galeria",emoji:"🎵",grad:"linear-gradient(135deg,#27ae60,#f1c40f)",lat:-34.5989,lng:-58.3955},
+{name:"Museo Evita",addr:"Lafinur 2988",barrio:"Palermo",tipo:"museo",emoji:"🌹",grad:"linear-gradient(135deg,#e91e63,#ad1457)",lat:-34.5798,lng:-58.4099},
+{name:"Teatro Cervantes",addr:"Libertad 815",barrio:"Centro",tipo:"teatro",emoji:"📜",grad:"linear-gradient(135deg,#8d6e63,#5d4037)",lat:-34.6007,lng:-58.3861}
+];
 
-function daysDiff(dateStr) {
-  const d = new Date(dateStr);
-  const diff = Math.floor((d - today) / (1000 * 60 * 60 * 24));
-  return diff;
-}
-
-function getRelativeDate(ev) {
-  const startDiff = daysDiff(ev.date);
-  const endDiff = daysDiff(ev.dateEnd);
-  if (startDiff <= 0 && endDiff >= 0) return "En curso";
-  if (startDiff === 0) return "Hoy";
-  if (startDiff === 1) return "Manana";
-  if (startDiff === 2) return "Pasado manana";
-  if (startDiff > 0 && startDiff <= 7) return `En ${startDiff} dias`;
-  if (startDiff < 0) return "Finalizado";
-  return ev.dateLabel;
-}
-
-function renderStories(filteredEvents) {
-  const row = document.getElementById('storiesRow');
-  row.innerHTML = filteredEvents.slice(0, 12).map(ev => `
-    <div class="story-item" onclick="openModal(${ev.id})">
-      <div class="story-circle">
-        <div style="width:100%;height:100%;border-radius:50%;background:${ev.gradient};display:flex;align-items:center;justify-content:center;font-size:28px;">${ev.emoji}</div>
-      </div>
-      <span class="story-label">${ev.title.length > 12 ? ev.title.substring(0,12)+'...' : ev.title}</span>
-    </div>
-  `).join('');
-}
-
-function renderEvents(filteredEvents) {
-  const container = document.getElementById('eventsContainer');
-
-  // Group by status
-  const enCurso = filteredEvents.filter(e => daysDiff(e.date) <= 0 && daysDiff(e.dateEnd) >= 0);
-  const proximos = filteredEvents.filter(e => daysDiff(e.date) > 0);
-  const pasados = filteredEvents.filter(e => daysDiff(e.dateEnd) < 0);
-
-  let html = '';
-
-  if (enCurso.length) {
-    html += renderSection("En curso", enCurso);
-  }
-  if (proximos.length) {
-    html += renderSection("Proximos eventos", proximos);
-  }
-  if (pasados.length) {
-    html += renderSection("Eventos pasados", pasados);
-  }
-
-  if (!filteredEvents.length) {
-    html = '<div style="text-align:center;padding:60px 20px;color:#8ea2a5;"><p style="font-size:18px;font-weight:600;">No se encontraron eventos</p><p style="margin-top:8px;">Intenta con otros filtros o palabras clave</p></div>';
-  }
-
-  container.innerHTML = html;
-}
-
-function renderSection(title, evts) {
-  return `
-    <div class="section-header">
-      <h2>${title}</h2>
-      <span class="count">${evts.length} evento${evts.length !== 1 ? 's' : ''}</span>
-    </div>
-    <div class="events-grid">
-      ${evts.map(ev => renderCard(ev)).join('')}
-    </div>
-  `;
-}
-
-function renderCard(ev) {
-  const rel = getRelativeDate(ev);
-  const priceTag = ev.price === 'Gratis'
-    ? '<span class="card-free">Gratis</span>'
-    : '<span class="card-paid">' + ev.price + '</span>';
-
-  return `
-    <a class="event-card" onclick="openModal(${ev.id}); return false;" href="#">
-      <div class="card-image-placeholder" style="background:${ev.gradient};">
-        <span style="font-size:52px;">${ev.emoji}</span>
-        <span class="card-category">${ev.categoryLabel}</span>
-      </div>
-      <div class="card-body">
-        <h3>${ev.title}</h3>
-        <div class="card-date">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          ${rel} &middot; ${ev.time.split(' ')[0]}
-        </div>
-        <div class="card-location">
-          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          ${ev.location}
-        </div>
-        <div class="card-actions">
-          <button class="card-action-btn" title="Ubicacion" onclick="event.stopPropagation();">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          </button>
-          <button class="card-action-btn" title="Agendar" onclick="event.stopPropagation();">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          </button>
-          <button class="card-action-btn" title="Compartir" onclick="event.stopPropagation(); shareEvent(${ev.id})">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
-          </button>
-          ${priceTag}
-        </div>
-      </div>
-    </a>
-  `;
-}
-
-function openModal(id) {
-  const ev = events.find(e => e.id === id);
-  if (!ev) return;
-  const body = document.getElementById('modalBody');
-  body.innerHTML = `
-    <div style="background:${ev.gradient};height:120px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:20px;">${ev.emoji}</div>
-    <h2>${ev.title}</h2>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-      <span><strong>Fecha:</strong> ${ev.dateLabel}</span>
-    </div>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <span><strong>Horario:</strong> ${ev.time}</span>
-    </div>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <span><strong>Lugar:</strong> ${ev.location}</span>
-    </div>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span><strong>Direccion:</strong> ${ev.address}</span>
-    </div>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-      <span><strong>Precio:</strong> ${ev.price}</span>
-    </div>
-    <div class="detail-row">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span><strong>Barrio:</strong> ${ev.barrio}</span>
-    </div>
-    <p class="detail-desc">${ev.description}</p>
-  `;
-  document.getElementById('modalOverlay').classList.add('active');
-}
-
-function closeModal(e) {
-  if (e.target === document.getElementById('modalOverlay')) {
-    document.getElementById('modalOverlay').classList.remove('active');
-  }
-}
-
-function shareEvent(id) {
-  const ev = events.find(e => e.id === id);
-  if (navigator.share && ev) {
-    navigator.share({ title: ev.title, text: `${ev.title} - ${ev.dateLabel} en ${ev.location}` });
-  }
-}
-
-function filterEvents() {
-  const search = document.getElementById('searchInput').value.toLowerCase();
-  const category = document.getElementById('categoryFilter').value;
-  const timeVal = document.getElementById('timeFilter').value;
-
-  let filtered = events.filter(ev => {
-    // Search
-    if (search && !ev.title.toLowerCase().includes(search) && !ev.location.toLowerCase().includes(search) && !ev.barrio.toLowerCase().includes(search) && !ev.categoryLabel.toLowerCase().includes(search)) return false;
-    // Category
-    if (category && ev.category !== category) return false;
-    // Time
-    if (timeVal !== 'all') {
-      const days = parseInt(timeVal);
-      const endDiff = daysDiff(ev.dateEnd);
-      const startDiff = daysDiff(ev.date);
-      if (endDiff < 0) return false; // already ended
-      if (startDiff > days) return false; // too far in the future
+// ========== FILTERING ==========
+function getFiltered(){
+  const s=document.getElementById('searchInput').value.toLowerCase();
+  const c=document.getElementById('catFilter').value;
+  const t=document.getElementById('timeFilter').value;
+  return events.filter(ev=>{
+    if(s&&!ev.title.toLowerCase().includes(s)&&!ev.loc.toLowerCase().includes(s)&&!ev.barrio.toLowerCase().includes(s)&&!ev.catLabel.toLowerCase().includes(s)) return false;
+    if(c&&ev.cat!==c) return false;
+    if(t!=='all'){
+      const days=parseInt(t),ed=daysDiff(ev.dateEnd),sd=daysDiff(ev.date);
+      if(ed<0) return false;
+      if(sd>days) return false;
     }
     return true;
   });
-
-  renderStories(filtered);
-  renderEvents(filtered);
 }
 
-function setView(view, btn) {
-  document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+// ========== RENDER ==========
+function renderAll(){
+  const f=getFiltered();
+  renderStories(f);
+  renderEvents(f);
+}
+
+function renderStories(list){
+  document.getElementById('stories').innerHTML=list.slice(0,14).map(ev=>`
+    <div class="story" onclick="openModal(${ev.id})">
+      <div class="story-ring"><div class="story-inner">${ev.emoji}</div></div>
+      <span>${ev.title.length>10?ev.title.slice(0,10)+'...':ev.title}</span>
+    </div>`).join('');
+}
+
+function renderEvents(list){
+  const el=document.getElementById('eventsContainer');
+  const live=list.filter(e=>daysDiff(e.date)<=0&&daysDiff(e.dateEnd)>=0);
+  const soon=list.filter(e=>daysDiff(e.date)>0);
+  const past=list.filter(e=>daysDiff(e.dateEnd)<0);
+  let h='';
+  if(live.length) h+=section('En curso',live);
+  if(soon.length) h+=section('Proximos',soon);
+  if(past.length) h+=section('Finalizados',past);
+  if(!list.length) h='<div class="empty"><p>🔍</p><p>No se encontraron eventos</p><p>Proba con otros filtros</p></div>';
+  el.innerHTML=h;
+}
+
+function section(title,arr){
+  return `<div class="sec-head"><h2>${title}</h2><span class="cnt"><b>${arr.length}</b> evento${arr.length>1?'s':''}</span></div>
+  <div class="grid">${arr.map(card).join('')}</div>`;
+}
+
+function card(ev){
+  const r=relDate(ev);
+  const tag=ev.price==='Gratis'?'<span class="tag tag-free">Gratis</span>':'<span class="tag tag-paid">'+ev.price+'</span>';
+  return `<div class="card" onclick="openModal(${ev.id})">
+    <div class="card-img" style="background:${ev.grad}"><span>${ev.emoji}</span>
+      <span class="card-cat">${ev.catLabel}</span>
+      <span class="card-status ${r.cls}">${r.text}</span>
+    </div>
+    <div class="card-body">
+      <h3>${ev.title}</h3>
+      <div class="card-date"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${ev.dateLabel} · ${ev.time.split('·')[0].trim()}</div>
+      <div class="card-loc"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>${ev.loc} · ${ev.barrio}</div>
+      <div class="card-foot">
+        <button class="act-btn" title="Ver en mapa" onclick="event.stopPropagation();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}')"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></button>
+        <button class="act-btn" title="Compartir" onclick="event.stopPropagation();shareEv(${ev.id})"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
+        ${tag}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ========== MODAL ==========
+function openModal(id){
+  const ev=events.find(e=>e.id===id);if(!ev)return;
+  document.getElementById('mBanner').style.background=ev.grad;
+  document.getElementById('mBanner').innerHTML=`<span>${ev.emoji}</span>`;
+  const r=relDate(ev);
+  document.getElementById('mBody').innerHTML=`
+    <h2>${ev.title}</h2>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span><b>Fecha:</b> ${ev.dateLabel} (${r.text})</span></div>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span><b>Horario:</b> ${ev.time}</span></div>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg><span><b>Lugar:</b> ${ev.loc}</span></div>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span><b>Direccion:</b> ${ev.addr}</span></div>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span><b>Barrio:</b> ${ev.barrio}</span></div>
+    <div class="modal-row"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg><span><b>Precio:</b> ${ev.price}</span></div>
+    <p class="modal-desc">${ev.desc}</p>
+    <button onclick="event.stopPropagation();closeModal();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}');" style="margin-top:16px;width:100%;padding:12px;border:none;background:var(--accent);color:#fff;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Ver en el mapa</button>`;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeModal(){document.getElementById('overlay').classList.remove('show')}
+
+function shareEv(id){
+  const ev=events.find(e=>e.id===id);
+  if(navigator.share&&ev) navigator.share({title:ev.title,text:`${ev.title} – ${ev.dateLabel} en ${ev.loc}`});
+}
+
+// ========== MAP ==========
+let map,markers=[];
+function initMap(){
+  if(map) return;
+  map=L.map('mapEl').setView([-34.6037,-58.3816],12);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    maxZoom:19
+  }).addTo(map);
+
+  const icon = L.divIcon({className:'',html:'<div style="width:28px;height:28px;background:var(--accent,#e05a33);border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(0,0,0,.3)"></div>',iconSize:[28,28],iconAnchor:[14,14]});
+
+  events.forEach(ev=>{
+    if(!ev.lat) return;
+    const m=L.marker([ev.lat,ev.lng],{icon}).addTo(map);
+    m.bindPopup(`<span class="popup-cat">${ev.catLabel}</span><strong>${ev.title}</strong><div class="popup-date">${ev.dateLabel} · ${ev.loc}</div>`);
+    m.on('click',()=>m.openPopup());
+    markers.push({marker:m,ev});
+  });
+
+  lugares.forEach(l=>{
+    if(!l.lat) return;
+    const lIcon=L.divIcon({className:'',html:'<div style="width:22px;height:22px;background:#3b82c4;border:2.5px solid #fff;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.25)"></div>',iconSize:[22,22],iconAnchor:[11,11]});
+    const m=L.marker([l.lat,l.lng],{icon:lIcon}).addTo(map);
+    m.bindPopup(`<span class="popup-cat">${l.tipo.toUpperCase()}</span><strong>${l.name}</strong><div class="popup-date">${l.addr} · ${l.barrio}</div>`);
+  });
+}
+
+function flyTo(lat,lng,title){
+  initMap();
+  setTimeout(()=>{
+    map.invalidateSize();
+    map.flyTo([lat,lng],15,{duration:1});
+    const found=markers.find(m=>m.ev.lat===lat&&m.ev.lng===lng);
+    if(found) setTimeout(()=>found.marker.openPopup(),1100);
+  },200);
+}
+
+// ========== LUGARES ==========
+function renderLugares(){
+  const s=document.getElementById('lugarSearch').value.toLowerCase();
+  const t=document.getElementById('lugarTipo').value;
+  const f=lugares.filter(l=>{
+    if(s&&!l.name.toLowerCase().includes(s)&&!l.barrio.toLowerCase().includes(s)&&!l.addr.toLowerCase().includes(s)) return false;
+    if(t&&!l.tipo.includes(t)) return false;
+    return true;
+  });
+  document.getElementById('lugaresCount').innerHTML=`<b>${f.length}</b> lugar${f.length!==1?'es':''}`;
+  document.getElementById('lugaresGrid').innerHTML=f.map(l=>`
+    <div class="lugar-card" onclick="showSection('mapa');flyTo(${l.lat},${l.lng},'${l.name.replace(/'/g,"\\'")}')">
+      <div class="lugar-top" style="background:${l.grad}">${l.emoji}</div>
+      <div class="lugar-body">
+        <h3>${l.name}</h3>
+        <div class="lugar-addr">${l.addr}</div>
+        <div class="lugar-barrio">${l.barrio}</div>
+        <div class="lugar-tipo">${l.tipo}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ========== NAVIGATION ==========
+function showSection(name){
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
+  const sectionMap={eventos:'eventosSection',mapa:'mapSection',lugares:'lugaresSection',info:'infoSection'};
+  document.getElementById(sectionMap[name]).classList.add('active');
+  const idx={eventos:0,mapa:1,lugares:2,info:3};
+  document.querySelectorAll('#mainNav button')[idx[name]].classList.add('active');
+  if(name==='mapa'){initMap();setTimeout(()=>map.invalidateSize(),200)}
+  if(name==='lugares') renderLugares();
+}
+
+function setEvView(view,btn){
+  document.querySelectorAll('.view-btns button').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  const mapEl = document.getElementById('mapView');
-  const eventsEl = document.getElementById('eventsContainer');
-  if (view === 'map') {
-    mapEl.classList.add('active');
-    eventsEl.style.display = 'none';
-  } else {
-    mapEl.classList.remove('active');
-    eventsEl.style.display = 'block';
+  const grid=document.querySelector('.grid');
+  if(grid){
+    grid.style.gridTemplateColumns = view==='list'?'1fr':'repeat(auto-fill,minmax(290px,1fr))';
   }
 }
 
-function toggleMap() {
-  const mapEl = document.getElementById('mapView');
-  if (mapEl.classList.contains('active')) {
-    mapEl.classList.remove('active');
-    document.getElementById('eventsContainer').style.display = 'block';
-  } else {
-    mapEl.classList.add('active');
-    document.getElementById('eventsContainer').style.display = 'none';
+// ========== DARK MODE ==========
+function toggleDark(){
+  document.documentElement.classList.toggle('dark');
+  try{localStorage.setItem('ebsas-dark',document.documentElement.classList.contains('dark'))}catch(e){}
+  if(map){
+    map.eachLayer(l=>{if(l._url)map.removeLayer(l)});
+    const isDark=document.documentElement.classList.contains('dark');
+    L.tileLayer(isDark
+      ?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+      :'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      {attribution:'&copy; OSM &copy; CARTO',maxZoom:19}).addTo(map);
   }
 }
+try{if(localStorage.getItem('ebsas-dark')==='true')document.documentElement.classList.add('dark')}catch(e){}
 
-// Initial render
-filterEvents();
+// ========== AUTO-UPDATE (every minute check, daily recalc) ==========
+setInterval(()=>{
+  document.getElementById('updateTime').textContent=fmtUpdate();
+  renderAll();
+},60000);
+
+// ========== INIT ==========
+renderAll();
+renderLugares();
 </script>
-
 </body>
 </html>
