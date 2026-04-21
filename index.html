@@ -41,6 +41,7 @@ header{background:var(--header-bg);height:62px;display:flex;align-items:center;p
 nav{display:flex;gap:2px;margin-left:32px}
 nav button{background:none;border:none;color:var(--header-text);opacity:.65;font-size:13.5px;font-weight:600;padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s}
 nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
+.nav-icon{display:none}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
 .dark-toggle{width:40px;height:24px;border-radius:12px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:all .3s}
 .dark-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .3s}
@@ -183,17 +184,156 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
 .update-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-light);color:var(--green);font-size:11px;font-weight:600;padding:5px 12px;border-radius:10px;margin-bottom:18px}
 .update-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  header{padding:0 14px}
+/* ===== RESPONSIVE: TABLET ===== */
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .lugar-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ===== RESPONSIVE: MOBILE ===== */
+@media(max-width:640px){
+  /* HEADER — bottom nav on mobile */
+  header{
+    height:56px;
+    padding:0 12px;
+    justify-content:space-between;
+  }
+  .logo{gap:8px}
+  .logo-icon{width:30px;height:30px;font-size:15px;border-radius:8px}
   .logo span{font-size:15px}
-  nav{margin-left:14px;gap:0}
-  nav button{padding:6px 10px;font-size:12px}
+  nav{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:var(--header-bg);
+    margin:0;
+    height:56px;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:999;
+    box-shadow:0 -2px 12px rgba(0,0,0,.2);
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  nav button{
+    flex:1;
+    padding:8px 0;
+    font-size:11px;
+    border-radius:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+  }
+  nav button.active{background:rgba(255,255,255,.08)}
+  .nav-icon{display:block}
   .dark-label{display:none}
-  .filters{flex-direction:column;align-items:stretch}
-  .grid,.lugar-grid{grid-template-columns:1fr}
-  #mapSection .map-box{height:400px}
-  .modal-body{padding:20px}
+  .header-right{gap:8px}
+  .dark-toggle{width:36px;height:20px}
+  .dark-toggle::after{width:14px;height:14px;top:1px;left:1px}
+  .dark .dark-toggle::after{transform:translateX(16px)}
+  body{padding-bottom:60px}
+
+  /* PAGE SECTIONS */
+  .page-section{padding:16px 14px}
+
+  /* UPDATE BADGE */
+  .update-badge{font-size:10px;padding:4px 10px;margin-bottom:14px}
+
+  /* FILTERS */
+  .filters{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+  }
+  .search-wrap{min-width:auto}
+  .search-wrap input{padding:10px 14px 10px 38px;font-size:13px;border-radius:10px}
+  .sel{width:100%;padding:10px 34px 10px 12px;font-size:13px;border-radius:10px}
+  .view-btns{align-self:stretch;display:flex}
+  .view-btns button{flex:1;padding:10px;font-size:12px}
+
+  /* STORIES */
+  .stories{gap:10px;margin-bottom:18px;padding-bottom:4px}
+  .story-ring{width:56px;height:56px}
+  .story-inner{font-size:22px}
+  .story span{font-size:9.5px;max-width:58px}
+
+  /* SECTION HEADERS */
+  .sec-head{margin-bottom:12px;flex-wrap:wrap;gap:4px}
+  .sec-head h2{font-size:17px}
+  .sec-head .cnt{font-size:12px}
+
+  /* EVENT GRID */
+  .grid{grid-template-columns:1fr;gap:14px;margin-bottom:24px}
+  .card-img{height:130px}
+  .card-img span{font-size:40px}
+  .card-body{padding:12px 14px 14px}
+  .card-body h3{font-size:14px}
+  .card-date,.card-loc{font-size:12px}
+  .card-foot{gap:6px;padding-top:8px}
+  .act-btn{width:32px;height:32px}
+  .ticket-link{font-size:10.5px;padding:5px 11px}
+  .tag{font-size:9.5px;padding:2px 7px}
+
+  /* MAP */
+  #mapSection .map-box{height:calc(100vh - 140px);min-height:350px;border-radius:12px}
+
+  /* LEAFLET POPUPS */
+  .leaflet-popup-content-wrapper{max-width:280px!important;border-radius:12px!important}
+  .leaflet-popup-content{margin:10px 14px!important;font-size:12px!important}
+  .leaflet-popup-content .popup-place-name{font-size:14px}
+  .leaflet-popup-content .popup-ev-item{padding:6px 0;gap:6px}
+  .leaflet-popup-content .popup-ev-emoji{font-size:16px}
+  .leaflet-popup-content .popup-ev-title{font-size:11.5px}
+  .popup-directions-btn{padding:8px;font-size:12px}
+  .popup-dir-option{padding:9px 12px;font-size:12px}
+
+  /* LUGARES */
+  .lugar-grid{grid-template-columns:1fr;gap:12px}
+  .lugar-top{height:80px;font-size:34px}
+  .lugar-body{padding:12px 14px}
+  .lugar-body h3{font-size:14px}
+
+  /* INFO */
+  #infoSection .info-hero{padding:28px 20px;border-radius:14px}
+  #infoSection .info-hero h1{font-size:24px}
+  #infoSection .info-hero p{font-size:13px}
+  .info-grid{grid-template-columns:1fr;gap:12px}
+  .info-card{padding:18px;border-radius:14px}
+  .info-card h3{font-size:14px}
+  .info-card p{font-size:12.5px}
+
+  /* MODAL */
+  .modal{width:96%;max-width:none;border-radius:16px;max-height:90vh}
+  .modal-close{top:10px;right:10px;width:32px;height:32px;font-size:17px}
+  .modal-banner{height:110px;font-size:50px}
+  .modal-body{padding:18px 18px 22px}
+  .modal-body h2{font-size:18px;margin-bottom:10px}
+  .modal-row{font-size:12.5px;gap:8px;margin-bottom:8px}
+  .modal-row svg{width:14px;height:14px}
+  .modal-desc{font-size:13px;line-height:1.6;margin-top:12px;padding-top:12px}
+  .modal-ticket{padding:12px;font-size:13.5px;border-radius:10px}
+  .modal-mapbtn{padding:10px;font-size:13px;border-radius:10px}
+
+  /* FOOTER */
+  footer{padding:20px 14px 76px;font-size:11.5px}
+  footer a{margin:0 8px;font-size:12px}
+}
+
+/* ===== RESPONSIVE: VERY SMALL ===== */
+@media(max-width:360px){
+  .logo span{font-size:13px}
+  .logo-icon{width:26px;height:26px;font-size:13px}
+  header{height:50px;padding:0 10px}
+  nav{height:50px}
+  nav button{font-size:10px}
+  body{padding-bottom:54px}
+  .page-section{padding:12px 10px}
+  .card-img{height:110px}
+  .card-img span{font-size:34px}
+  .modal{width:98%}
+  .modal-body{padding:14px}
+  footer{padding-bottom:68px}
 }
 </style>
 </head>
@@ -205,10 +345,10 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
     <span>EventosBsAs</span>
   </a>
   <nav id="mainNav">
-    <button class="active" onclick="showSection('eventos')">Eventos</button>
-    <button onclick="showSection('mapa')">Mapa</button>
-    <button onclick="showSection('lugares')">Lugares</button>
-    <button onclick="showSection('info')">Info</button>
+    <button class="active" onclick="showSection('eventos')"><svg class="nav-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Eventos</button>
+    <button onclick="showSection('mapa')"><svg class="nav-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Mapa</button>
+    <button onclick="showSection('lugares')"><svg class="nav-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Lugares</button>
+    <button onclick="showSection('info')"><svg class="nav-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Info</button>
   </nav>
   <div class="header-right">
     <span class="dark-label">Modo oscuro</span>
@@ -235,9 +375,9 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
       <option value="festival">Festivales</option>
     </select>
     <select class="sel" id="timeFilter" onchange="renderAll()">
-      <option value="all">Todos</option>
+      <option value="all" selected>Todos</option>
       <option value="3">Proximos 3 dias</option>
-      <option value="7" selected>Esta semana</option>
+      <option value="7">Esta semana</option>
       <option value="15">Proximos 15 dias</option>
       <option value="30">Este mes</option>
     </select>
@@ -270,7 +410,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
       <option value="teatro">Teatros</option>
       <option value="centro cultural">Centros Culturales</option>
       <option value="estadio">Estadios y Arenas</option>
-      <option value="galeria">Galerias</option>
+      <option value="galeria">Galerias y Ferias</option>
     </select>
   </div>
   <div class="lugar-grid" id="lugaresGrid"></div>
@@ -371,7 +511,23 @@ const events=[
 {id:15,title:"Noche de la Ciudad – Feria del Libro",cat:"festival",catLabel:"Festival",date:"2026-04-25",dateEnd:"2026-04-25",dateLabel:"25 abr",time:"20:00 a 00:00 (gratis)",loc:"La Rural, Predio Ferial",addr:"Av. Sarmiento 2704, Palermo",barrio:"Palermo",lat:-34.5745,lng:-58.4214,desc:"Noche especial con entrada gratuita desde las 20hs. Espectaculo y recital al aire libre en el marco de la Feria del Libro.",price:"Gratis",emoji:"🌙",grad:"linear-gradient(135deg,#1a237e,#3f51b5)",link:"https://www.feriadellibro.ar/",linkLabel:"Info en feriadellibro.ar"},
 {id:16,title:"Megadeth – Gira Final",cat:"musica",catLabel:"Musica",date:"2026-04-30",dateEnd:"2026-04-30",dateLabel:"30 abr",time:"21:00hs",loc:"Movistar Arena",addr:"Humboldt 450, Villa Crespo",barrio:"Villa Crespo",lat:-34.5960,lng:-58.4386,desc:"Megadeth llega con su gira final. Noche historica de thrash metal.",price:"Con entrada",emoji:"🤘",grad:"linear-gradient(135deg,#1a1a1a,#555)",link:"https://www.movistararena.com.ar/show/megadeth/",linkLabel:"Entradas en movistararena.com.ar"},
 {id:17,title:"Tapeando Buenos Aires",cat:"gastronomia",catLabel:"Gastronomia",date:"2026-04-03",dateEnd:"2026-04-12",dateLabel:"3–12 abr",time:"Horario de cada restaurante",loc:"50+ restaurantes de CABA",addr:"Sedes varias",barrio:"Varios barrios",lat:-34.6037,lng:-58.3816,desc:"Mas de 50 restaurantes ofrecen tapas al estilo espanol. Un recorrido gastronomico por toda la ciudad.",price:"Consumicion",emoji:"🍷",grad:"linear-gradient(135deg,#8e44ad,#e74c3c)",link:"https://turismo.buenosaires.gob.ar/es/eventos",linkLabel:"Info en turismo.buenosaires.gob.ar"},
-{id:18,title:"MALBA: Fernanda Laguna",cat:"arte",catLabel:"Arte",date:"2026-03-15",dateEnd:"2026-07-13",dateLabel:"Hasta 13 jul",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Mi corazon es un iman. Muestra de Fernanda Laguna en el marco del 25 aniversario del MALBA.",price:"Con entrada",emoji:"💖",grad:"linear-gradient(135deg,#ff6b81,#ff4757)",link:"https://malba.org.ar/",linkLabel:"Entradas en malba.org.ar"}
+{id:18,title:"MALBA: Fernanda Laguna",cat:"arte",catLabel:"Arte",date:"2026-03-15",dateEnd:"2026-07-13",dateLabel:"Hasta 13 jul",time:"12–20hs (Jue a Lun)",loc:"MALBA",addr:"Av. Figueroa Alcorta 3415, Palermo",barrio:"Palermo",lat:-34.5774,lng:-58.4039,desc:"Mi corazon es un iman. Muestra de Fernanda Laguna en el marco del 25 aniversario del MALBA.",price:"Con entrada",emoji:"💖",grad:"linear-gradient(135deg,#ff6b81,#ff4757)",link:"https://malba.org.ar/",linkLabel:"Entradas en malba.org.ar"},
+{id:19,title:"Cavalleria Rusticana / Pagliacci",cat:"musica",catLabel:"Musica",date:"2026-04-22",dateEnd:"2026-05-03",dateLabel:"22 abr – 3 may",time:"20:00hs",loc:"Teatro Colon",addr:"Cerrito 628, Microcentro",barrio:"Microcentro",lat:-34.6011,lng:-58.3833,desc:"Opera doble en el Teatro Colon: Cavalleria Rusticana de Mascagni y Pagliacci de Leoncavallo. Temporada lirica 2026.",price:"Con entrada",emoji:"🎶",grad:"linear-gradient(135deg,#d4af37,#8B6914)",link:"https://teatrocolon.org.ar/es/calendar",linkLabel:"Entradas en teatrocolon.org.ar"},
+{id:20,title:"Orquesta Filarmonica de Buenos Aires",cat:"musica",catLabel:"Musica",date:"2026-04-24",dateEnd:"2026-04-24",dateLabel:"24 abr",time:"20:00hs",loc:"Teatro Colon",addr:"Cerrito 628, Microcentro",barrio:"Microcentro",lat:-34.6011,lng:-58.3833,desc:"Concierto sinfonico de la Orquesta Filarmonica de Buenos Aires en la sala principal del Teatro Colon.",price:"Con entrada",emoji:"🎻",grad:"linear-gradient(135deg,#b8860b,#d4af37)",link:"https://teatrocolon.org.ar/es/calendar",linkLabel:"Entradas en teatrocolon.org.ar"},
+{id:21,title:"Hairspray, el Musical",cat:"teatro",catLabel:"Teatro",date:"2026-05-06",dateEnd:"2026-07-31",dateLabel:"Desde 6 may",time:"20:30hs (Mie-Sab) · 19:30hs (Dom)",loc:"Teatro Coliseo",addr:"Marcelo T. de Alvear 1125, Centro",barrio:"Centro",lat:-34.5959,lng:-58.3862,desc:"Estreno de Hairspray, el musical de Broadway, en version argentina con gran elenco. Produccion de Ozono Producciones.",price:"Con entrada",emoji:"💇",grad:"linear-gradient(135deg,#e91e63,#ff5722)",link:"https://www.plateanet.com/",linkLabel:"Entradas en Plateanet"},
+{id:22,title:"Annie, el Musical",cat:"teatro",catLabel:"Teatro",date:"2026-03-19",dateEnd:"2026-06-30",dateLabel:"En cartelera · Jue–Dom",time:"20:00hs (Jue-Sab) · 17:00hs (Dom)",loc:"Teatro Broadway",addr:"Av. Corrientes 1155, Centro",barrio:"Centro",lat:-34.6040,lng:-58.3845,desc:"El clasico musical Annie llega a la calle Corrientes. Produccion familiar con elenco argentino de primer nivel.",price:"Con entrada",emoji:"👧",grad:"linear-gradient(135deg,#ff6f00,#ffab00)",link:"https://www.plateanet.com/",linkLabel:"Entradas en Plateanet"},
+{id:23,title:"Billy Elliot, el Musical",cat:"teatro",catLabel:"Teatro",date:"2026-05-27",dateEnd:"2026-08-31",dateLabel:"Desde 27 may",time:"20:30hs (Mie-Sab) · 18:00hs (Dom)",loc:"Teatro Opera",addr:"Av. Corrientes 860, Centro",barrio:"Centro",lat:-34.6046,lng:-58.3808,desc:"El aclamado musical de Elton John y Lee Hall debuta en Buenos Aires. Historia del hijo de un minero que suena con ser bailarin.",price:"Con entrada",emoji:"💃",grad:"linear-gradient(135deg,#1565c0,#42a5f5)",link:"https://www.plateanet.com/",linkLabel:"Entradas en Plateanet"},
+{id:24,title:"Penumbra: Dia Art Foundation",cat:"arte",catLabel:"Arte",date:"2026-03-28",dateEnd:"2026-08-02",dateLabel:"28 mar – 2 ago",time:"Mar–Dom 11–19hs",loc:"Fundacion Proa",addr:"Av. Pedro de Mendoza 1929, La Boca",barrio:"La Boca",lat:-34.6365,lng:-58.3635,desc:"Exposicion del artista Robert Irwin en colaboracion con la Dia Art Foundation de Nueva York. Instalacion inmersiva de luz y percepcion.",price:"Con entrada",emoji:"🌑",grad:"linear-gradient(135deg,#212121,#616161)",link:"https://proa.org/",linkLabel:"Entradas en proa.org"},
+{id:25,title:"PROA21: Nazareno Pereyra",cat:"arte",catLabel:"Arte",date:"2026-04-10",dateEnd:"2026-06-28",dateLabel:"10 abr – 28 jun",time:"Mar–Dom 11–19hs",loc:"Fundacion Proa",addr:"Av. Pedro de Mendoza 1929, La Boca",barrio:"La Boca",lat:-34.6365,lng:-58.3635,desc:"Exposicion del artista argentino Nazareno Pereyra en el espacio PROA21. Arte contemporaneo emergente.",price:"Con entrada",emoji:"🎨",grad:"linear-gradient(135deg,#4a148c,#9c27b0)",link:"https://proa.org/",linkLabel:"Info en proa.org"},
+{id:26,title:"LA LOM en Konex",cat:"musica",catLabel:"Musica",date:"2026-04-25",dateEnd:"2026-04-25",dateLabel:"25 abr",time:"20:00hs",loc:"Ciudad Cultural Konex",addr:"Sarmiento 3131, Abasto",barrio:"Abasto",lat:-34.6044,lng:-58.4115,desc:"La Lom presenta su cumbia psicodelica en la Ciudad Cultural Konex. Noche de baile y ritmos urbanos.",price:"Con entrada",emoji:"🪘",grad:"linear-gradient(135deg,#ff6d00,#ff9100)",link:"https://www.cckonex.org/",linkLabel:"Entradas en cckonex.org"},
+{id:27,title:"Los Mirlos en Konex",cat:"musica",catLabel:"Musica",date:"2026-04-29",dateEnd:"2026-04-29",dateLabel:"29 abr",time:"21:00hs",loc:"Ciudad Cultural Konex",addr:"Sarmiento 3131, Abasto",barrio:"Abasto",lat:-34.6044,lng:-58.4115,desc:"Los Mirlos, leyendas de la cumbia amazonica peruana, en vivo en Ciudad Cultural Konex.",price:"Con entrada",emoji:"🌴",grad:"linear-gradient(135deg,#00c853,#64dd17)",link:"https://www.cckonex.org/",linkLabel:"Entradas en cckonex.org"},
+{id:28,title:"Jacques Bedel: Fragmentaciones",cat:"arte",catLabel:"Arte",date:"2026-04-10",dateEnd:"2026-06-15",dateLabel:"10 abr – 15 jun",time:"Mar–Vie 13:30–22hs · S-D 11:15–22hs",loc:"Centro Cultural Recoleta",addr:"Junin 1930, Recoleta",barrio:"Recoleta",lat:-34.5878,lng:-58.3935,desc:"Retrospectiva del artista argentino Jacques Bedel. Esculturas, dibujos y maquetas que exploran la fragmentacion del espacio.",price:"Gratis",emoji:"🔷",grad:"linear-gradient(135deg,#546e7a,#90a4ae)",link:"https://www.ccrecoleta.gob.ar/",linkLabel:"Info en ccrecoleta.gob.ar"},
+{id:29,title:"Miranda Lopez Cuarteto – Jazz en Recoleta",cat:"musica",catLabel:"Musica",date:"2026-04-26",dateEnd:"2026-04-26",dateLabel:"26 abr",time:"20:00hs",loc:"Centro Cultural Recoleta",addr:"Junin 1930, Recoleta",barrio:"Recoleta",lat:-34.5878,lng:-58.3935,desc:"Noche de jazz en el Centro Cultural Recoleta. Miranda Lopez Cuarteto presenta composiciones originales y clasicos del jazz contemporaneo.",price:"Gratis",emoji:"🎷",grad:"linear-gradient(135deg,#1a237e,#5c6bc0)",link:"https://www.ccrecoleta.gob.ar/",linkLabel:"Info en ccrecoleta.gob.ar"},
+{id:30,title:"Otono Tango en Palacio Libertad",cat:"musica",catLabel:"Musica",date:"2026-04-30",dateEnd:"2026-04-30",dateLabel:"30 abr",time:"20:00hs",loc:"Palacio Libertad (ex CCK)",addr:"Sarmiento 151, Centro",barrio:"Microcentro",lat:-34.6020,lng:-58.3688,desc:"Ciclo Otono Tango: orquesta tipica en vivo con milonga abierta al publico en el Salon de Honor del Palacio Libertad.",price:"Gratis",emoji:"💃",grad:"linear-gradient(135deg,#b71c1c,#e53935)",link:"https://palaciolibertad.gob.ar/agenda/",linkLabel:"Reservar en palaciolibertad.gob.ar"},
+{id:31,title:"Temer Partir",cat:"teatro",catLabel:"Teatro",date:"2026-04-07",dateEnd:"2026-06-30",dateLabel:"Lunes 21hs",time:"Lunes 21:00hs",loc:"NUN Teatro Bar",addr:"Juan Ramirez de Velasco 419, Villa Crespo",barrio:"Villa Crespo",lat:-34.5988,lng:-58.4362,desc:"Obra de teatro independiente en NUN Teatro Bar. Drama contemporaneo argentino sobre vinculos y despedidas.",price:"Con entrada",emoji:"🎭",grad:"linear-gradient(135deg,#4e342e,#8d6e63)",link:"https://www.alternativateatral.com/",linkLabel:"Entradas en alternativateatral.com"},
+{id:32,title:"Feria de San Telmo",cat:"festival",catLabel:"Festival",date:"2026-04-05",dateEnd:"2026-12-27",dateLabel:"Domingos 10–17hs",time:"Domingos 10:00–17:00hs",loc:"Plaza Dorrego y alrededores",addr:"Defensa y Humberto 1, San Telmo",barrio:"San Telmo",lat:-34.6215,lng:-58.3717,desc:"La historica Feria de San Telmo, todos los domingos. Antiguedades, artesanias, tango callejero y gastronomia en el corazon del barrio mas bohemio de Buenos Aires.",price:"Gratis",emoji:"🛍️",grad:"linear-gradient(135deg,#795548,#a1887f)",link:"https://turismo.buenosaires.gob.ar/es/otros-establecimientos/feria-de-san-telmo",linkLabel:"Info en turismo.buenosaires.gob.ar"},
+{id:33,title:"Feria Plaza Francia",cat:"festival",catLabel:"Festival",date:"2026-04-04",dateEnd:"2026-12-27",dateLabel:"Sabados y domingos",time:"Sab–Dom 11:00–18:00hs",loc:"Plaza Francia",addr:"Av. del Libertador y Av. Pueyrredon, Recoleta",barrio:"Recoleta",lat:-34.5853,lng:-58.3930,desc:"Feria artesanal de Recoleta al aire libre, junto al Cementerio y el Centro Cultural Recoleta. Artesanias, disenadores independientes y gastronomia.",price:"Gratis",emoji:"🎪",grad:"linear-gradient(135deg,#689f38,#9ccc65)",link:"https://turismo.buenosaires.gob.ar/",linkLabel:"Info en turismo.buenosaires.gob.ar"},
+{id:34,title:"Los Mirlos en C Art Media",cat:"musica",catLabel:"Musica",date:"2026-04-12",dateEnd:"2026-04-12",dateLabel:"12 abr",time:"22:00hs",loc:"C Art Media",addr:"Av. Corrientes 6271, Chacarita",barrio:"Chacarita",lat:-34.5947,lng:-58.4553,desc:"Los Mirlos, legendaria banda de cumbia amazonica peruana, en C Art Media. Noche tropical de pura selva.",price:"Con entrada",emoji:"🌴",grad:"linear-gradient(135deg,#1b5e20,#4caf50)",link:"https://cartmedia.com.ar/",linkLabel:"Entradas en cartmedia.com.ar"}
 ];
 
 // ========== LUGARES ==========
@@ -392,7 +548,16 @@ const lugares=[
 {name:"Teatro San Martin",addr:"Av. Corrientes 1530",barrio:"Centro",tipo:"teatro",emoji:"🎭",grad:"linear-gradient(135deg,#34495e,#2c3e50)",lat:-34.6042,lng:-58.3883},
 {name:"Club Social 911",addr:"Rodriguez Pena 911",barrio:"Recoleta",tipo:"galeria",emoji:"🎵",grad:"linear-gradient(135deg,#27ae60,#f1c40f)",lat:-34.5989,lng:-58.3955},
 {name:"Museo Evita",addr:"Lafinur 2988",barrio:"Palermo",tipo:"museo",emoji:"🌹",grad:"linear-gradient(135deg,#e91e63,#ad1457)",lat:-34.5798,lng:-58.4099},
-{name:"Teatro Cervantes",addr:"Libertad 815",barrio:"Centro",tipo:"teatro",emoji:"📜",grad:"linear-gradient(135deg,#8d6e63,#5d4037)",lat:-34.6007,lng:-58.3861}
+{name:"Teatro Cervantes",addr:"Libertad 815",barrio:"Centro",tipo:"teatro",emoji:"📜",grad:"linear-gradient(135deg,#8d6e63,#5d4037)",lat:-34.6007,lng:-58.3861},
+{name:"Teatro Coliseo",addr:"Marcelo T. de Alvear 1125",barrio:"Centro",tipo:"teatro",emoji:"🎭",grad:"linear-gradient(135deg,#ad1457,#d81b60)",lat:-34.5959,lng:-58.3862},
+{name:"Teatro Broadway",addr:"Av. Corrientes 1155",barrio:"Centro",tipo:"teatro",emoji:"🌟",grad:"linear-gradient(135deg,#ff6f00,#ffab00)",lat:-34.6040,lng:-58.3845},
+{name:"Teatro Opera",addr:"Av. Corrientes 860",barrio:"Centro",tipo:"teatro",emoji:"🎶",grad:"linear-gradient(135deg,#1565c0,#42a5f5)",lat:-34.6046,lng:-58.3808},
+{name:"Fundacion Proa",addr:"Av. Pedro de Mendoza 1929",barrio:"La Boca",tipo:"museo",emoji:"🌊",grad:"linear-gradient(135deg,#0d47a1,#1976d2)",lat:-34.6365,lng:-58.3635},
+{name:"Ciudad Cultural Konex",addr:"Sarmiento 3131",barrio:"Abasto",tipo:"centro cultural",emoji:"🔥",grad:"linear-gradient(135deg,#ff6d00,#ff9100)",lat:-34.6044,lng:-58.4115},
+{name:"C Art Media",addr:"Av. Corrientes 6271",barrio:"Chacarita",tipo:"estadio",emoji:"🎵",grad:"linear-gradient(135deg,#1b5e20,#4caf50)",lat:-34.5947,lng:-58.4553},
+{name:"NUN Teatro Bar",addr:"Juan Ramirez de Velasco 419",barrio:"Villa Crespo",tipo:"teatro",emoji:"🍸",grad:"linear-gradient(135deg,#4e342e,#8d6e63)",lat:-34.5988,lng:-58.4362},
+{name:"Plaza Dorrego (Feria de San Telmo)",addr:"Defensa y Humberto 1",barrio:"San Telmo",tipo:"galeria",emoji:"🛍️",grad:"linear-gradient(135deg,#795548,#a1887f)",lat:-34.6215,lng:-58.3717},
+{name:"Plaza Francia",addr:"Av. del Libertador y Av. Pueyrredon",barrio:"Recoleta",tipo:"galeria",emoji:"🎪",grad:"linear-gradient(135deg,#689f38,#9ccc65)",lat:-34.5853,lng:-58.3930}
 ];
 
 // ========== FILTERING ==========
