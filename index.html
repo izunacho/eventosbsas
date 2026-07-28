@@ -15,9 +15,10 @@
 <meta name="twitter:title" content="EventosBsAs — Agenda Cultural de Capital Federal"/>
 <meta name="twitter:description" content="Agenda cultural de Buenos Aires con mapa interactivo, filtros y links a entradas oficiales."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <style>
 :root{
   --bg:#f5f0eb;--bg2:#fff;--bg3:#f0ebe4;--text:#2d2a26;--text2:#6b6560;--text3:#9e9590;
@@ -483,7 +484,7 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
 
 <script>
 // ========== TODAY (auto-updates) ==========
-const TODAY = new Date();
+let TODAY = new Date();
 TODAY.setHours(0,0,0,0);
 
 function fmtUpdate(){
@@ -735,7 +736,7 @@ function renderAll(){
 
 function renderStories(list){
   document.getElementById('stories').innerHTML=list.slice(0,20).map(ev=>`
-    <div class="story" onclick="openModal(${ev.id})">
+    <div class="story" tabindex="0" role="button" onclick="openModal(${ev.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal(${ev.id})}">
       <div class="story-ring"><div class="story-inner">${ev.emoji}</div></div>
       <span>${ev.title.length>10?ev.title.slice(0,10)+'...':ev.title}</span>
     </div>`).join('');
@@ -762,7 +763,7 @@ function section(title,arr){
 function card(ev){
   const r=relDate(ev);
   const tag=ev.price==='Gratis'?'<span class="tag tag-free">Gratis</span>':'<span class="tag tag-paid">'+ev.price+'</span>';
-  return `<div class="card" onclick="openModal(${ev.id})">
+  return `<div class="card" tabindex="0" role="button" onclick="openModal(${ev.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openModal(${ev.id})}">
     <div class="card-img" style="background:${ev.grad}"><span>${ev.emoji}</span>
       <span class="card-cat">${ev.catLabel}</span>
       <span class="card-status ${r.cls}">${r.text}</span>
@@ -799,8 +800,13 @@ function openModal(id){
     ${ev.link?`<a class="modal-ticket" href="${ev.link}" target="_blank" rel="noopener"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M15 5l-1.42 1.42a1 1 0 000 1.41l3.17 3.17a2 2 0 010 2.83l-2.83 2.83a2 2 0 01-2.83 0l-3.17-3.17a1 1 0 00-1.41 0L5 15"/><path d="M9 19l1.42-1.42a1 1 0 000-1.41L7.25 13a2 2 0 010-2.83L10.08 7.34a2 2 0 012.83 0l3.17 3.17a1 1 0 001.41 0L19 9"/></svg>${ev.linkLabel}</a>`:''}
     <button class="modal-mapbtn" onclick="event.stopPropagation();closeModal();showSection('mapa');flyTo(${ev.lat},${ev.lng},'${ev.title.replace(/'/g,"\\'")}');">📍 Ver en el mapa</button>`;
   document.getElementById('overlay').classList.add('show');
+  document.querySelector('.modal-close').focus();
 }
 function closeModal(){document.getElementById('overlay').classList.remove('show')}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('overlay').classList.contains('show')) closeModal();
+});
 
 function shareEv(id){
   const ev=events.find(e=>e.id===id);
@@ -849,7 +855,7 @@ function buildPlacePopup(name,addr,barrio,tipo,lat,lng,emoji){
       const r=relDate(ev);
       const tagCls=ev.price==='Gratis'||ev.price==='Gratis con reserva'?'background:#eafaf0;color:#2a9d5c':'background:#fef0ec;color:#e05a33';
       evListHTML+=`
-        <li class="popup-ev-item" onclick="closeAllPopups();openModal(${ev.id})">
+        <li class="popup-ev-item" tabindex="0" role="button" onclick="closeAllPopups();openModal(${ev.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();closeAllPopups();openModal(${ev.id})}">
           <span class="popup-ev-emoji">${ev.emoji}</span>
           <div class="popup-ev-info">
             <div class="popup-ev-title">${ev.title}</div>
@@ -878,7 +884,7 @@ function buildEventPopup(ev){
     <div class="popup-place-name">${ev.emoji} ${ev.title}</div>
     <div class="popup-place-info">${ev.loc} · ${ev.barrio}</div>
     <ul class="popup-ev-list">
-      <li class="popup-ev-item" onclick="closeAllPopups();openModal(${ev.id})" style="border:none">
+      <li class="popup-ev-item" tabindex="0" role="button" onclick="closeAllPopups();openModal(${ev.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();closeAllPopups();openModal(${ev.id})}" style="border:none">
         <div class="popup-ev-info">
           <div class="popup-ev-date">${ev.dateLabel} · ${ev.time.split('·')[0].trim()}</div>
           <span class="popup-ev-tag" style="${tagCls}">${r.text} · ${ev.price}</span>
@@ -951,7 +957,7 @@ function renderLugares(){
   document.getElementById('lugaresCount').innerHTML=`<b>${f.length}</b> lugar${f.length!==1?'es':''}`;
   document.getElementById('lugaresGrid').innerHTML=f.map(l=>`
     <div class="lugar-card">
-      <div class="lugar-top" style="background:${l.grad};cursor:pointer" onclick="showSection('mapa');flyTo(${l.lat},${l.lng},'${l.name.replace(/'/g,"\\'")}');">${l.emoji}</div>
+      <div class="lugar-top" style="background:${l.grad};cursor:pointer" tabindex="0" role="button" onclick="showSection('mapa');flyTo(${l.lat},${l.lng},'${l.name.replace(/'/g,"\\'")}');" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showSection('mapa');flyTo(${l.lat},${l.lng},'${l.name.replace(/'/g,"\\'")}');}">${l.emoji}</div>
       <div class="lugar-body">
         <h3>${l.name}</h3>
         <div class="lugar-addr">${l.addr}</div>
@@ -999,6 +1005,11 @@ try{if(localStorage.getItem('ebsas-dark')==='true')document.documentElement.clas
 
 // ========== AUTO-UPDATE (every minute check, daily recalc) ==========
 setInterval(()=>{
+  const now=new Date();now.setHours(0,0,0,0);
+  if(now.getTime()!==TODAY.getTime()){
+    TODAY=now;
+    document.getElementById('footerDate').textContent=_m[TODAY.getMonth()]+' '+TODAY.getFullYear();
+  }
   document.getElementById('updateTime').textContent=fmtUpdate();
   renderAll();
 },60000);
