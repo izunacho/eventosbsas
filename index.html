@@ -11,7 +11,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://izunacho.github.io/eventosbsas/"/>
 <meta property="og:title" content="EventosBsAs — Agenda Cultural de Capital Federal"/>
-<meta property="og:description" content="Descubri eventos, recitales, teatro, arte y mas en Buenos Aires. Mapa interactivo con +160 eventos y 36 lugares culturales."/>
+<meta property="og:description" content="Descubri eventos, recitales, teatro, arte y mas en Buenos Aires. Mapa interactivo con agenda actualizada y 36 lugares culturales."/>
 <meta property="og:image" content="https://izunacho.github.io/eventosbsas/assets/og-image.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
@@ -74,13 +74,13 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .filters{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;align-items:center}
 .search-wrap{flex:1;min-width:200px;position:relative}
 .search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3)}
-.search-wrap input{width:100%;padding:11px 16px 11px 42px;border:2px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;background:var(--bg2);color:var(--text);outline:none;transition:border .2s}
+.search-wrap input{width:100%;padding:11px 38px 11px 42px;border:2px solid var(--border);border-radius:12px;font-size:14px;font-family:inherit;background:var(--bg2);color:var(--text);outline:none;transition:border .2s}
 .search-wrap input:focus{border-color:var(--accent)}
+.search-clear{display:none;position:absolute;right:9px;top:50%;transform:translateY(-50%);width:22px;height:22px;border:none;border-radius:50%;background:var(--bg3);color:var(--text3);cursor:pointer;align-items:center;justify-content:center;font-size:15px;line-height:1;padding:0}
+.search-clear:hover{background:var(--accent);color:#fff}
+.search-clear.show{display:flex}
 .sel{padding:11px 34px 11px 14px;border:2px solid var(--border);border-radius:12px;font-size:13px;font-family:inherit;font-weight:500;background:var(--bg2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%239e9590' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 5h12z'/%3E%3C/svg%3E") no-repeat right 12px center;appearance:none;cursor:pointer;color:var(--text);outline:none;transition:border .2s}
 .sel:focus{border-color:var(--accent)}
-.view-btns{display:flex;border:2px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}
-.view-btns button{padding:9px 16px;border:none;background:transparent;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;color:var(--text3);transition:all .15s}
-.view-btns button.active{background:var(--accent);color:#fff}
 
 /* STORIES */
 .stories{display:flex;gap:14px;overflow-x:auto;padding-bottom:6px;margin-bottom:24px;scrollbar-width:none}
@@ -266,10 +266,8 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
     gap:8px;
   }
   .search-wrap{min-width:auto}
-  .search-wrap input{padding:10px 14px 10px 38px;font-size:13px;border-radius:10px}
+  .search-wrap input{padding:10px 36px 10px 38px;font-size:13px;border-radius:10px}
   .sel{width:100%;padding:10px 34px 10px 12px;font-size:13px;border-radius:10px}
-  .view-btns{align-self:stretch;display:flex}
-  .view-btns button{flex:1;padding:10px;font-size:12px}
 
   /* STORIES */
   .stories{gap:10px;margin-bottom:18px;padding-bottom:4px}
@@ -381,7 +379,8 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
   <div class="filters">
     <div class="search-wrap">
       <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-      <input type="text" placeholder="Buscar eventos, lugares, barrios..." id="searchInput" oninput="renderAll()" aria-label="Buscar eventos, lugares o barrios"/>
+      <input type="text" placeholder="Buscar eventos, lugares, barrios..." id="searchInput" oninput="toggleClearBtn(this);debouncedRenderAll()" aria-label="Buscar eventos, lugares o barrios"/>
+      <button type="button" class="search-clear" onclick="clearSearch('searchInput',renderAll)" aria-label="Limpiar busqueda" title="Limpiar busqueda">&#215;</button>
     </div>
     <select class="sel" id="catFilter" onchange="renderAll()" aria-label="Filtrar por categoria">
       <option value="">Todas las categorias</option>
@@ -401,10 +400,6 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
       <option value="15">Proximos 15 dias</option>
       <option value="30">Este mes</option>
     </select>
-    <div class="view-btns">
-      <button class="active" onclick="setEvView('grid',this)">Grilla</button>
-      <button onclick="setEvView('list',this)">Lista</button>
-    </div>
   </div>
   <div class="stories" id="stories"></div>
   <div id="eventsContainer"></div>
@@ -422,7 +417,8 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
   <div class="filters" style="margin-bottom:18px">
     <div class="search-wrap">
       <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-      <input type="text" placeholder="Buscar lugares..." id="lugarSearch" oninput="renderLugares()" aria-label="Buscar lugares culturales"/>
+      <input type="text" placeholder="Buscar lugares..." id="lugarSearch" oninput="toggleClearBtn(this);debouncedRenderLugares()" aria-label="Buscar lugares culturales"/>
+      <button type="button" class="search-clear" onclick="clearSearch('lugarSearch',renderLugares)" aria-label="Limpiar busqueda" title="Limpiar busqueda">&#215;</button>
     </div>
     <select class="sel" id="lugarTipo" onchange="renderLugares()" aria-label="Filtrar por tipo de lugar">
       <option value="">Todos los tipos</option>
@@ -516,17 +512,46 @@ function relDate(ev){
 function isFree(price){return price==='Gratis'||price==='Gratis con reserva';}
 function priceTagStyle(price){return isFree(price)?'background:#eafaf0;color:#2a9d5c':'background:#fef0ec;color:#e05a33';}
 
+// ========== SEARCH ==========
+function normalizeText(s){
+  return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+}
+function matchesQuery(query,fields){
+  const words=normalizeText(query).trim().split(/\s+/).filter(Boolean);
+  if(!words.length) return true;
+  const haystack=normalizeText(fields.join(' '));
+  return words.every(w=>haystack.includes(w));
+}
+function debounce(fn,ms){
+  let t;
+  return function(...args){clearTimeout(t);t=setTimeout(()=>fn.apply(this,args),ms);};
+}
+function toggleClearBtn(input){
+  const btn=input.parentElement.querySelector('.search-clear');
+  if(btn) btn.classList.toggle('show',input.value.length>0);
+}
+function clearSearch(inputId,renderFn){
+  const input=document.getElementById(inputId);
+  input.value='';
+  toggleClearBtn(input);
+  renderFn();
+  input.focus();
+}
+const debouncedRenderAll=debounce(()=>renderAll(),150);
+const debouncedRenderLugares=debounce(()=>renderLugares(),150);
+
 // ========== EVENT DATA (cargados desde data/events.json y data/lugares.json) ==========
 let events=[];
 let lugares=[];
 
 // ========== FILTERING ==========
 function getFiltered(){
-  const s=document.getElementById('searchInput').value.toLowerCase();
+  const s=document.getElementById('searchInput').value;
   const c=document.getElementById('catFilter').value;
   const t=document.getElementById('timeFilter').value;
   return events.filter(ev=>{
-    if(s&&!ev.title.toLowerCase().includes(s)&&!ev.loc.toLowerCase().includes(s)&&!ev.barrio.toLowerCase().includes(s)&&!ev.catLabel.toLowerCase().includes(s)) return false;
+    if(daysDiff(ev.dateEnd)<0) return false;
+    if(!matchesQuery(s,[ev.title,ev.loc,ev.addr,ev.barrio,ev.catLabel,ev.desc])) return false;
     if(c&&ev.cat!==c) return false;
     if(t!=='all'){
       const days=parseInt(t),ed=daysDiff(ev.dateEnd),sd=daysDiff(ev.date);
@@ -556,11 +581,9 @@ function renderEvents(list){
   const el=document.getElementById('eventsContainer');
   const live=list.filter(e=>daysDiff(e.date)<=0&&daysDiff(e.dateEnd)>=0);
   const soon=list.filter(e=>daysDiff(e.date)>0);
-  const past=list.filter(e=>daysDiff(e.dateEnd)<0);
   let h='';
   if(live.length) h+=section('En curso',live);
   if(soon.length) h+=section('Proximos',soon);
-  if(past.length) h+=section('Finalizados',past);
   if(!list.length) h='<div class="empty"><p>🔍</p><p>No se encontraron eventos</p><p>Proba con otros filtros</p></div>';
   el.innerHTML=h;
 }
@@ -756,10 +779,10 @@ function flyTo(lat,lng,title){
 
 // ========== LUGARES ==========
 function renderLugares(){
-  const s=document.getElementById('lugarSearch').value.toLowerCase();
+  const s=document.getElementById('lugarSearch').value;
   const t=document.getElementById('lugarTipo').value;
   const f=lugares.filter(l=>{
-    if(s&&!l.name.toLowerCase().includes(s)&&!l.barrio.toLowerCase().includes(s)&&!l.addr.toLowerCase().includes(s)) return false;
+    if(!matchesQuery(s,[l.name,l.barrio,l.addr,l.tipo])) return false;
     if(t&&!l.tipo.includes(t)) return false;
     return true;
   });
@@ -787,14 +810,6 @@ function showSection(name){
   document.querySelectorAll('#mainNav button')[idx[name]].classList.add('active');
   if(name==='mapa'){initMap();setTimeout(()=>map.invalidateSize(),200)}
   if(name==='lugares') renderLugares();
-}
-
-function setEvView(view,btn){
-  document.querySelectorAll('.view-btns button').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#eventsContainer .grid').forEach(grid=>{
-    grid.style.gridTemplateColumns = view==='list'?'1fr':'repeat(auto-fill,minmax(290px,1fr))';
-  });
 }
 
 // ========== DARK MODE ==========
