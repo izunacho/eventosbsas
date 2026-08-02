@@ -142,19 +142,20 @@ nav button.active{opacity:1;background:rgba(247,238,218,.12);color:var(--gold)}
 .legend-chip.off .dot{background:var(--text3)!important}
 #mapSection .map-box{width:100%;height:600px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:20px}
 #mapEl{width:100%;height:100%}
-.leaflet-popup-content-wrapper{border-radius:14px!important;font-family:'Inter',sans-serif!important;box-shadow:0 4px 20px rgba(0,0,0,.18)!important;max-width:300px!important}
+.leaflet-popup-content-wrapper{border-radius:14px!important;font-family:'Inter',sans-serif!important;box-shadow:0 4px 20px rgba(0,0,0,.18)!important;max-width:300px!important;background:#fffdf6!important;color:#1c3446!important;border:1px solid #e5d5b4}
+.leaflet-popup-tip{background:#fffdf6!important}
 .leaflet-popup-content{margin:14px 18px!important;font-size:13px!important}
-.leaflet-popup-content .popup-place-name{font-size:16px;font-weight:800;margin-bottom:2px;color:var(--text,#2d2a26)}
-.leaflet-popup-content .popup-place-info{font-size:11.5px;color:var(--text3,#9e9590);margin-bottom:8px}
-.leaflet-popup-content .popup-cat{font-size:10px;text-transform:uppercase;font-weight:700;color:var(--accent,#e05a33);letter-spacing:.5px;display:inline-block;background:var(--accent-light,#fef0ec);padding:2px 7px;border-radius:5px;margin-bottom:10px}
-.popup-official-link{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;margin-bottom:6px;border:none;background:var(--accent,#e05a33);color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;transition:all .15s}
+.leaflet-popup-content .popup-place-name{font-size:16px;font-weight:800;margin-bottom:2px;color:#1c3446}
+.leaflet-popup-content .popup-place-info{font-size:11.5px;color:#667884;margin-bottom:8px}
+.leaflet-popup-content .popup-cat{font-size:10px;text-transform:uppercase;font-weight:700;color:#b53a28;letter-spacing:.5px;display:inline-block;background:#fbe9e3;padding:2px 7px;border-radius:5px;margin-bottom:10px}
+.popup-official-link{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;margin-bottom:6px;border:none;background:#c0402d;color:#fff;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;transition:all .15s}
 .popup-official-link:hover{opacity:.9;transform:scale(1.01)}
-.popup-directions-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;border:none;background:var(--bg3,#f0ebe4);color:var(--text,#2d2a26);border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;position:relative}
+.popup-directions-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px;border:none;background:#f1e4c9;color:#1c3446;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;position:relative}
 .popup-directions-btn:hover{opacity:.85}
-.popup-dir-menu{display:none;position:absolute;bottom:calc(100% + 6px);left:0;right:0;background:var(--bg2,#fff);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.2);overflow:hidden;z-index:10}
+.popup-dir-menu{display:none;position:absolute;bottom:calc(100% + 6px);left:0;right:0;background:#fffdf6;border:1px solid #e5d5b4;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.2);overflow:hidden;z-index:10}
 .popup-dir-menu.show{display:block}
-.popup-dir-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:600;color:var(--text,#2d2a26);cursor:pointer;transition:background .12s;text-decoration:none;border:none;background:none;width:100%;font-family:'Inter',sans-serif}
-.popup-dir-option:hover{background:var(--bg3,#f0ebe4)}
+.popup-dir-option{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:600;color:#1c3446;cursor:pointer;transition:background .12s;text-decoration:none;border:none;background:none;width:100%;font-family:'Inter',sans-serif}
+.popup-dir-option:hover{background:#f1e4c9}
 .popup-dir-option img,.popup-dir-option svg{width:20px;height:20px;border-radius:4px}
 
 /* LUGARES */
@@ -691,14 +692,9 @@ function showSection(name){
 function toggleDark(){
   document.documentElement.classList.toggle('dark');
   try{localStorage.setItem('ebsas-dark',document.documentElement.classList.contains('dark'))}catch(e){}
-  if(map){
-    map.eachLayer(l=>{if(l._url)map.removeLayer(l)});
-    const isDark=document.documentElement.classList.contains('dark');
-    L.tileLayer(isDark
-      ?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-      :'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-      {attribution:'&copy; OSM &copy; CARTO',maxZoom:19}).addTo(map);
-  }
+  // El mapa queda siempre con los tiles claros: los colores de los
+  // marcadores por tipo se leen mucho mejor sobre el mapa claro que sobre
+  // uno oscuro. Los popups tambien se mantienen claros (ver CSS).
 }
 try{if(localStorage.getItem('ebsas-dark')==='true')document.documentElement.classList.add('dark')}catch(e){}
 
