@@ -6,6 +6,12 @@
 <title>EventosBsAs — Mapa de Lugares Culturales de Capital Federal</title>
 <meta name="description" content="Mapa interactivo de lugares culturales de Buenos Aires: teatros, museos, centros culturales, estadios, galerias y jazz clubs en Capital Federal, con link directo al sitio oficial de cada uno para ver su cartelera y comprar entradas."/>
 <meta name="theme-color" content="#2d2a26"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="apple-touch-icon" href="assets/icon-192.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="EventosBsAs"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%23e05a33'/><path d='M12 3.5 4 9h16z' fill='white'/><rect x='5' y='10' width='2' height='8' fill='white'/><rect x='9.33' y='10' width='2' height='8' fill='white'/><rect x='13.67' y='10' width='2' height='8' fill='white'/><rect x='18' y='10' width='2' height='8' fill='white'/><rect x='4' y='19' width='16' height='2' fill='white'/></svg>"/>
 <link rel="canonical" href="https://izunacho.github.io/eventosbsas/"/>
 <meta property="og:type" content="website"/>
@@ -136,6 +142,28 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .info-card{background:var(--bg2);border-radius:var(--radius);padding:24px;box-shadow:var(--card-shadow)}
 .info-card h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .info-card p{font-size:13.5px;color:var(--text2);line-height:1.6}
+
+/* INSTALL (PWA) */
+.install-panel{background:var(--bg2);border-radius:var(--radius);padding:28px;margin-bottom:24px;box-shadow:var(--card-shadow);border:2px solid var(--accent-light)}
+.install-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:6px}
+.install-head .install-icon{width:52px;height:52px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.install-head h2{font-size:20px;font-weight:800;margin-bottom:4px}
+.install-head p{font-size:13.5px;color:var(--text2);line-height:1.6}
+.install-cta{display:none;align-items:center;gap:10px;margin:18px 0 4px;flex-wrap:wrap}
+.install-cta.show{display:flex}
+.install-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border:none;background:var(--accent);color:#fff;border-radius:12px;font-size:14.5px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .15s}
+.install-btn:hover{background:var(--accent2);transform:scale(1.02)}
+.install-hint{font-size:12.5px;color:var(--text3)}
+.install-ok{display:none;align-items:center;gap:8px;margin-top:16px;padding:12px 16px;background:var(--green-light);color:var(--green);border-radius:12px;font-size:13.5px;font-weight:600}
+.install-ok.show{display:flex}
+.install-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px}
+.install-step{background:var(--bg3);border-radius:12px;padding:18px}
+.install-step h4{font-size:13.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.install-step ol{margin:0;padding-left:18px}
+.install-step li{font-size:12.5px;color:var(--text2);line-height:1.65;margin-bottom:5px}
+.install-step li:last-child{margin-bottom:0}
+.install-step .kbd{display:inline-block;padding:1px 6px;border-radius:5px;background:var(--bg2);border:1px solid var(--border);font-size:11.5px;font-weight:600;color:var(--text)}
+.install-note{font-size:12.5px;color:var(--text3);line-height:1.6;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
 
 /* EMPTY STATE */
 .empty{text-align:center;padding:60px 20px;color:var(--text3)}
@@ -311,6 +339,64 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
     <h1>EventosBsAs</h1>
     <p>Mapa de lugares culturales de Capital Federal. Encontra teatros, museos, centros culturales, estadios, galerias y jazz clubs, y entra directo al sitio oficial de cada uno para ver su cartelera y comprar entradas.</p>
   </div>
+  <!-- ====== INSTALAR LA APP ====== -->
+  <div class="install-panel">
+    <div class="install-head">
+      <div class="install-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 3.5 4 9h16z"/><rect x="5" y="10" width="2" height="8"/><rect x="9.33" y="10" width="2" height="8"/><rect x="13.67" y="10" width="2" height="8"/><rect x="18" y="10" width="2" height="8"/><rect x="4" y="19" width="16" height="2"/></svg>
+      </div>
+      <div>
+        <h2>Instala EventosBsAs en tu dispositivo</h2>
+        <p>Podes agregar EventosBsAs a la pantalla de inicio de tu celular o a tu computadora y usarla como una app: se abre en su propia ventana, sin barra del navegador, y funciona aunque te quedes sin conexion. No hay que descargar nada de ninguna tienda y no ocupa casi espacio.</p>
+      </div>
+    </div>
+
+    <div class="install-cta" id="installCta">
+      <button class="install-btn" id="installBtn" onclick="promptInstall()">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>
+        Instalar app
+      </button>
+      <span class="install-hint">Instalacion directa, en un toque</span>
+    </div>
+
+    <div class="install-ok" id="installOk">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></svg>
+      Ya estas usando EventosBsAs como app instalada.
+    </div>
+
+    <div class="install-steps">
+      <div class="install-step">
+        <h4>📱 Android (Chrome)</h4>
+        <ol>
+          <li>Toca el boton <b>Instalar app</b> de arriba si aparece.</li>
+          <li>Si no aparece, abri el menu <span class="kbd">⋮</span> arriba a la derecha.</li>
+          <li>Elegi <b>Instalar aplicacion</b> o <b>Agregar a pantalla principal</b>.</li>
+          <li>Confirma con <b>Instalar</b>.</li>
+        </ol>
+      </div>
+      <div class="install-step">
+        <h4>🍎 iPhone / iPad (Safari)</h4>
+        <ol>
+          <li>Abri esta pagina en <b>Safari</b> (en iPhone no funciona desde Chrome).</li>
+          <li>Toca el boton <b>Compartir</b> <span class="kbd">⬆︎</span> abajo en el centro.</li>
+          <li>Desliza y elegi <b>Agregar a inicio</b>.</li>
+          <li>Toca <b>Agregar</b> arriba a la derecha.</li>
+        </ol>
+      </div>
+      <div class="install-step">
+        <h4>💻 Computadora (Chrome / Edge)</h4>
+        <ol>
+          <li>Toca el boton <b>Instalar app</b> de arriba si aparece.</li>
+          <li>Si no, mira el icono <span class="kbd">⊕</span> al final de la barra de direcciones.</li>
+          <li>Tambien podes usar el menu <span class="kbd">⋮</span> &rarr; <b>Instalar EventosBsAs</b>.</li>
+          <li>Confirma con <b>Instalar</b>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <p class="install-note">El boton <b>Instalar app</b> solo aparece en navegadores que soportan instalacion directa (Chrome y Edge, en Android y computadora). En iPhone y iPad hay que usar los pasos de Safari. Firefox en computadora todavia no permite instalar este tipo de apps, pero la pagina funciona igual.</p>
+  </div>
+
   <div class="info-grid">
     <div class="info-card">
       <h3>🗺️ Mapa interactivo</h3>
@@ -335,6 +421,10 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
     <div class="info-card">
       <h3>📱 Responsive</h3>
       <p>La pagina se adapta a celulares, tablets y computadoras. Navega comodamente desde cualquier dispositivo.</p>
+    </div>
+    <div class="info-card">
+      <h3>📶 Funciona sin conexion</h3>
+      <p>Una vez que la visitaste, la app guarda los lugares en tu dispositivo: podes consultarlos aunque te quedes sin datos. El mapa necesita conexion para cargar las imagenes satelitales.</p>
     </div>
   </div>
 </div>
@@ -568,6 +658,53 @@ async function loadData(){
   tryInitMap();
 }
 loadData();
+
+// ========== INSTALACION (PWA) ==========
+let deferredPrompt=null;
+
+function isInstalled(){
+  return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+}
+
+function refreshInstallUI(){
+  const cta=document.getElementById('installCta');
+  const ok=document.getElementById('installOk');
+  const installed=isInstalled();
+  ok.classList.toggle('show',installed);
+  cta.classList.toggle('show',!installed&&!!deferredPrompt);
+}
+
+window.addEventListener('beforeinstallprompt',e=>{
+  // Se cancela el mini-infobar del navegador para ofrecer la instalacion
+  // desde el boton de la seccion Info.
+  e.preventDefault();
+  deferredPrompt=e;
+  refreshInstallUI();
+});
+
+async function promptInstall(){
+  if(!deferredPrompt) return;
+  deferredPrompt.prompt();
+  try{await deferredPrompt.userChoice;}catch(e){}
+  // El evento no se puede reutilizar: se descarta haya aceptado o no.
+  deferredPrompt=null;
+  refreshInstallUI();
+}
+
+window.addEventListener('appinstalled',()=>{
+  deferredPrompt=null;
+  refreshInstallUI();
+});
+
+refreshInstallUI();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(err=>{
+      console.error('No se pudo registrar el service worker:',err);
+    });
+  });
+}
 </script>
 </body>
 </html>

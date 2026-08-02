@@ -7,9 +7,12 @@ Sitio: https://izunacho.github.io/eventosbsas/
 ## Estructura del proyecto
 
 ```
-index.html            Toda la app (HTML + CSS + JS), sin build ni dependencias de npm
-data/lugares.json      Listado de lugares culturales (teatros, museos, centros culturales, etc.)
-assets/og-image.png    Imagen usada para las previsualizaciones al compartir el link (og:image / twitter:image)
+index.html               Toda la app (HTML + CSS + JS), sin build ni dependencias de npm
+data/lugares.json         Listado de lugares culturales (teatros, museos, centros culturales, etc.)
+manifest.webmanifest      Manifiesto PWA (nombre, iconos, colores) que permite instalar la app
+sw.js                     Service worker: cachea la app para que funcione sin conexion
+assets/icon-*.png         Iconos de la app instalada (192, 512 y 512 maskable)
+assets/og-image.png       Imagen para las previsualizaciones al compartir el link (og:image / twitter:image)
 robots.txt
 sitemap.xml
 ```
@@ -46,6 +49,16 @@ Editar `data/lugares.json` y agregar/modificar un objeto con estos campos:
 El mapa es la pantalla principal. Cada lugar es un marcador coloreado segun su `tipo`; al hacer click muestra nombre, direccion, un boton "Ver cartelera y entradas" (va al `link` oficial del lugar) y un boton "Como llegar" (Google Maps / Apple Maps / Waze). La seccion "Lugares" ofrece la misma informacion en formato grilla, con busqueda y filtro por tipo.
 
 La pagina no muestra una agenda de eventos propia: cada lugar es responsable de su propia cartelera, y el sitio solo linkea hacia ella.
+
+## App instalable (PWA)
+
+El sitio es una PWA: se puede instalar en el celular o en la computadora y abrirse en su propia ventana, sin barra del navegador. La seccion **Info** explica los pasos para Android, iPhone/iPad y computadora, y muestra un boton **Instalar app** cuando el navegador soporta instalacion directa (Chrome/Edge; en iOS hay que usar "Agregar a inicio" desde Safari).
+
+`sw.js` cachea la app con estrategia **network-first**: mientras hay conexion siempre se sirve la version fresca de la red, y el cache solo entra como respaldo si no hay red. Asi la app abre offline sin riesgo de quedar mostrando datos viejos.
+
+Si se cambia la estructura de archivos precacheados, conviene subir la version del cache (`const CACHE = 'eventosbsas-v1'` en `sw.js`) para que los service workers ya instalados descarten el cache anterior.
+
+Requisitos: la instalacion solo funciona sobre **HTTPS** (GitHub Pages ya lo cumple) o en `localhost`.
 
 ## Notas / pendientes conocidos
 
