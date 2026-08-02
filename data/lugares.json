@@ -55,8 +55,8 @@
     "tipo": "centro cultural",
     "emoji": "🏰",
     "grad": "linear-gradient(135deg,#2980b9,#6dd5fa)",
-    "lat": -34.602,
-    "lng": -58.3688,
+    "lat": -34.6033,
+    "lng": -58.3689,
     "link": "https://palaciolibertad.gob.ar/"
   },
   {
@@ -79,8 +79,8 @@
     "tipo": "estadio",
     "emoji": "🏟️",
     "grad": "linear-gradient(135deg,#2c3e50,#3498db)",
-    "lat": -34.596,
-    "lng": -58.4386,
+    "lat": -34.5942,
+    "lng": -58.4481,
     "link": "https://www.movistararena.com.ar/"
   },
   {
@@ -103,20 +103,20 @@
     "tipo": "centro cultural",
     "emoji": "📚",
     "grad": "linear-gradient(135deg,#8B5E3C,#C4956A)",
-    "lat": -34.5745,
-    "lng": -58.4214,
+    "lat": -34.5797,
+    "lng": -58.4222,
     "link": "https://www.larural.com.ar/"
   },
   {
     "id": "estadio-malvinas-argentinas",
     "name": "Estadio Malvinas Argentinas",
-    "addr": "Av. Directorio y Carabobo",
-    "barrio": "Parque Chacabuco",
+    "addr": "Gutenberg 350",
+    "barrio": "La Paternal",
     "tipo": "estadio",
     "emoji": "🎶",
     "grad": "linear-gradient(135deg,#f39c12,#e67e22)",
-    "lat": -34.638,
-    "lng": -58.428,
+    "lat": -34.5919,
+    "lng": -58.4716,
     "link": "https://buenosaires.gob.ar/estadio-malvinas-argentinas"
   },
   {
@@ -271,8 +271,8 @@
     "tipo": "estadio",
     "emoji": "🎵",
     "grad": "linear-gradient(135deg,#1b5e20,#4caf50)",
-    "lat": -34.5947,
-    "lng": -58.4553,
+    "lat": -34.5911,
+    "lng": -58.4491,
     "link": "https://cartmedia.com.ar/"
   },
   {
@@ -343,8 +343,8 @@
     "tipo": "museo",
     "emoji": "🧵",
     "grad": "linear-gradient(135deg,#4527a0,#7e57c2)",
-    "lat": -34.5759,
-    "lng": -58.4132,
+    "lat": -34.5716,
+    "lng": -58.4176,
     "link": "https://buenosaires.gob.ar/museosivori"
   },
   {
@@ -391,8 +391,8 @@
     "tipo": "museo",
     "emoji": "🏰",
     "grad": "linear-gradient(135deg,#0277bd,#4fc3f7)",
-    "lat": -34.5608,
-    "lng": -58.4578,
+    "lat": -34.5615,
+    "lng": -58.4545,
     "link": "https://buenosaires.gob.ar/museos/museo-larreta"
   },
   {
@@ -403,8 +403,8 @@
     "tipo": "estadio",
     "emoji": "🏟️",
     "grad": "linear-gradient(135deg,#1b5e20,#388e3c)",
-    "lat": -34.6265,
-    "lng": -58.4432,
+    "lat": -34.6188,
+    "lng": -58.4474,
     "link": "https://www.ferrocarriloeste.org.ar/"
   },
   {
@@ -422,13 +422,13 @@
   {
     "id": "bebop-club",
     "name": "Bebop Club",
-    "addr": "Moreno 364",
-    "barrio": "Monserrat",
+    "addr": "Uriarte 1658",
+    "barrio": "Palermo",
     "tipo": "jazz club",
     "emoji": "🎷",
     "grad": "linear-gradient(135deg,#1a237e,#0d47a1)",
-    "lat": -34.6118,
-    "lng": -58.3752,
+    "lat": -34.5858,
+    "lng": -58.4316,
     "link": "https://www.bebopclub.com.ar/"
   },
   {
@@ -487,8 +487,8 @@
     "tipo": "museo",
     "emoji": "🌞",
     "grad": "linear-gradient(135deg,#f57f17,#ffd54f)",
-    "lat": -34.5946,
-    "lng": -58.404,
+    "lat": -34.5938,
+    "lng": -58.4043,
     "link": "https://www.xulsolar.org.ar/"
   },
   {
@@ -595,8 +595,8 @@
     "tipo": "estadio",
     "emoji": "🌙",
     "grad": "linear-gradient(135deg,#283593,#5c6bc0)",
-    "lat": -34.6022,
-    "lng": -58.3678,
+    "lat": -34.6023,
+    "lng": -58.3686,
     "link": "https://www.lunapark.com.ar/"
   },
   {
@@ -626,14 +626,14 @@
   {
     "id": "thelonious-club",
     "name": "Thelonious Club",
-    "addr": "Jeronimo Salguero 1884",
+    "addr": "Nicaragua 5549",
     "barrio": "Palermo",
     "tipo": "jazz club",
     "emoji": "🎹",
     "grad": "linear-gradient(135deg,#1a237e,#3949ab)",
-    "lat": -34.5878,
-    "lng": -58.4125,
-    "link": "http://www.theloniousclub.com.ar/"
+    "lat": -34.5809,
+    "lng": -58.4327,
+    "link": "https://thelonious.com.ar/"
   },
   {
     "id": "virasoro-bar",
@@ -643,8 +643,8 @@
     "tipo": "jazz club",
     "emoji": "🎺",
     "grad": "linear-gradient(135deg,#4a148c,#7b1fa2)",
-    "lat": -34.5858,
-    "lng": -58.4232,
+    "lat": -34.5848,
+    "lng": -58.421,
     "link": "https://www.virasorobar.com.ar/"
   }
 ]
