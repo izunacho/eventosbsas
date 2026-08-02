@@ -7,9 +7,13 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f5f0eb",
-  "theme_color": "#2d2a26",
-  "categories": ["travel", "entertainment", "navigation"],
+  "background_color": "#f7eeda",
+  "theme_color": "#16334a",
+  "categories": [
+    "travel",
+    "entertainment",
+    "navigation"
+  ],
   "icons": [
     {
       "src": "assets/icon-192.png",

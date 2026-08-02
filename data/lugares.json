@@ -6,7 +6,7 @@
     "barrio": "Microcentro",
     "tipo": "teatro",
     "emoji": "🏛️",
-    "grad": "linear-gradient(135deg,#d4af37,#b8860b)",
+    "grad": "linear-gradient(135deg,#a13122,#d1533c)",
     "lat": -34.6011,
     "lng": -58.3833,
     "link": "https://teatrocolon.org.ar/"
@@ -18,7 +18,7 @@
     "barrio": "Palermo",
     "tipo": "museo",
     "emoji": "🖼️",
-    "grad": "linear-gradient(135deg,#1abc9c,#16a085)",
+    "grad": "linear-gradient(135deg,#245f6b,#3f97a4)",
     "lat": -34.5774,
     "lng": -58.4039,
     "link": "https://malba.org.ar/"
@@ -30,7 +30,7 @@
     "barrio": "Recoleta",
     "tipo": "museo",
     "emoji": "🖌️",
-    "grad": "linear-gradient(135deg,#bdc3c7,#95a5a6)",
+    "grad": "linear-gradient(135deg,#2e7d8a,#57b0b8)",
     "lat": -34.5836,
     "lng": -58.3935,
     "link": "https://bellasartes.gob.ar/"
@@ -42,7 +42,7 @@
     "barrio": "San Telmo",
     "tipo": "museo",
     "emoji": "🎨",
-    "grad": "linear-gradient(135deg,#6c3483,#bb8fce)",
+    "grad": "linear-gradient(135deg,#1e5561,#4a9aa6)",
     "lat": -34.6222,
     "lng": -58.3699,
     "link": "https://museomoderno.org/"
@@ -54,7 +54,7 @@
     "barrio": "Microcentro",
     "tipo": "centro cultural",
     "emoji": "🏰",
-    "grad": "linear-gradient(135deg,#2980b9,#6dd5fa)",
+    "grad": "linear-gradient(135deg,#a8761f,#dfa63f)",
     "lat": -34.6033,
     "lng": -58.3689,
     "link": "https://palaciolibertad.gob.ar/"
@@ -66,7 +66,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎭",
-    "grad": "linear-gradient(135deg,#c0392b,#e74c3c)",
+    "grad": "linear-gradient(135deg,#c0402d,#e0714f)",
     "lat": -34.6041,
     "lng": -58.387,
     "link": "https://www.plateanet.com/teatro/5?teatro=METROPOLITAN-SURA"
@@ -78,7 +78,7 @@
     "barrio": "Villa Crespo",
     "tipo": "estadio",
     "emoji": "🏟️",
-    "grad": "linear-gradient(135deg,#2c3e50,#3498db)",
+    "grad": "linear-gradient(135deg,#31684a,#4f9670)",
     "lat": -34.5942,
     "lng": -58.4481,
     "link": "https://www.movistararena.com.ar/"
@@ -90,7 +90,7 @@
     "barrio": "Palermo",
     "tipo": "estadio",
     "emoji": "🏇",
-    "grad": "linear-gradient(135deg,#27ae60,#2ecc71)",
+    "grad": "linear-gradient(135deg,#3f7d5a,#63ab83)",
     "lat": -34.5734,
     "lng": -58.4126,
     "link": "https://www.aapolo.com/"
@@ -102,7 +102,7 @@
     "barrio": "Palermo",
     "tipo": "centro cultural",
     "emoji": "📚",
-    "grad": "linear-gradient(135deg,#8B5E3C,#C4956A)",
+    "grad": "linear-gradient(135deg,#c08c2c,#edc46a)",
     "lat": -34.5797,
     "lng": -58.4222,
     "link": "https://www.larural.com.ar/"
@@ -114,7 +114,7 @@
     "barrio": "La Paternal",
     "tipo": "estadio",
     "emoji": "🎶",
-    "grad": "linear-gradient(135deg,#f39c12,#e67e22)",
+    "grad": "linear-gradient(135deg,#2a5940,#468a63)",
     "lat": -34.5919,
     "lng": -58.4716,
     "link": "https://buenosaires.gob.ar/estadio-malvinas-argentinas"
@@ -126,7 +126,7 @@
     "barrio": "Centro",
     "tipo": "centro cultural",
     "emoji": "🎪",
-    "grad": "linear-gradient(135deg,#e74c3c,#c0392b)",
+    "grad": "linear-gradient(135deg,#96661a,#d19a37)",
     "lat": -34.6046,
     "lng": -58.3908,
     "link": "https://www.complejoteatral.gob.ar/"
@@ -138,7 +138,7 @@
     "barrio": "Recoleta",
     "tipo": "centro cultural",
     "emoji": "🏛️",
-    "grad": "linear-gradient(135deg,#9b59b6,#8e44ad)",
+    "grad": "linear-gradient(135deg,#a8761f,#dfa63f)",
     "lat": -34.5878,
     "lng": -58.3935,
     "link": "https://www.ccrecoleta.gob.ar/"
@@ -150,7 +150,7 @@
     "barrio": "La Boca",
     "tipo": "centro cultural",
     "emoji": "⚡",
-    "grad": "linear-gradient(135deg,#e67e22,#d35400)",
+    "grad": "linear-gradient(135deg,#c08c2c,#edc46a)",
     "lat": -34.6354,
     "lng": -58.3608,
     "link": "https://usinadelarte.ar/"
@@ -162,7 +162,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎭",
-    "grad": "linear-gradient(135deg,#34495e,#2c3e50)",
+    "grad": "linear-gradient(135deg,#8c2b21,#c04a33)",
     "lat": -34.6042,
     "lng": -58.3883,
     "link": "https://complejoteatral.gob.ar/"
@@ -174,7 +174,7 @@
     "barrio": "Recoleta",
     "tipo": "galeria",
     "emoji": "🎵",
-    "grad": "linear-gradient(135deg,#27ae60,#f1c40f)",
+    "grad": "linear-gradient(135deg,#67325a,#95547f)",
     "lat": -34.5989,
     "lng": -58.3955,
     "link": "https://www.instagram.com/clubsocial911/"
@@ -186,7 +186,7 @@
     "barrio": "Palermo",
     "tipo": "museo",
     "emoji": "🌹",
-    "grad": "linear-gradient(135deg,#e91e63,#ad1457)",
+    "grad": "linear-gradient(135deg,#245f6b,#3f97a4)",
     "lat": -34.5798,
     "lng": -58.4099,
     "link": "https://museoevita.org.ar/"
@@ -198,7 +198,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "📜",
-    "grad": "linear-gradient(135deg,#8d6e63,#5d4037)",
+    "grad": "linear-gradient(135deg,#a13122,#d1533c)",
     "lat": -34.6007,
     "lng": -58.3861,
     "link": "https://www.teatrocervantes.gob.ar/"
@@ -210,7 +210,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎭",
-    "grad": "linear-gradient(135deg,#ad1457,#d81b60)",
+    "grad": "linear-gradient(135deg,#c0402d,#e0714f)",
     "lat": -34.5959,
     "lng": -58.3862,
     "link": "https://www.teatrocoliseo.org.ar/"
@@ -222,7 +222,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🌟",
-    "grad": "linear-gradient(135deg,#ff6f00,#ffab00)",
+    "grad": "linear-gradient(135deg,#8c2b21,#c04a33)",
     "lat": -34.604,
     "lng": -58.3845,
     "link": "https://www.plateanet.com/"
@@ -234,7 +234,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎶",
-    "grad": "linear-gradient(135deg,#1565c0,#42a5f5)",
+    "grad": "linear-gradient(135deg,#a13122,#d1533c)",
     "lat": -34.6046,
     "lng": -58.3808,
     "link": "https://www.plateanet.com/"
@@ -246,7 +246,7 @@
     "barrio": "La Boca",
     "tipo": "museo",
     "emoji": "🌊",
-    "grad": "linear-gradient(135deg,#0d47a1,#1976d2)",
+    "grad": "linear-gradient(135deg,#2e7d8a,#57b0b8)",
     "lat": -34.6365,
     "lng": -58.3635,
     "link": "https://proa.org/"
@@ -258,7 +258,7 @@
     "barrio": "Abasto",
     "tipo": "centro cultural",
     "emoji": "🔥",
-    "grad": "linear-gradient(135deg,#ff6d00,#ff9100)",
+    "grad": "linear-gradient(135deg,#96661a,#d19a37)",
     "lat": -34.6044,
     "lng": -58.4115,
     "link": "https://www.cckonex.org/"
@@ -270,7 +270,7 @@
     "barrio": "Chacarita",
     "tipo": "estadio",
     "emoji": "🎵",
-    "grad": "linear-gradient(135deg,#1b5e20,#4caf50)",
+    "grad": "linear-gradient(135deg,#31684a,#4f9670)",
     "lat": -34.5911,
     "lng": -58.4491,
     "link": "https://cartmedia.com.ar/"
@@ -282,7 +282,7 @@
     "barrio": "Villa Crespo",
     "tipo": "teatro",
     "emoji": "🍸",
-    "grad": "linear-gradient(135deg,#4e342e,#8d6e63)",
+    "grad": "linear-gradient(135deg,#c0402d,#e0714f)",
     "lat": -34.5988,
     "lng": -58.4362,
     "link": "https://www.instagram.com/nunteatrobar/"
@@ -294,7 +294,7 @@
     "barrio": "San Telmo",
     "tipo": "galeria",
     "emoji": "🛍️",
-    "grad": "linear-gradient(135deg,#795548,#a1887f)",
+    "grad": "linear-gradient(135deg,#7d3f6b,#a86b93)",
     "lat": -34.6215,
     "lng": -58.3717,
     "link": "https://turismo.buenosaires.gob.ar/es/otros-establecimientos/feria-de-san-telmo"
@@ -306,7 +306,7 @@
     "barrio": "Recoleta",
     "tipo": "galeria",
     "emoji": "🎪",
-    "grad": "linear-gradient(135deg,#689f38,#9ccc65)",
+    "grad": "linear-gradient(135deg,#572a4c,#864a72)",
     "lat": -34.5853,
     "lng": -58.393,
     "link": "https://turismo.buenosaires.gob.ar/"
@@ -318,7 +318,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "😂",
-    "grad": "linear-gradient(135deg,#ff5722,#ff9800)",
+    "grad": "linear-gradient(135deg,#8c2b21,#c04a33)",
     "lat": -34.6042,
     "lng": -58.3859,
     "link": "https://www.multiteatro.com.ar/"
@@ -330,7 +330,7 @@
     "barrio": "Colegiales",
     "tipo": "teatro",
     "emoji": "🌀",
-    "grad": "linear-gradient(135deg,#311b92,#7c4dff)",
+    "grad": "linear-gradient(135deg,#a13122,#d1533c)",
     "lat": -34.5752,
     "lng": -58.4519,
     "link": "https://caibuenosaires.com/"
@@ -342,7 +342,7 @@
     "barrio": "Palermo",
     "tipo": "museo",
     "emoji": "🧵",
-    "grad": "linear-gradient(135deg,#4527a0,#7e57c2)",
+    "grad": "linear-gradient(135deg,#1e5561,#4a9aa6)",
     "lat": -34.5716,
     "lng": -58.4176,
     "link": "https://buenosaires.gob.ar/museosivori"
@@ -354,7 +354,7 @@
     "barrio": "Microcentro",
     "tipo": "centro cultural",
     "emoji": "📚",
-    "grad": "linear-gradient(135deg,#1a237e,#3949ab)",
+    "grad": "linear-gradient(135deg,#a8761f,#dfa63f)",
     "lat": -34.5998,
     "lng": -58.375,
     "link": "https://centroculturalborges.gob.ar/"
@@ -366,7 +366,7 @@
     "barrio": "La Boca",
     "tipo": "museo",
     "emoji": "🎨",
-    "grad": "linear-gradient(135deg,#e65100,#bf360c)",
+    "grad": "linear-gradient(135deg,#245f6b,#3f97a4)",
     "lat": -34.6364,
     "lng": -58.3624,
     "link": "https://museoquinquelamartin.geco.com.ar/"
@@ -378,7 +378,7 @@
     "barrio": "Retiro",
     "tipo": "museo",
     "emoji": "📖",
-    "grad": "linear-gradient(135deg,#3e2723,#795548)",
+    "grad": "linear-gradient(135deg,#2e7d8a,#57b0b8)",
     "lat": -34.594,
     "lng": -58.3862,
     "link": "https://buenosaires.gob.ar/museofernandezblanco"
@@ -390,7 +390,7 @@
     "barrio": "Belgrano",
     "tipo": "museo",
     "emoji": "🏰",
-    "grad": "linear-gradient(135deg,#0277bd,#4fc3f7)",
+    "grad": "linear-gradient(135deg,#1e5561,#4a9aa6)",
     "lat": -34.5615,
     "lng": -58.4545,
     "link": "https://buenosaires.gob.ar/museos/museo-larreta"
@@ -402,7 +402,7 @@
     "barrio": "Caballito",
     "tipo": "estadio",
     "emoji": "🏟️",
-    "grad": "linear-gradient(135deg,#1b5e20,#388e3c)",
+    "grad": "linear-gradient(135deg,#3f7d5a,#63ab83)",
     "lat": -34.6188,
     "lng": -58.4474,
     "link": "https://www.ferrocarriloeste.org.ar/"
@@ -414,7 +414,7 @@
     "barrio": "Nunez",
     "tipo": "centro cultural",
     "emoji": "🏫",
-    "grad": "linear-gradient(135deg,#33691e,#8bc34a)",
+    "grad": "linear-gradient(135deg,#c08c2c,#edc46a)",
     "lat": -34.5413,
     "lng": -58.4419,
     "link": "https://www.uba.ar/"
@@ -426,7 +426,7 @@
     "barrio": "Palermo",
     "tipo": "jazz club",
     "emoji": "🎷",
-    "grad": "linear-gradient(135deg,#1a237e,#0d47a1)",
+    "grad": "linear-gradient(135deg,#14324a,#2c5f80)",
     "lat": -34.5858,
     "lng": -58.4316,
     "link": "https://www.bebopclub.com.ar/"
@@ -438,7 +438,7 @@
     "barrio": "Microcentro",
     "tipo": "teatro",
     "emoji": "🎩",
-    "grad": "linear-gradient(135deg,#6a1b9a,#ab47bc)",
+    "grad": "linear-gradient(135deg,#c0402d,#e0714f)",
     "lat": -34.6034,
     "lng": -58.377,
     "link": "https://maipo.com.ar/"
@@ -450,7 +450,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🌟",
-    "grad": "linear-gradient(135deg,#e65100,#ffb300)",
+    "grad": "linear-gradient(135deg,#8c2b21,#c04a33)",
     "lat": -34.6042,
     "lng": -58.3903,
     "link": "https://www.teatroastral.com.ar/"
@@ -462,7 +462,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎭",
-    "grad": "linear-gradient(135deg,#b71c1c,#ef5350)",
+    "grad": "linear-gradient(135deg,#a13122,#d1533c)",
     "lat": -34.6039,
     "lng": -58.3857,
     "link": "https://www.lolamembrives.com/"
@@ -474,7 +474,7 @@
     "barrio": "Centro",
     "tipo": "teatro",
     "emoji": "🎪",
-    "grad": "linear-gradient(135deg,#00695c,#4db6ac)",
+    "grad": "linear-gradient(135deg,#c0402d,#e0714f)",
     "lat": -34.6046,
     "lng": -58.391,
     "link": "https://www.paseolaplaza.com.ar/"
@@ -486,7 +486,7 @@
     "barrio": "Recoleta",
     "tipo": "museo",
     "emoji": "🌞",
-    "grad": "linear-gradient(135deg,#f57f17,#ffd54f)",
+    "grad": "linear-gradient(135deg,#245f6b,#3f97a4)",
     "lat": -34.5938,
     "lng": -58.4043,
     "link": "https://www.xulsolar.org.ar/"
@@ -498,7 +498,7 @@
     "barrio": "Recoleta",
     "tipo": "museo",
     "emoji": "🏺",
-    "grad": "linear-gradient(135deg,#4e342e,#a1887f)",
+    "grad": "linear-gradient(135deg,#2e7d8a,#57b0b8)",
     "lat": -34.5801,
     "lng": -58.3966,
     "link": "https://museoartedecorativo.cultura.gob.ar/"
@@ -510,7 +510,7 @@
     "barrio": "Palermo",
     "tipo": "museo",
     "emoji": "🪐",
-    "grad": "linear-gradient(135deg,#1a237e,#7986cb)",
+    "grad": "linear-gradient(135deg,#1e5561,#4a9aa6)",
     "lat": -34.5696,
     "lng": -58.4115,
     "link": "https://planetario.buenosaires.gob.ar/"
@@ -522,7 +522,7 @@
     "barrio": "San Telmo",
     "tipo": "museo",
     "emoji": "⬛",
-    "grad": "linear-gradient(135deg,#212121,#757575)",
+    "grad": "linear-gradient(135deg,#245f6b,#3f97a4)",
     "lat": -34.6221,
     "lng": -58.3696,
     "link": "https://museomacba.org/"
@@ -534,7 +534,7 @@
     "barrio": "San Telmo",
     "tipo": "museo",
     "emoji": "🗡️",
-    "grad": "linear-gradient(135deg,#5d4037,#8d6e63)",
+    "grad": "linear-gradient(135deg,#2e7d8a,#57b0b8)",
     "lat": -34.6276,
     "lng": -58.3696,
     "link": "https://museohistoriconacional.cultura.gob.ar/"
@@ -546,7 +546,7 @@
     "barrio": "Centro",
     "tipo": "centro cultural",
     "emoji": "🤝",
-    "grad": "linear-gradient(135deg,#0d47a1,#42a5f5)",
+    "grad": "linear-gradient(135deg,#96661a,#d19a37)",
     "lat": -34.6041,
     "lng": -58.3894,
     "link": "https://www.centrocultural.coop/"
@@ -558,7 +558,7 @@
     "barrio": "Villa Urquiza",
     "tipo": "centro cultural",
     "emoji": "🎬",
-    "grad": "linear-gradient(135deg,#880e4f,#ec407a)",
+    "grad": "linear-gradient(135deg,#a8761f,#dfa63f)",
     "lat": -34.5732,
     "lng": -58.485,
     "link": "https://cc25.org/"
@@ -570,7 +570,7 @@
     "barrio": "Nunez",
     "tipo": "estadio",
     "emoji": "🏟️",
-    "grad": "linear-gradient(135deg,#b71c1c,#eeeeee)",
+    "grad": "linear-gradient(135deg,#2a5940,#468a63)",
     "lat": -34.5453,
     "lng": -58.4498,
     "link": "https://www.riverplate.com/el-monumental"
@@ -582,7 +582,7 @@
     "barrio": "La Boca",
     "tipo": "estadio",
     "emoji": "🍫",
-    "grad": "linear-gradient(135deg,#0d47a1,#fbc02d)",
+    "grad": "linear-gradient(135deg,#31684a,#4f9670)",
     "lat": -34.6356,
     "lng": -58.3647,
     "link": "https://www.bocajuniors.com.ar/la-bombonera"
@@ -594,7 +594,7 @@
     "barrio": "San Nicolas",
     "tipo": "estadio",
     "emoji": "🌙",
-    "grad": "linear-gradient(135deg,#283593,#5c6bc0)",
+    "grad": "linear-gradient(135deg,#3f7d5a,#63ab83)",
     "lat": -34.6023,
     "lng": -58.3686,
     "link": "https://www.lunapark.com.ar/"
@@ -606,7 +606,7 @@
     "barrio": "Villa Crespo",
     "tipo": "galeria",
     "emoji": "🖼️",
-    "grad": "linear-gradient(135deg,#37474f,#90a4ae)",
+    "grad": "linear-gradient(135deg,#67325a,#95547f)",
     "lat": -34.5905,
     "lng": -58.439,
     "link": "https://ruthbenzacar.com/"
@@ -618,7 +618,7 @@
     "barrio": "La Boca",
     "tipo": "galeria",
     "emoji": "🧱",
-    "grad": "linear-gradient(135deg,#bf360c,#ff8a65)",
+    "grad": "linear-gradient(135deg,#7d3f6b,#a86b93)",
     "lat": -34.634,
     "lng": -58.362,
     "link": "https://www.barro.cc/es"
@@ -630,7 +630,7 @@
     "barrio": "Palermo",
     "tipo": "jazz club",
     "emoji": "🎹",
-    "grad": "linear-gradient(135deg,#1a237e,#3949ab)",
+    "grad": "linear-gradient(135deg,#1c3f57,#3a7396)",
     "lat": -34.5809,
     "lng": -58.4327,
     "link": "https://thelonious.com.ar/"
@@ -642,7 +642,7 @@
     "barrio": "Palermo",
     "tipo": "jazz club",
     "emoji": "🎺",
-    "grad": "linear-gradient(135deg,#4a148c,#7b1fa2)",
+    "grad": "linear-gradient(135deg,#0f2839,#26536f)",
     "lat": -34.5848,
     "lng": -58.421,
     "link": "https://www.virasorobar.com.ar/"

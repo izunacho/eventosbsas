@@ -5,14 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>EventosBsAs — Mapa de Lugares Culturales de Capital Federal</title>
 <meta name="description" content="Mapa interactivo de lugares culturales de Buenos Aires: teatros, museos, centros culturales, estadios, galerias y jazz clubs en Capital Federal, con link directo al sitio oficial de cada uno para ver su cartelera y comprar entradas."/>
-<meta name="theme-color" content="#2d2a26"/>
+<meta name="theme-color" content="#16334a"/>
 <link rel="manifest" href="manifest.webmanifest"/>
-<link rel="apple-touch-icon" href="assets/icon-192.png"/>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="EventosBsAs"/>
 <meta name="mobile-web-app-capable" content="yes"/>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='6' fill='%23e05a33'/><path d='M12 3.5 4 9h16z' fill='white'/><rect x='5' y='10' width='2' height='8' fill='white'/><rect x='9.33' y='10' width='2' height='8' fill='white'/><rect x='13.67' y='10' width='2' height='8' fill='white'/><rect x='18' y='10' width='2' height='8' fill='white'/><rect x='4' y='19' width='16' height='2' fill='white'/></svg>"/>
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
 <link rel="canonical" href="https://izunacho.github.io/eventosbsas/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://izunacho.github.io/eventosbsas/"/>
@@ -28,49 +29,86 @@
 <meta name="twitter:image" content="https://izunacho.github.io/eventosbsas/assets/og-image.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <style>
+/* ===================================================================
+   PALETA FILETEADO PORTEÑO
+   Colores muestreados del arte de portada: azul noche de conventillo,
+   oro de filete, rojo tango, verde loro y crema de papel viejo.
+   =================================================================== */
 :root{
-  --bg:#f5f0eb;--bg2:#fff;--bg3:#f0ebe4;--text:#2d2a26;--text2:#6b6560;--text3:#9e9590;
-  --accent:#e05a33;--accent2:#d44a20;--accent-light:#fef0ec;
-  --green:#2a9d5c;--green-light:#eafaf0;
-  --blue:#3b82c4;--blue-light:#eef5fc;
-  --purple:#8b5cf6;--purple-light:#f3effe;
-  --card-shadow:0 2px 16px rgba(45,42,38,.07);
-  --card-hover:0 8px 30px rgba(45,42,38,.13);
-  --border:#e8e2db;--radius:16px;
-  --header-bg:#2d2a26;--header-text:#f5f0eb;
+  --bg:#f7eeda;--bg2:#fffdf6;--bg3:#f1e4c9;
+  --text:#1c3446;--text2:#4f6b7d;--text3:#667884;
+  --accent:#c0402d;--accent2:#a13122;--accent-light:#fbe9e3;
+  --gold:#dfa63f;--gold2:#c08c2c;--gold-light:#fbf0d5;
+  --teal:#2e7d8a;--teal-light:#e2f0f1;
+  --green:#3f7d5a;--green-light:#e6f2ea;
+  --blue:#2e6d94;--blue-light:#e6eff6;
+  --purple:#7d3f6b;--purple-light:#f5e9f2;
+  --navy:#16334a;
+  --card-shadow:0 2px 16px rgba(28,52,70,.09);
+  --card-hover:0 10px 32px rgba(28,52,70,.17);
+  --border:#e5d5b4;--radius:16px;
+  --header-bg:#16334a;--header-text:#f7eeda;
 }
 .dark{
-  --bg:#1a1a1e;--bg2:#242428;--bg3:#2e2e33;--text:#e8e4df;--text2:#a09a94;--text3:#706b66;
-  --accent:#f07050;--accent2:#e05a33;--accent-light:#3a2520;
-  --green:#3dbd70;--green-light:#1e2e24;
-  --blue:#5a9fd6;--blue-light:#1e2a36;
-  --purple:#a78bfa;--purple-light:#2a2440;
-  --card-shadow:0 2px 16px rgba(0,0,0,.3);
-  --card-hover:0 8px 30px rgba(0,0,0,.45);
-  --border:#3a3a3f;
-  --header-bg:#111113;--header-text:#e8e4df;
+  --bg:#0f1d29;--bg2:#172b3b;--bg3:#213b4e;
+  --text:#f4e9d4;--text2:#a9bdca;--text3:#6f8698;
+  --accent:#ea7a63;--accent2:#c0402d;--accent-light:#3b1f19;
+  --gold:#edbb5c;--gold2:#dfa63f;--gold-light:#3a2e15;
+  --teal:#5aa8b2;--teal-light:#122f36;
+  --green:#5da37c;--green-light:#142b20;
+  --blue:#5b9cc4;--blue-light:#132a38;
+  --purple:#c081ab;--purple-light:#2e1c29;
+  --navy:#0a1721;
+  --card-shadow:0 2px 16px rgba(0,0,0,.4);
+  --card-hover:0 10px 32px rgba(0,0,0,.55);
+  --border:#2b4459;
+  --header-bg:#0a1721;--header-text:#f4e9d4;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+/* Textura sutil de papel/empapelado porteño */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(circle at 1px 1px,rgba(28,52,70,.055) 1px,transparent 0);
+  background-size:22px 22px;
+}
+.dark body::before,.dark::before{opacity:.35}
+header,.page-section,footer{position:relative;z-index:1}
+
+/* Titulos con serif de cartel de teatro */
+h1,h2,.logo span,.info-hero h1,.install-head h2{font-family:'Playfair Display',Georgia,'Times New Roman',serif}
+
+/* ===== ORNAMENTO FILETEADO (divisor) ===== */
+.filete{display:block;width:100%;max-width:280px;height:16px;margin:6px auto 0;color:var(--gold);opacity:.9}
+.filete-left{margin:0}
+.sec-head .filete{max-width:150px;margin:0}
 
 /* HEADER */
-header{background:var(--header-bg);height:62px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:1000;box-shadow:0 1px 8px rgba(0,0,0,.15)}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--header-text);font-size:18px;font-weight:800;letter-spacing:-.5px}
-.logo-icon{width:34px;height:34px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff}
+header{background:var(--header-bg);height:64px;display:flex;align-items:center;padding:0 24px;position:sticky;top:0;z-index:1000;box-shadow:0 2px 14px rgba(10,23,33,.3)}
+/* Guarda dorada: la cinta de filete que cierra el cabezal */
+header::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--accent) 0%,var(--gold) 22%,#f4d38a 50%,var(--gold) 78%,var(--accent) 100%);
+}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--header-text);font-size:19px;font-weight:700;letter-spacing:-.2px}
+.logo-icon{width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;border:2px solid var(--gold);box-shadow:0 2px 8px rgba(0,0,0,.35);background:var(--navy)}
+.logo-icon img{width:100%;height:100%;object-fit:cover;display:block}
+.logo .bsas{color:var(--gold)}
 nav{display:flex;gap:2px;margin-left:32px}
-nav button{background:none;border:none;color:var(--header-text);opacity:.65;font-size:13.5px;font-weight:600;padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s}
-nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
+nav button{background:none;border:none;color:var(--header-text);opacity:.7;font-size:13.5px;font-weight:600;padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s;position:relative}
+nav button:hover{opacity:1;background:rgba(247,238,218,.1)}
+nav button.active{opacity:1;background:rgba(247,238,218,.12);color:var(--gold)}
 .nav-icon{display:none}
 .header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.dark-toggle{width:40px;height:24px;border-radius:12px;border:2px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);cursor:pointer;position:relative;transition:all .3s}
-.dark-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .3s}
-.dark .dark-toggle{background:var(--accent);border-color:var(--accent)}
-.dark .dark-toggle::after{transform:translateX(16px)}
-.dark-label{color:var(--header-text);font-size:12px;opacity:.6;font-weight:500}
+.dark-toggle{width:40px;height:24px;border-radius:12px;border:2px solid rgba(223,166,63,.45);background:rgba(247,238,218,.1);cursor:pointer;position:relative;transition:all .3s}
+.dark-toggle::after{content:'';position:absolute;width:16px;height:16px;border-radius:50%;background:var(--gold);top:2px;left:2px;transition:transform .3s}
+.dark .dark-toggle{background:var(--gold);border-color:var(--gold)}
+.dark .dark-toggle::after{transform:translateX(16px);background:var(--navy)}
+.dark-label{color:var(--header-text);font-size:12px;opacity:.65;font-weight:500}
 
 /* PAGE SECTIONS */
 .page-section{display:none;max-width:1200px;margin:0 auto;padding:24px 20px}
@@ -91,7 +129,7 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 
 /* SECTION HEADERS */
 .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:16px}
-.sec-head h2{font-size:20px;font-weight:800;color:var(--text)}
+.sec-head h2{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.3px}
 .sec-head .cnt{font-size:13px;color:var(--text3);font-weight:500}
 .sec-head .cnt b{color:var(--accent)}
 
@@ -99,7 +137,7 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .map-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
 .legend-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border:2px solid var(--border);border-radius:100px;background:var(--bg2);color:var(--text2);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;user-select:none}
 .legend-chip .dot{width:9px;height:9px;border-radius:50%}
-.legend-chip:hover{border-color:var(--text3)}
+.legend-chip:hover{border-color:var(--gold)}
 .legend-chip.off{opacity:.4}
 .legend-chip.off .dot{background:var(--text3)!important}
 #mapSection .map-box{width:100%;height:600px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:20px}
@@ -121,9 +159,9 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 
 /* LUGARES */
 .lugar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:32px}
-.lugar-card{background:var(--bg2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s}
+.lugar-card{background:var(--bg2);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform .2s,box-shadow .2s,border-color .2s;border:1px solid var(--border)}
 .lugar-card:hover{transform:translateY(-3px);box-shadow:var(--card-hover)}
-.lugar-topbar{height:4px}
+.lugar-topbar{height:5px}
 .lugar-top{height:100px;display:flex;align-items:center;justify-content:center;font-size:40px}
 .lugar-body{padding:14px 16px}
 .lugar-body h3{font-size:15px;font-weight:700;margin-bottom:4px}
@@ -135,18 +173,26 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .lugar-body .lugar-link:hover{background:var(--accent2);transform:scale(1.03)}
 
 /* INFO */
-#infoSection .info-hero{background:var(--bg2);border-radius:var(--radius);padding:40px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow)}
-#infoSection .info-hero h1{font-size:32px;font-weight:800;margin-bottom:8px}
+#infoSection .info-hero{background:var(--bg2);border-radius:var(--radius);padding:40px;text-align:center;margin-bottom:24px;box-shadow:var(--card-shadow);border:1px solid var(--border);position:relative;overflow:hidden}
+/* Doble filete dorado arriba, como el marco del cartel */
+#infoSection .info-hero::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--gold) 30%,#f4d38a 50%,var(--gold) 70%,var(--accent))}
+#infoSection .info-hero .hero-logo{width:96px;height:96px;border-radius:16px;border:3px solid var(--gold);box-shadow:0 6px 20px rgba(28,52,70,.22);margin-bottom:14px;object-fit:cover}
+#infoSection .info-hero h1{font-size:34px;font-weight:800;margin-bottom:4px;letter-spacing:-.5px}
+#infoSection .info-hero h1 .bsas{color:var(--accent)}
+#infoSection .info-hero .filete{margin:2px auto 12px}
 #infoSection .info-hero p{color:var(--text2);font-size:15px;max-width:600px;margin:0 auto;line-height:1.6}
 .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.info-card{background:var(--bg2);border-radius:var(--radius);padding:24px;box-shadow:var(--card-shadow)}
+.info-card{background:var(--bg2);border-radius:var(--radius);padding:24px;box-shadow:var(--card-shadow);border:1px solid var(--border);position:relative;overflow:hidden}
+.info-card::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--accent))}
 .info-card h3{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .info-card p{font-size:13.5px;color:var(--text2);line-height:1.6}
 
 /* INSTALL (PWA) */
-.install-panel{background:var(--bg2);border-radius:var(--radius);padding:28px;margin-bottom:24px;box-shadow:var(--card-shadow);border:2px solid var(--accent-light)}
+.install-panel{background:var(--bg2);border-radius:var(--radius);padding:28px;margin-bottom:24px;box-shadow:var(--card-shadow);border:2px solid var(--gold);position:relative;overflow:hidden}
+.install-panel::before{content:'';position:absolute;inset:5px;border:1px solid var(--gold);border-radius:11px;opacity:.4;pointer-events:none}
 .install-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:6px}
-.install-head .install-icon{width:52px;height:52px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.install-head .install-icon{width:52px;height:52px;border-radius:13px;overflow:hidden;flex-shrink:0;border:2px solid var(--gold);box-shadow:0 3px 10px rgba(28,52,70,.2)}
+.install-head .install-icon img{width:100%;height:100%;object-fit:cover;display:block}
 .install-head h2{font-size:20px;font-weight:800;margin-bottom:4px}
 .install-head p{font-size:13.5px;color:var(--text2);line-height:1.6}
 .install-cta{display:none;align-items:center;gap:10px;margin:18px 0 4px;flex-wrap:wrap}
@@ -172,8 +218,10 @@ nav button:hover,nav button.active{opacity:1;background:rgba(255,255,255,.1)}
 .empty p:nth-child(3){font-size:13px;margin-top:4px}
 
 /* FOOTER */
-footer{background:var(--header-bg);color:rgba(255,255,255,.5);padding:28px 20px;text-align:center;font-size:12.5px;margin-top:20px}
-footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
+footer{background:var(--header-bg);color:rgba(247,238,218,.55);padding:28px 20px;text-align:center;font-size:12.5px;margin-top:20px;position:relative}
+footer::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--gold) 30%,#f4d38a 50%,var(--gold) 70%,var(--accent))}
+footer a{color:var(--gold);text-decoration:none;margin:0 12px;font-weight:600}
+footer a:hover{text-decoration:underline}
 
 /* ===== RESPONSIVE: TABLET ===== */
 @media(max-width:900px){
@@ -288,10 +336,29 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
 </head>
 <body>
 
+<!-- Ornamento de fileteado porteño, definido una vez y reutilizado con <use> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="filete-sym" viewBox="0 0 240 20">
+    <g id="filete-half" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M6 10h56"/>
+      <path d="M62 10c10.5 0 15.5-7.4 23.5-4.6 6.6 2.3 5 10.4-1.6 9.1-4.8-1-4.5-6 .4-6.8"/>
+      <path d="M90 16c4.2 1.5 8.8.2 11.8-2.8"/>
+    </g>
+    <use href="#filete-half" transform="translate(240,0) scale(-1,1)"/>
+    <g fill="currentColor">
+      <circle cx="120" cy="10" r="2.6"/>
+      <path d="M120 2.6c1.7 2.3 1.7 4.6 0 6.9-1.7-2.3-1.7-4.6 0-6.9Z"/>
+      <path d="M120 17.4c1.7-2.3 1.7-4.6 0-6.9-1.7 2.3-1.7 4.6 0 6.9Z"/>
+      <circle cx="108" cy="10" r="1.2"/>
+      <circle cx="132" cy="10" r="1.2"/>
+    </g>
+  </symbol>
+</svg>
+
 <header>
   <a href="#" class="logo" onclick="showSection('mapa');return false">
-    <div class="logo-icon"><svg width="19" height="19" viewBox="0 0 24 24" fill="#fff"><path d="M12 3.5 4 9h16z"/><rect x="5" y="10" width="2" height="8"/><rect x="9.33" y="10" width="2" height="8"/><rect x="13.67" y="10" width="2" height="8"/><rect x="18" y="10" width="2" height="8"/><rect x="4" y="19" width="16" height="2"/></svg></div>
-    <span>EventosBsAs</span>
+    <div class="logo-icon"><img src="assets/icon-192.png" alt="" width="38" height="38"/></div>
+    <span>Eventos<span class="bsas">BsAs</span></span>
   </a>
   <nav id="mainNav" aria-label="Navegacion principal">
     <button class="active" onclick="showSection('mapa')"><svg class="nav-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Mapa</button>
@@ -306,14 +373,14 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
 
 <!-- ====== MAPA ====== -->
 <div class="page-section active" id="mapSection">
-  <div class="sec-head"><h2>Mapa de Lugares Culturales</h2><span class="cnt" id="mapCount">Capital Federal</span></div>
+  <div class="sec-head"><h2>Mapa de Lugares Culturales</h2><svg class="filete filete-left" viewBox="0 0 240 20" aria-hidden="true"><use href="#filete-sym"/></svg><span class="cnt" id="mapCount">Capital Federal</span></div>
   <div class="map-legend" id="mapLegend" aria-label="Filtrar por tipo de lugar"></div>
   <div class="map-box"><div id="mapEl"></div></div>
 </div>
 
 <!-- ====== LUGARES ====== -->
 <div class="page-section" id="lugaresSection">
-  <div class="sec-head"><h2>Lugares Culturales</h2><span class="cnt" id="lugaresCount"></span></div>
+  <div class="sec-head"><h2>Lugares Culturales</h2><svg class="filete filete-left" viewBox="0 0 240 20" aria-hidden="true"><use href="#filete-sym"/></svg><span class="cnt" id="lugaresCount"></span></div>
   <div class="filters" style="margin-bottom:18px">
     <div class="search-wrap">
       <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
@@ -336,14 +403,16 @@ footer a{color:var(--accent);text-decoration:none;margin:0 12px;font-weight:500}
 <!-- ====== INFO ====== -->
 <div class="page-section" id="infoSection">
   <div class="info-hero">
-    <h1>EventosBsAs</h1>
+    <img class="hero-logo" src="assets/icon-192.png" alt="Ilustracion de tango y fileteado porteno, logo de EventosBsAs" width="96" height="96"/>
+    <h1>Eventos<span class="bsas">BsAs</span></h1>
+    <svg class="filete" viewBox="0 0 240 20" aria-hidden="true"><use href="#filete-sym"/></svg>
     <p>Mapa de lugares culturales de Capital Federal. Encontra teatros, museos, centros culturales, estadios, galerias y jazz clubs, y entra directo al sitio oficial de cada uno para ver su cartelera y comprar entradas.</p>
   </div>
   <!-- ====== INSTALAR LA APP ====== -->
   <div class="install-panel">
     <div class="install-head">
       <div class="install-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 3.5 4 9h16z"/><rect x="5" y="10" width="2" height="8"/><rect x="9.33" y="10" width="2" height="8"/><rect x="13.67" y="10" width="2" height="8"/><rect x="18" y="10" width="2" height="8"/><rect x="4" y="19" width="16" height="2"/></svg>
+        <img src="assets/icon-192.png" alt="" width="52" height="52"/>
       </div>
       <div>
         <h2>Instala EventosBsAs en tu dispositivo</h2>
@@ -470,15 +539,17 @@ let lugares=[];
 // ========== MAP ==========
 let map,lugarMarkers=[];
 
+// Colores tomados de la paleta del fileteado: azul conventillo, rojo tango,
+// oro de filete, verde loro, malva y azul noche de bandoneon.
 const TIPO_COLOR={
-  museo:'#3b82c4',
-  teatro:'#e05a33',
-  'centro cultural':'#8b5cf6',
-  estadio:'#2a9d5c',
-  galeria:'#d4af37',
-  'jazz club':'#c2185b'
+  museo:'#2e7d8a',
+  teatro:'#c0402d',
+  'centro cultural':'#9c6c19',
+  estadio:'#3f7d5a',
+  galeria:'#7d3f6b',
+  'jazz club':'#1c3f57'
 };
-function markerColor(tipo){return TIPO_COLOR[tipo]||'#e05a33';}
+function markerColor(tipo){return TIPO_COLOR[tipo]||'#c0402d';}
 
 const TIPO_LABEL={museo:'Museos',teatro:'Teatros','centro cultural':'Centros Culturales',estadio:'Estadios y Arenas',galeria:'Galerias y Ferias','jazz club':'Jazz Clubs'};
 const tiposOff=new Set();

@@ -44,7 +44,28 @@ Editar `data/lugares.json` y agregar/modificar un objeto con estos campos:
 | `lat` / `lng` | Coordenadas. |
 | `link` | Sitio oficial del lugar (a donde se manda al usuario para ver su cartelera y comprar entradas). |
 
-## Diseño
+## Diseño e identidad
+
+La identidad visual sale de una ilustracion de fileteado porteño (tango, conventillos de La Boca, bandoneon, Obelisco y Teatro Colon) que se usa como logo, favicon e icono de la app instalada. Los archivos de `assets/icon-*.png` se generan a partir de esa obra.
+
+La paleta se muestreo directamente de la ilustracion, en vez de elegirla a ojo:
+
+| Variable | Claro | Rol |
+|---|---|---|
+| `--header-bg` / `--navy` | `#16334a` | Azul noche de conventillo: cabezal, pie y jazz clubs |
+| `--accent` | `#c0402d` | Rojo tango: acciones y teatros |
+| `--gold` | `#dfa63f` | Oro de filete: guardas, marcos y estado activo |
+| `--bg` | `#f7eeda` | Crema de papel viejo |
+| `--teal` | `#2e7d8a` | Verde agua de los ornamentos (museos) |
+| `--green` / `--purple` | `#3f7d5a` / `#7d3f6b` | Verde loro y malva (estadios y galerias) |
+
+Detalles de fileteado: guarda dorada bajo el cabezal y sobre el pie, ornamento simetrico (`<symbol id="filete-sym">`, definido una sola vez y reutilizado con `<use>`) en los titulos de seccion y el hero, doble marco dorado en el panel de instalacion, y una textura sutil de puntos como papel de empapelar. Los titulos usan Playfair Display (serif de cartel de teatro) con fallback a Georgia.
+
+Cada tipo de lugar tiene un color de la paleta que se usa de forma consistente en tres lugares: el marcador del mapa, la barra superior de la tarjeta y la etiqueta de tipo. Los gradientes de las tarjetas en `data/lugares.json` se derivan del mismo set (3 variantes por tipo para dar ritmo sin romper la coherencia).
+
+Los colores de texto chico estan verificados contra WCAG AA (minimo 4.5:1) en modo claro y oscuro.
+
+## Estructura de la interfaz
 
 El mapa es la pantalla principal. Cada lugar es un marcador coloreado segun su `tipo`; al hacer click muestra nombre, direccion, un boton "Ver cartelera y entradas" (va al `link` oficial del lugar) y un boton "Como llegar" (Google Maps / Apple Maps / Waze). La seccion "Lugares" ofrece la misma informacion en formato grilla, con busqueda y filtro por tipo.
 
